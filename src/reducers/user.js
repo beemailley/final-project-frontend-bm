@@ -6,7 +6,8 @@ export const user = createSlice({
     username: null,
     userId: null,
     accessToken: null,
-    error: null
+    error: null,
+    user: null // changed from profile
   },
   reducers: {
     setUsername: (store, action) => {
@@ -20,6 +21,9 @@ export const user = createSlice({
     },
     setError: (store, action) => {
       store.error = action.payload
+    },
+    setUser: (store, action) => {
+      store.user = action.payload // changed from setProfile; store.profile
     }
   }
 
