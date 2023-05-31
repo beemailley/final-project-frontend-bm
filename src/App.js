@@ -1,7 +1,8 @@
 import React from 'react'
-import { Provider, BrowserRouter, Routes, Route } from 'react-redux'
+import { Provider } from 'react-redux'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import { Login } from 'components/Login'
+import { Login } from 'components/Login/Login'
 import { Welcome } from 'components/Welcome/Welcome'
 import { UserProfile } from 'components/UserProfile/UserProfile'
 import { AllUsers } from 'components/AllUsers/AllUsers'
@@ -25,10 +26,10 @@ export const App = () => {
           <Route path="/welcome" element={<Welcome />} />
           <Route path="/login" element={<Login />} />
           <Route path="/userprofile" element={<UserProfile />} />
-          <Route path="allusers" element={<AllUsers />} />
-          <Route path="cityevents" element={<CityEvents />} />
-          <Route path="userevents" element={<UserEvents />} />
-          <Route path="aboutus" element={<AboutUs />} />
+          <Route path="/allusers" element={<AllUsers />} />
+          <Route path="/cityevents" element={<CityEvents />} />
+          <Route path="/userevents" element={<UserEvents />} />
+          <Route path="/aboutus" element={<AboutUs />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
