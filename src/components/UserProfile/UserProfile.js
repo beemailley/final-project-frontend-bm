@@ -11,6 +11,25 @@ export const UserProfile = () => {
   const username = useSelector((store) => store.user.username)
   const navigate = useNavigate()
 
+  // for profile updating
+  const [isEditing, setIsEditing] = useState(false);
+  const [updatedProfile, setUpdatedProfile] = useState({
+    firstName:'',
+    lastName: '',
+    memberSince: new Date().toLocaleDateString('en-US', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    }),
+    gender: 'prefer not to say',
+    interests: '',
+    currentCity: '',
+    homeCountry: '',
+    languages: ''
+  })
+
+  // 
+
   useEffect(() => {
     if (!accessToken) {
       navigate('/login')
@@ -56,52 +75,97 @@ export const UserProfile = () => {
     dispatch(user.actions.setError(null))
   }
 
+  // for profile updating
+
+  const handleEditProfileClick = () => {
+    setIsEditing(true);
+  }
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    // setUpdatedProfile((prevState) => ({ ...prevState,
+    //   [name]: value,
+    // }))
+    setUpdatedProfile((prevState) => ({ ...prevState, [name]: value}));
+  }
+
+  const handleSaveProfileClick = () => {
+    if (isEditing) {
+      const options = {
+        method: "PATCH",
+        headers: {
+          "Content-Type": 'application/json',
+          "Authorization": accessToken
+        },
+        body: JSON.stringify(updatedProfile),
+      }
+      fetch(API_URL(`users/${username}/update`), options)
+      .then(res => res.json())
+      .then((data) => {
+        console.log(data);
+        setIsEditing(false);
+    })
+    .catch((error) => console.log(error))
+  }
+}
+
   return (
     <>
       {username ? <h2>{username.toUpperCase()}&apos;s profile</h2> : ''}
       <h1>Welcome to your profile, {username}</h1>
       {console.log(profileItems, 'profile items')}
-      {profileItems && (
+
+      {isEditing ? (
+        // render the form fields for editing 
         <div>
+          <label>
+            First name:
+            <input 
+            type="text"
+            name="firstName"
+            value={updatedProfile.firstName}
+            onChange={handleInputChange}
+            />
+          </label>
+          <label>
+            Last name:
+            <input 
+            type="text"
+            name="lastName"
+            value={updatedProfile.firstName}
+            onChange={handleInputChange}
+            />
+          </label>
+          <button type="button" onClick={handleSaveProfileClick}>Save changes</button>
+        </div>
+      ): (
+        // render the static profile information
+        <div>
+          {profileItems && (
+            <>
           {/* <h2>{username.toUpperCase()}&apos;s profile</h2> */}
           <p>First name: {profileItems.firstName}</p>
           <p>Last name: {profileItems.lastName}</p>
           <p>Email address: {profileItems.emailAddress}</p>
-          <p>Member since: {profileItems.memberSince}</p>
+          <p>Member since: {new Date(profileItems.memberSince).toLocaleDateString('en-US', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+          })}</p>
           <p>Gender: {profileItems.gender}</p>
           <p>Birthday: {profileItems.birthday}</p>
           <p>Interests: {profileItems.interests}</p>
           <p>Current City: {profileItems.currentCity}</p>
           <p>Home Country: {profileItems.homeCountry}</p>
           <p>Languages: {profileItems.languages}</p>
+          <button type="button" onClick={handleEditProfileClick}>Edit Profile</button>
+          </>
+          )}
         </div>
-      )}
+        )}
       <button type="button" onClick={onLogoutButtonClick}>
         LOG OUT
       </button>
     </>
-  );
-};
-
-/* return (
-    <>
-      <h1>Welcome to your profile</h1>
-      {userProfile.map((profile) => (
-        // eslint-disable-next-line no-underscore-dangle
-        <div key={profile._id}>
-          <h2>{profile.username.toUpperCase()}&apos profile</h2>
-          <p>First Name: {profile.firstName}</p>
-          <p>Last Name: {profile.lastName}</p>
-          <p>Gender: {profile.gender}</p>
-          <p>Birthday: {profile.birthday}</p>
-          <p>Interests: {profile.interests}</p>
-          <p>Current City: {profile.currentCity}</p>
-          <p>Home Country: {profile.homeCountry}</p>
-          <p>Languages: {profile.languages}</p>
-        </div>
-      ))}
-      {username ? (<h2>{username.toUpperCase()}&apos profile</h2>) : ''}
-      <button type="button" onClick={onLogoutButtonClick}>LOG OUT</button>
-    </>
-  )
-} */
+    )
+  };
