@@ -13,7 +13,7 @@ export const Login = () => {
   const accessToken = useSelector((store) => store.user.accessToken);
   useEffect(() => {
     if (accessToken) {
-      navigate('/cityevents')
+      navigate('/users')
     }
   }, [accessToken, navigate]);
 
@@ -27,6 +27,7 @@ export const Login = () => {
       body: JSON.stringify({ username, password })
     }
     fetch(API_URL(mode), options)
+      .then((res) => res.json())
       .then((data) => {
         console.log(data)
         if (data.success) {
@@ -34,12 +35,16 @@ export const Login = () => {
           dispatch(user.actions.setUsername(data.response.username))
           dispatch(user.actions.setUserId(data.response.id))
           dispatch(user.actions.setError(null))
+          navigate('/users')
         } else {
           dispatch(user.actions.setAccessToken(null))
           dispatch(user.actions.setUsername(null))
           dispatch(user.actions.setUserId(null))
           dispatch(user.actions.setError(data.response))
         }
+      })
+      .catch((error) => {
+        console.log(error);
       })
   }
 

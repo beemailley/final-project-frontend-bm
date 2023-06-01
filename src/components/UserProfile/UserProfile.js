@@ -5,7 +5,7 @@ import { API_URL } from 'utils/urls';
 import { user } from 'reducers/user';
 
 export const UserProfile = () => {
-  const userProfile = useSelector((store) => store.user.user) // changed from store.user.profile
+  const userProfile = useSelector((store) => store.user.items) // changed from store.user.profile
   const dispatch = useDispatch()
   const accessToken = useSelector((store) => store.user.accessToken)
   const username = useSelector((store) => store.user.username)
@@ -37,7 +37,7 @@ export const UserProfile = () => {
           dispatch(user.actions.setProfile([]))
         }
       })
-  })
+  }, [accessToken, dispatch, username])
 
   const onLogoutButtonClick = () => {
     dispatch(user.actions.setAccessToken(null))
@@ -49,22 +49,18 @@ export const UserProfile = () => {
     <>
       <h1>Welcome to your profile</h1>
       {userProfile && (
-        // Only render if userProfile is not null or undefined
-        userProfile.map((profile) => ( // changed from profile
-          // eslint-disable-next-line no-underscore-dangle
-          <div key={profile._id}>
-            {console.log(profile)}
-            <h2>{profile.username.toUpperCase()}&apos;s profile</h2>
-            <p>First Name: {profile.firstName}</p>
-            <p>Last Name: {profile.lastName}</p>
-            <p>Gender: {profile.gender}</p>
-            <p>Birthday: {profile.birthday}</p>
-            <p>Interests: {profile.interests}</p>
-            <p>Current City: {profile.currentCity}</p>
-            <p>Home Country: {profile.homeCountry}</p>
-            <p>Languages: {profile.languages}</p>
-          </div>
-        ))
+        <div>
+          {console.log(userProfile)}
+          <h2>{userProfile.username.toUpperCase()}&apos;s profile</h2>
+          <p>First Name: {userProfile.firstName}</p>
+          <p>Last Name: {userProfile.lastName}</p>
+          <p>Gender: {userProfile.gender}</p>
+          <p>Birthday: {userProfile.birthday}</p>
+          <p>Interests: {userProfile.interests}</p>
+          <p>Current City: {userProfile.currentCity}</p>
+          <p>Home Country: {userProfile.homeCountry}</p>
+          <p>Languages: {userProfile.languages}</p>
+        </div>
       )}
       {username ? <h2>{username.toUpperCase()}&apos;s profile</h2> : ''}
       <button type="button" onClick={onLogoutButtonClick}>
