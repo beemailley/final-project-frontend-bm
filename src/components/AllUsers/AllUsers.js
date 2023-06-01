@@ -46,6 +46,19 @@ export const AllUsers = () => {
       })
   }, [accessToken, dispatch]);
 
+  // const formatDateWithSuffix = (date) => {
+  //   const options = { day: 'numeric', month: 'long', year: 'numeric' };
+  //   const suffixes = ['th', 'st', 'nd', 'rd'];
+  //   const day = date.getDate();
+  //   const suffix = day >= 11 && day <= 13 ? suffixes[0] : suffixes[day % 10] || suffixes[0];
+  //   return date.toLocaleDateString(undefined, options) + suffix;
+  // };
+
+  const formatDateWithSuffix = (date) => {
+    const options = { day: 'numeric', month: 'long', year: 'numeric' };
+    return date.toLocaleDateString(undefined, options);
+  };
+
   const onLogoutButtonClick = () => {
     dispatch(user.actions.setAccessToken(null))
     dispatch(user.actions.setUsername(null))
@@ -66,7 +79,7 @@ export const AllUsers = () => {
             <p>First name: {profile.firstName}</p>
             <p>Last name: {profile.lastName}</p>
             <p>Email address: {profile.emailAddress}</p>
-            <p>Member since: {profile.memberSince}</p>
+            <p>Member since: {formatDateWithSuffix(new Date(profile.memberSince))}</p>
             <p>Gender: {profile.gender}</p>
             <p>Birthday: {profile.birthday}</p>
             <p>Interests: {profile.interests}</p>

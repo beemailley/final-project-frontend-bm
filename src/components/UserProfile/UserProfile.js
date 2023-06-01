@@ -66,6 +66,8 @@ export const UserProfile = () => {
           {/* <h2>{username.toUpperCase()}&apos;s profile</h2> */}
           <p>First name: {profileItems.firstName}</p>
           <p>Last name: {profileItems.lastName}</p>
+          <p>Email address: {profileItems.emailAddress}</p>
+          <p>Member since: {profileItems.memberSince}</p>
           <p>Gender: {profileItems.gender}</p>
           <p>Birthday: {profileItems.birthday}</p>
           <p>Interests: {profileItems.interests}</p>
