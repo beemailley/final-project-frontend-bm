@@ -11,11 +11,16 @@ export const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const accessToken = useSelector((store) => store.user.accessToken);
+
+  useEffect(() => {
+    console.log(username);
+  }, [username]);
+
   useEffect(() => {
     if (accessToken) {
-      navigate('/users')
+      navigate(`/users/${username}`)
     }
-  }, [accessToken, navigate]);
+  }, [accessToken, navigate, username]);
 
   const onFormSubmit = (event) => {
     event.preventDefault();
@@ -35,7 +40,7 @@ export const Login = () => {
           dispatch(user.actions.setUsername(data.response.username))
           dispatch(user.actions.setUserId(data.response.id))
           dispatch(user.actions.setError(null))
-          navigate('/users')
+          navigate(`/users/${username}`)
         } else {
           dispatch(user.actions.setAccessToken(null))
           dispatch(user.actions.setUsername(null))

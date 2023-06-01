@@ -5,7 +5,7 @@ import { API_URL } from 'utils/urls';
 import { user } from 'reducers/user';
 
 export const UserProfile = () => {
-  const userProfile = useSelector((store) => store.user.items) // changed from store.user.profile
+  const profileItems = useSelector((store) => store.user.items) // changed from store.user.profile
   const dispatch = useDispatch()
   const accessToken = useSelector((store) => store.user.accessToken)
   const username = useSelector((store) => store.user.username)
@@ -15,7 +15,9 @@ export const UserProfile = () => {
     if (!accessToken) {
       navigate('/login')
     }
-  }, [accessToken, navigate]);
+  }, [accessToken, navigate, username]);
+
+  console.log(accessToken)
 
   useEffect(() => {
     const options = {
@@ -25,44 +27,53 @@ export const UserProfile = () => {
         Authorization: accessToken
       }
     }
-    fetch(API_URL(`/users/${username}`), options)
+
+    fetch(API_URL(`users/${username}`), options)
       .then((res) => res.json())
       .then((data) => {
         console.log(data)
         if (data.success) {
           dispatch(user.actions.setError(null))
-          dispatch(user.actions.setProfile(data.response))
+          dispatch(user.actions.setItems(data.response))
         } else {
           dispatch(user.actions.setError(data.response))
-          dispatch(user.actions.setProfile([]))
+          dispatch(user.actions.setItems([]))
         }
       })
+      .catch((error) => {
+        console.log(error);
+        dispatch(user.actions.setError('Error retrieving user profile'))
+        dispatch(user.actions.setItems([]))
+      })
   }, [accessToken, dispatch, username])
+
+  // console.log(profileItems)
 
   const onLogoutButtonClick = () => {
     dispatch(user.actions.setAccessToken(null))
     dispatch(user.actions.setUsername(null))
+    dispatch(user.actions.setItems(null))
     dispatch(user.actions.setError(null))
   }
 
   return (
     <>
-      <h1>Welcome to your profile</h1>
-      {userProfile && (
+      {username ? <h2>{username.toUpperCase()}&apos;s profile</h2> : ''}
+      <h1>Welcome to your profile, {username}</h1>
+      {console.log(profileItems, 'profile items')}
+      {profileItems && (
         <div>
-          {console.log(userProfile)}
-          <h2>{userProfile.username.toUpperCase()}&apos;s profile</h2>
-          <p>First Name: {userProfile.firstName}</p>
-          <p>Last Name: {userProfile.lastName}</p>
-          <p>Gender: {userProfile.gender}</p>
-          <p>Birthday: {userProfile.birthday}</p>
-          <p>Interests: {userProfile.interests}</p>
-          <p>Current City: {userProfile.currentCity}</p>
-          <p>Home Country: {userProfile.homeCountry}</p>
-          <p>Languages: {userProfile.languages}</p>
+          {/* <h2>{username.toUpperCase()}&apos;s profile</h2> */}
+          <p>First name: {profileItems.firstName}</p>
+          <p>Last name: {profileItems.lastName}</p>
+          <p>Gender: {profileItems.gender}</p>
+          <p>Birthday: {profileItems.birthday}</p>
+          <p>Interests: {profileItems.interests}</p>
+          <p>Current City: {profileItems.currentCity}</p>
+          <p>Home Country: {profileItems.homeCountry}</p>
+          <p>Languages: {profileItems.languages}</p>
         </div>
       )}
-      {username ? <h2>{username.toUpperCase()}&apos;s profile</h2> : ''}
       <button type="button" onClick={onLogoutButtonClick}>
         LOG OUT
       </button>

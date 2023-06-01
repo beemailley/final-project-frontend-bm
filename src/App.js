@@ -25,7 +25,7 @@ export const App = () => {
         <Routes>
           <Route path="/welcome" element={<Welcome />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/user/:username" element={<UserProfile />} />
+          <Route path="/users/:username" element={<UserProfile />} />
           <Route path="/users" element={<AllUsers />} />
           <Route path="/cityevents" element={<CityEvents />} />
           <Route path="/userevents" element={<UserEvents />} />
