@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { API_URL } from 'utils/urls';
@@ -14,7 +14,7 @@ export const UserProfile = () => {
   // for profile updating
   const [isEditing, setIsEditing] = useState(false);
   const [updatedProfile, setUpdatedProfile] = useState({
-    firstName:'',
+    firstName: '',
     lastName: '',
     memberSince: new Date().toLocaleDateString('en-US', {
       day: 'numeric',
@@ -28,7 +28,7 @@ export const UserProfile = () => {
     languages: ''
   })
 
-  // 
+  //
 
   useEffect(() => {
     if (!accessToken) {
@@ -81,33 +81,49 @@ export const UserProfile = () => {
     setIsEditing(true);
   }
 
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+  // setUpdatedProfile((prevState) => ({ ...prevState,
+  //   [name]: value,
+  // }))
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    // setUpdatedProfile((prevState) => ({ ...prevState,
-    //   [name]: value,
-    // }))
-    setUpdatedProfile((prevState) => ({ ...prevState, [name]: value}));
-  }
+
+    setUpdatedProfile((prevState) => {
+      // eslint-disable-next-line prefer-object-spread
+      const updatedState = Object.assign({}, prevState);
+      updatedState[name] = value;
+      return updatedState;
+    });
+  };
 
   const handleSaveProfileClick = () => {
     if (isEditing) {
       const options = {
-        method: "PATCH",
+        method: 'PATCH',
         headers: {
-          "Content-Type": 'application/json',
-          "Authorization": accessToken
+          'Content-Type': 'application/json',
+          Authorization: accessToken
         },
-        body: JSON.stringify(updatedProfile),
+        body: JSON.stringify(updatedProfile)
       }
       fetch(API_URL(`users/${username}/update`), options)
-      .then(res => res.json())
-      .then((data) => {
-        console.log(data);
-        setIsEditing(false);
-    })
-    .catch((error) => console.log(error))
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.success) {
+            dispatch(user.actions.setError(null));
+            dispatch(user.actions.setItems(data.response));
+            setIsEditing(false);
+          } else {
+            dispatch(user.actions.setError(data.response))
+            dispatch(user.actions.setItems(null))
+          }
+        })
+        .catch((error) => console.log(error))
+    }
   }
-}
 
   return (
     <>
@@ -116,56 +132,95 @@ export const UserProfile = () => {
       {console.log(profileItems, 'profile items')}
 
       {isEditing ? (
-        // render the form fields for editing 
+        // render the form fields for editing
         <div>
-          <label>
+          <label htmlFor="First name:">
             First name:
-            <input 
-            type="text"
-            name="firstName"
-            value={updatedProfile.firstName}
-            onChange={handleInputChange}
-            />
+            <input
+              type="text"
+              name="firstName"
+              value={updatedProfile.firstName}
+              onChange={handleInputChange} /><br />
           </label>
-          <label>
+          <label htmlFor="Last name:">
             Last name:
-            <input 
-            type="text"
-            name="lastName"
-            value={updatedProfile.firstName}
-            onChange={handleInputChange}
-            />
+            <input
+              type="text"
+              name="lastName"
+              value={updatedProfile.lastName}
+              onChange={handleInputChange} /><br />
+          </label>
+          <label htmlFor="Email address:">
+            Email address:
+            <input
+              type="text"
+              name="emailAddress"
+              value={updatedProfile.emailAddress}
+              onChange={handleInputChange} /><br />
+          </label>
+          <label htmlFor="Gender:">
+            Gender:
+            <input
+              type="text"
+              name="gender"
+              value={updatedProfile.gender}
+              onChange={handleInputChange} /><br />
+          </label>
+          <label htmlFor="Interests:">
+            Interests:
+            <input
+              type="text"
+              name="interests"
+              value={updatedProfile.interests}
+              onChange={handleInputChange} /><br />
+          </label>
+          <label htmlFor="Current city:">
+            Current City:
+            <input
+              type="text"
+              name="currentCity"
+              value={updatedProfile.currentCity}
+              onChange={handleInputChange} /><br />
+            <label htmlFor="Languages:">
+            Languages:
+              <input
+                type="text"
+                name="languages"
+                value={updatedProfile.languages}
+                onChange={handleInputChange} /><br />
+            </label>
           </label>
           <button type="button" onClick={handleSaveProfileClick}>Save changes</button>
         </div>
-      ): (
+      ) : (
         // render the static profile information
         <div>
           {profileItems && (
             <>
-          {/* <h2>{username.toUpperCase()}&apos;s profile</h2> */}
-          <p>First name: {profileItems.firstName}</p>
-          <p>Last name: {profileItems.lastName}</p>
-          <p>Email address: {profileItems.emailAddress}</p>
-          <p>Member since: {new Date(profileItems.memberSince).toLocaleDateString('en-US', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-          })}</p>
-          <p>Gender: {profileItems.gender}</p>
-          <p>Birthday: {profileItems.birthday}</p>
-          <p>Interests: {profileItems.interests}</p>
-          <p>Current City: {profileItems.currentCity}</p>
-          <p>Home Country: {profileItems.homeCountry}</p>
-          <p>Languages: {profileItems.languages}</p>
-          <button type="button" onClick={handleEditProfileClick}>Edit Profile</button>
-          </>
+              {/* <h2>{username.toUpperCase()}&apos;s profile</h2> */}
+              <p>First name: {profileItems.firstName}</p>
+              <p>Last name: {profileItems.lastName}</p>
+              <p>Email address: {profileItems.emailAddress}</p>
+              <p>Member since: {new Date(profileItems.memberSince).toLocaleDateString('en-US', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+              })}
+              </p>
+              <p>Gender: {profileItems.gender}</p>
+              <p>Birthday: {profileItems.birthday}</p>
+              <p>Interests: {profileItems.interests}</p>
+              <p>Current City: {profileItems.currentCity}</p>
+              <p>Home Country: {profileItems.homeCountry}</p>
+              <p>Languages: {profileItems.languages}</p>
+              <button type="button" onClick={handleEditProfileClick}>Edit Profile</button>
+            </>
           )}
         </div>
-        )}
+      )}
       <button type="button" onClick={onLogoutButtonClick}>
         LOG OUT
       </button>
     </>
-    )
-  };
+  )
+};

@@ -18,8 +18,8 @@ export const Login = () => {
 
   useEffect(() => {
     if (accessToken) {
-      navigate('/users')
-      // navigate(`/users/${username}`)
+      // navigate('/users')
+      navigate(`/users/${username}`)
     }
   }, [accessToken, navigate, username]);
 
@@ -41,8 +41,8 @@ export const Login = () => {
           dispatch(user.actions.setUsername(data.response.username))
           dispatch(user.actions.setUserId(data.response.id))
           dispatch(user.actions.setError(null))
-          navigate('/users')
-          // navigate(`/users/${username}`)
+          // navigate('/users')
+          navigate(`/users/${username}`)
         } else {
           dispatch(user.actions.setAccessToken(null))
           dispatch(user.actions.setUsername(null))
