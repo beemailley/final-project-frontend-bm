@@ -22,6 +22,11 @@ export const UserProfile = () => {
       year: 'numeric'
     }),
     gender: 'prefer not to say',
+    birthday: new Date().toLocaleDateString('en-US', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    }),
     interests: '',
     currentCity: '',
     homeCountry: '',
