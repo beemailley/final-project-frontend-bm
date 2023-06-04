@@ -59,6 +59,36 @@ export const UserProfile = () => {
         if (data.success) {
           dispatch(user.actions.setError(null))
           dispatch(user.actions.setItems(data.response))
+
+          const {
+            firstName,
+            lastName,
+            emailAddress,
+            memberSince,
+            gender,
+            birthday,
+            interests,
+            currentCity,
+            homeCountry,
+            languages
+          } = data.response
+
+          setUpdatedProfile({
+            firstName: firstName || '',
+            lastName: lastName || '',
+            emailAddress: emailAddress || '',
+            memberSince: memberSince || new Date().toLocaleDateString('en-US', {
+              day: 'numeric',
+              month: 'long',
+              year: 'numeric'
+            }),
+            gender: gender || 'prefer not to say',
+            birthday: birthday || '',
+            interests: interests || '',
+            currentCity: currentCity || '',
+            homeCountry: homeCountry || '',
+            languages: languages || ''
+          });
         } else {
           dispatch(user.actions.setError(data.response))
           dispatch(user.actions.setItems([]))
@@ -169,6 +199,14 @@ export const UserProfile = () => {
               type="text"
               name="gender"
               value={updatedProfile.gender}
+              onChange={handleInputChange} /><br />
+          </label>
+          <label htmlFor="Birthday:">
+            Birthday:
+            <input
+              type="text"
+              name="birthday"
+              value={updatedProfile.birthday}
               onChange={handleInputChange} /><br />
           </label>
           <label htmlFor="Interests:">
