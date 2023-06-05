@@ -16,11 +16,11 @@ export const UserProfile = () => {
   const [updatedProfile, setUpdatedProfile] = useState({
     firstName: '',
     lastName: '',
-    memberSince: new Date().toLocaleDateString('en-US', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
-    }),
+    // memberSince: new Date().toLocaleDateString('en-US', {
+    //   day: 'numeric',
+    //   month: 'long',
+    //   year: 'numeric'
+    // }),
     gender: 'prefer not to say',
     birthday: new Date().toLocaleDateString('en-US', {
       day: 'numeric',
