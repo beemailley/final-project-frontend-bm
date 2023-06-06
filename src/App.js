@@ -60,7 +60,7 @@ export const App = () => {
         <Events events={fooEvents} />
         <MyForm /> */}
         <Routes>
-          <Route path="/welcome" element={<Welcome />} />
+          <Route path="/" element={<Welcome />} />
           {/* <Route path="/myform" element={<MyForm />} /> */}
           <Route path="/login" element={<Login />} />
           <Route path="/users/:username" element={<UserProfile />} />

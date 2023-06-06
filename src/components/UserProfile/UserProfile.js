@@ -228,7 +228,15 @@ export const UserProfile = () => {
               type="text"
               name="currentCity"
               value={updatedProfile.currentCity}
-              onChange={handleInputChange} />
+              onChange={handleInputChange} /><br />
+          </label>
+          <label htmlFor="Home country:">
+            Home Country:
+            <input
+              type="text"
+              name="homeCountry"
+              value={updatedProfile.homeCountry}
+              onChange={handleInputChange} /><br />
             {/* <label htmlFor="Languages:">
             Languages:
               <input
