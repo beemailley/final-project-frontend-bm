@@ -10,8 +10,35 @@ export const UserProfile = () => {
   const accessToken = useSelector((store) => store.user.accessToken)
   const username = useSelector((store) => store.user.username)
   const navigate = useNavigate()
+  const [validationErrors, setValidationErrors] = useState('')
+
+  const validationRules = [
+    { fieldName: 'firstName',
+      validationFunction: (value) => {
+        const MIN_FIRSTNAME_LENGTH = 2;
+        const MAX_FIRSTNAME_LENGTH = 20;
+        if (value.length < MIN_FIRSTNAME_LENGTH || value.length > MAX_FIRSTNAME_LENGTH) {
+          console.log('First name must be between 2 and 20 characters.')
+          return 'First name must be between 2 and 20 characters.'
+        }
+        return '';
+      },
+      errorMessage: 'Invalid first name' },
+    { fieldName: 'lastName',
+      validationFunction: (value) => {
+        const MIN_LASTNAME_LENGTH = 2;
+        const MAX_LASTNAME_LENGTH = 20;
+        if (value.length < MIN_LASTNAME_LENGTH || value.length > MAX_LASTNAME_LENGTH) {
+          console.log('Last name must be between 2 and 20 characters.')
+          return 'Last name must be between 2 and 20 characters.'
+        }
+        return '';
+      },
+      errorMessage: 'Invalid last name' }
+  ];
 
   // for profile updating
+
   const [isEditing, setIsEditing] = useState(false);
   const [updatedProfile, setUpdatedProfile] = useState({
     firstName: '',
@@ -135,6 +162,23 @@ export const UserProfile = () => {
 
   const handleSaveProfileClick = () => {
     if (isEditing) {
+      const newValidationErrors = {};
+      validationRules.forEach((rule) => {
+        const { fieldName, validationFunction } = rule;
+        const fieldValue = updatedProfile[fieldName];
+        const errorMessage = validationFunction(fieldValue);
+
+        if (errorMessage) {
+          newValidationErrors[fieldName] = errorMessage;
+        }
+      });
+
+      if (Object.keys(newValidationErrors).length > 0) {
+        setValidationErrors(newValidationErrors);
+        return;
+      }
+      setValidationErrors({});
+
       const options = {
         method: 'PATCH',
         headers: {
@@ -157,6 +201,7 @@ export const UserProfile = () => {
           }
         })
         .catch((error) => console.log(error))
+      setValidationErrors('');
     }
   }
 
@@ -277,6 +322,9 @@ export const UserProfile = () => {
       <button type="button" onClick={onLogoutButtonClick}>
         LOG OUT
       </button>
+      {validationErrors.firstName && <p>{validationErrors.firstName}</p>}
+      {validationErrors.lastName && <p>{validationErrors.lastName}</p>}
+
     </>
   )
 };
