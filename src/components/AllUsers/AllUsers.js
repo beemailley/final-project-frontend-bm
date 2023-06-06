@@ -85,7 +85,7 @@ export const AllUsers = () => {
             <p>Interests: {profile.interests}</p>
             <p>Current City: {profile.currentCity}</p>
             <p>Home Country: {profile.homeCountry}</p>
-            <p>Languages: {profile.languages}</p>
+            {/* <p>Languages: {profile.languages}</p> */}
           </div>
         ))
       )}

@@ -9,7 +9,11 @@ export const MyForm = () => {
     event.preventDefault();
     setIsLoading(true);
 
+    console.log('Submitting value:', value);
+
     socket.timeout(5000).emit('create-something', value, () => {
+      console.log('create-something event emitted with value:', value);
+
       setIsLoading(false);
     });
   }

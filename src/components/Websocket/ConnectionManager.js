@@ -1,12 +1,15 @@
 import React from 'react';
-import { socket } from '../socket';
+import { socket } from '../../socket';
 
 export const ConnectionManager = () => {
   function connect() {
+    console.log('Connecting...');
+
     socket.connect();
   }
 
   function disconnect() {
+    console.log('Disconnecting...');
     socket.disconnect();
   }
 

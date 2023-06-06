@@ -29,8 +29,8 @@ export const UserProfile = () => {
     }),
     interests: '',
     currentCity: '',
-    homeCountry: '',
-    languages: ''
+    homeCountry: ''
+    // languages: ''
   })
 
   //
@@ -69,8 +69,8 @@ export const UserProfile = () => {
             birthday,
             interests,
             currentCity,
-            homeCountry,
-            languages
+            homeCountry
+            // languages
           } = data.response
 
           setUpdatedProfile({
@@ -86,8 +86,8 @@ export const UserProfile = () => {
             birthday: birthday || '',
             interests: interests || '',
             currentCity: currentCity || '',
-            homeCountry: homeCountry || '',
-            languages: languages || ''
+            homeCountry: homeCountry || ''
+            // languages: languages || ''
           });
         } else {
           dispatch(user.actions.setError(data.response))
@@ -223,15 +223,15 @@ export const UserProfile = () => {
               type="text"
               name="currentCity"
               value={updatedProfile.currentCity}
-              onChange={handleInputChange} /><br />
-            <label htmlFor="Languages:">
+              onChange={handleInputChange} />
+            {/* <label htmlFor="Languages:">
             Languages:
               <input
                 type="text"
                 name="languages"
                 value={updatedProfile.languages}
                 onChange={handleInputChange} /><br />
-            </label>
+            </label> */}
           </label>
           <button type="button" onClick={handleSaveProfileClick}>Save changes</button>
         </div>
@@ -255,7 +255,7 @@ export const UserProfile = () => {
               <p>Interests: {profileItems.interests}</p>
               <p>Current City: {profileItems.currentCity}</p>
               <p>Home Country: {profileItems.homeCountry}</p>
-              <p>Languages: {profileItems.languages}</p>
+              {/* <p>Languages: {profileItems.languages}</p> */}
               <button type="button" onClick={handleEditProfileClick}>Edit Profile</button>
             </>
           )}
