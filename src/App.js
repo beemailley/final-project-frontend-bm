@@ -6,11 +6,12 @@ import { Login } from 'components/Login/Login'
 import { Welcome } from 'components/Welcome/Welcome'
 import { UserProfile } from 'components/UserProfile/UserProfile'
 import { AllUsers } from 'components/AllUsers/AllUsers'
-import { CityEvents } from 'components/CityEvents/CityEvents'
+// import { CityEvents } from 'components/CityEvents/CityEvents'
 import { UserEvents } from 'components/UserEvents/UserEvents'
 import { AboutUs } from 'components/AboutUs/AboutUs'
 import { NotFound } from 'components/NotFound/NotFound'
 import { user } from 'reducers/user';
+import { Header } from 'components/Header/Header'
 // import { socket } from './socket';
 // import { ConnectionState } from './components/ConnectionState';
 // import { ConnectionManager } from './components/ConnectionManager';
@@ -59,14 +60,15 @@ export const App = () => {
         <ConnectionManager />
         <Events events={fooEvents} />
         <MyForm /> */}
+        <Header />
         <Routes>
           <Route path="/" element={<Welcome />} />
           {/* <Route path="/myform" element={<MyForm />} /> */}
           <Route path="/login" element={<Login />} />
           <Route path="/users/:username" element={<UserProfile />} />
           <Route path="/users" element={<AllUsers />} />
-          <Route path="/cityevents" element={<CityEvents />} />
-          <Route path="/userevents" element={<UserEvents />} />
+          {/* <Route path="/cityevents" element={<CityEvents />} /> */}
+          <Route path="/events" element={<UserEvents />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
