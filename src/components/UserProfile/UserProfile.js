@@ -34,7 +34,17 @@ export const UserProfile = () => {
         }
         return '';
       },
-      errorMessage: 'Invalid last name' }
+      errorMessage: 'Invalid last name' },
+    { fieldName: 'emailAddress',
+      validationFunction: (value) => {
+        const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+        if (!emailRegex.test(value)) {
+          console.log('Invalid email format')
+          return 'Invalid email format';
+        }
+        return '';
+      },
+      errorMessage: 'Invalid email' }
   ];
 
   // for profile updating
@@ -177,7 +187,14 @@ export const UserProfile = () => {
         setValidationErrors(newValidationErrors);
         return;
       }
-      setValidationErrors({});
+      setValidationErrors('');
+
+      // To check email uniqueness
+      // const isEmailUnique = checkEmailUniqueness(updatedProfile.emailAddress);
+      // if (!isEmailUnique) {
+      //   setValidationErrors({ emailAddress: 'Email already exists' });
+      //   return;
+      // }
 
       const options = {
         method: 'PATCH',
@@ -201,7 +218,6 @@ export const UserProfile = () => {
           }
         })
         .catch((error) => console.log(error))
-      setValidationErrors('');
     }
   }
 
@@ -261,11 +277,17 @@ export const UserProfile = () => {
           </label>
           <label htmlFor="Interests:">
             Interests:
-            <input
-              type="text"
+            <select
               name="interests"
               value={updatedProfile.interests}
-              onChange={handleInputChange} /><br />
+              onChange={handleInputChange}>
+              <option value="Category One">Category One</option>
+              <option value="Category Two">Category Two</option>
+              <option value="Category Three">Category Three</option>
+              <option value="Category Four">Category Four</option>
+              <option value="Category Five">Category Five</option>
+            </select>
+            <br />
           </label>
           <label htmlFor="Current city:">
             Current City:
@@ -291,7 +313,7 @@ export const UserProfile = () => {
                 onChange={handleInputChange} /><br />
             </label> */}
           </label>
-          <button type="button" onClick={handleSaveProfileClick}>Save changes</button>
+          <button type="button" onClick={() => handleSaveProfileClick()}>Save changes</button>
         </div>
       ) : (
         // render the static profile information
@@ -324,7 +346,7 @@ export const UserProfile = () => {
       </button>
       {validationErrors.firstName && <p>{validationErrors.firstName}</p>}
       {validationErrors.lastName && <p>{validationErrors.lastName}</p>}
-
+      {validationErrors.emailAddress && <p>{validationErrors.emailAddress}</p>}
     </>
   )
 };
