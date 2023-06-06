@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { API_URL } from 'utils/urls';
 import { user } from 'reducers/user';
+import countryList from 'country-list';
 
 export const UserProfile = () => {
   const profileItems = useSelector((store) => store.user.items) // changed from store.user.profile
@@ -11,6 +12,8 @@ export const UserProfile = () => {
   const username = useSelector((store) => store.user.username)
   const navigate = useNavigate()
   const [validationErrors, setValidationErrors] = useState('')
+  const countries = countryList.getNames();
+  console.log(countries);
 
   const validationRules = [
     { fieldName: 'firstName',
@@ -281,6 +284,7 @@ export const UserProfile = () => {
               name="interests"
               value={updatedProfile.interests}
               onChange={handleInputChange}>
+              <option value="">Select an interest</option>
               <option value="Category One">Category One</option>
               <option value="Category Two">Category Two</option>
               <option value="Category Three">Category Three</option>
@@ -299,11 +303,18 @@ export const UserProfile = () => {
           </label>
           <label htmlFor="Home country:">
             Home Country:
-            <input
-              type="text"
+            <select
               name="homeCountry"
               value={updatedProfile.homeCountry}
-              onChange={handleInputChange} /><br />
+              onChange={handleInputChange}>
+              <option value="">Select a country</option>
+              {countries.map((country) => (
+                <option key={country} value={country}>
+                  {country}
+                </option>
+              ))}
+            </select>
+            <br />
             {/* <label htmlFor="Languages:">
             Languages:
               <input
