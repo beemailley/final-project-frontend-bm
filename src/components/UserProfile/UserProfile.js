@@ -21,7 +21,7 @@ export const UserProfile = () => {
     //   month: 'long',
     //   year: 'numeric'
     // }),
-    gender: 'prefer not to say',
+    gender: '',
     birthday: new Date().toLocaleDateString('en-US', {
       day: 'numeric',
       month: 'long',
@@ -195,11 +195,16 @@ export const UserProfile = () => {
           </label>
           <label htmlFor="Gender:">
             Gender:
-            <input
-              type="text"
+            <select
               name="gender"
               value={updatedProfile.gender}
-              onChange={handleInputChange} /><br />
+              onChange={handleInputChange}>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+              <option value="prefer not to say">Prefer not to say</option>
+            </select>
+            <br />
           </label>
           <label htmlFor="Birthday:">
             Birthday:
