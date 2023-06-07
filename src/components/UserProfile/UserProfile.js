@@ -5,6 +5,27 @@ import { API_URL } from 'utils/urls';
 import { user } from 'reducers/user';
 import countryList from 'country-list';
 
+// To check email uniqueness
+const checkEmailUniqueness = (email) => {
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ email })
+  };
+
+  return fetch(API_URL('check-email-availability'), options)
+    .then((res) => res.json())
+    .then((data) => {
+      return data.available;
+    })
+    .catch((error) => {
+      console.log(error);
+      return false;
+    });
+}
+
 export const UserProfile = () => {
   const profileItems = useSelector((store) => store.user.items) // changed from store.user.profile
   const dispatch = useDispatch()
@@ -45,6 +66,11 @@ export const UserProfile = () => {
           console.log('Invalid email format')
           return 'Invalid email format';
         }
+        const isEmailUnique = checkEmailUniqueness(value);
+        if (!isEmailUnique) {
+          console.log('Email address already exists');
+          return 'Email address already exists';
+        }
         return '';
       },
       errorMessage: 'Invalid email' },
@@ -59,7 +85,7 @@ export const UserProfile = () => {
     { fieldName: 'interests',
       validationFunction: (value) => {
         if (value === 'Select an interest') {
-          return 'Please select your interest';
+          return 'Please select an interest';
         }
         return '';
       },
@@ -80,6 +106,7 @@ export const UserProfile = () => {
   const [updatedProfile, setUpdatedProfile] = useState({
     firstName: '',
     lastName: '',
+    emailAddress: '',
     // memberSince: new Date().toLocaleDateString('en-US', {
     //   day: 'numeric',
     //   month: 'long',
@@ -215,13 +242,6 @@ export const UserProfile = () => {
         return;
       }
       setValidationErrors('');
-
-      // To check email uniqueness
-      // const isEmailUnique = checkEmailUniqueness(updatedProfile.emailAddress);
-      // if (!isEmailUnique) {
-      //   setValidationErrors({ emailAddress: 'Email already exists' });
-      //   return;
-      // }
 
       const options = {
         method: 'PATCH',
