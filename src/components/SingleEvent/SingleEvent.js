@@ -13,7 +13,12 @@ export const SingleEvent = () => {
   // to edit an event
   const [isEditing, setIsEditing] = useState(false)
   const [updatedEvent, setUpdatedEvent] = useState({
-    eventName: ''
+    eventName: '',
+    // eventDateAndTime: new Date(),
+    eventVenue: '',
+    eventAddress: '',
+    eventCategory: '',
+    eventSummary: ''
   })
 
   useEffect(() => {
@@ -27,7 +32,6 @@ export const SingleEvent = () => {
     fetch(API_URL(`events/${eventId}`), options)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
         if (data.success) {
           dispatch(events.actions.setEventName(data.response.eventName))
           dispatch(events.actions.setEventDateAndTime(data.response.eventDateAndTime))
@@ -37,7 +41,12 @@ export const SingleEvent = () => {
           dispatch(events.actions.setEventSummary(data.response.eventSummary))
           dispatch(events.actions.setCreatedBy(data.response.createdBy))
           setUpdatedEvent({
-            eventName: data.response.eventName || ''
+            eventName: data.response.eventName || '',
+            // eventDateAndTime: data.response.eventDateAndTime || new Date(),
+            eventVenue: data.response.eventVenue || '',
+            eventAddress: data.response.eventAddress || '',
+            eventCategory: data.response.eventCategory || '',
+            eventSummary: data.response.eventSummary || ''
           })
         } else {
           dispatch(events.actions.setEventName(null))
@@ -53,8 +62,6 @@ export const SingleEvent = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken, dispatch])
 
-  console.log(accessToken)
-
   const onBackButtonClick = () => {
     dispatch(events.actions.setEventName(null))
     dispatch(events.actions.setEventDateAndTime(null))
@@ -68,14 +75,27 @@ export const SingleEvent = () => {
 
   const onEditButtonClick = () => {
     setIsEditing(true)
-    console.log(accessToken)
+  }
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    // console.log('e.target:', e.target)
+    setUpdatedEvent((prevState) => {
+      // console.log('prevState:', prevState)
+      // eslint-disable-next-line prefer-object-spread
+      const updatedState = Object.assign({}, prevState);
+      // console.log('updated state before [name]:', updatedState)
+      updatedState[name] = value;
+      // console.log('updated state after [name]:', updatedState)
+      return updatedState;
+    });
   }
 
   const onFormSubmit = (e) => {
     e.preventDefault()
-    console.log(accessToken)
-    console.log(updatedEvent)
-    console.log(eventId)
+    // console.log(accessToken)
+    // console.log(updatedEvent)
+    // console.log(eventId)
     const options = {
       method: 'PATCH',
       headers: {
@@ -87,8 +107,11 @@ export const SingleEvent = () => {
     fetch(API_URL(`events/${eventId}`), options)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
-        dispatch(events.actions.setEventName(updatedEvent.eventName))
+        dispatch(events.actions.setEventName(data.response.eventName))
+        dispatch(events.actions.setEventVenue(data.response.eventVenue))
+        dispatch(events.actions.setEventAddress(data.response.eventAddress))
+        dispatch(events.actions.setEventCategory(data.response.eventCategory))
+        dispatch(events.actions.setEventSummary(data.response.eventSummary))
       })
       .finally(() => setIsEditing(false))
   }
@@ -110,6 +133,7 @@ export const SingleEvent = () => {
           </p>
           <p>Venue: {event.eventVenue}</p>
           <p>Address: {event.eventAddress}</p>
+          <p>Type of Event: {event.eventCategory}</p>
           <p>Summary: {event.eventSummary}</p>
           <button type="button" onClick={onBackButtonClick}>Back</button>
           <button type="button" onClick={onEditButtonClick}>Edit</button>
@@ -119,13 +143,53 @@ export const SingleEvent = () => {
         <>
           <p>Is Editing</p>
           <form onSubmit={onFormSubmit}>
-            <label htmlFor="eventname">
-          Event Name:
+            <label htmlFor="eventName">
+              Event Name:
               <input
                 type="text"
-                name="eventname"
+                name="eventName"
                 value={updatedEvent.eventName}
-                onChange={(e) => setUpdatedEvent({ eventName: e.target.value })} />
+                onChange={handleInputChange} />
+            </label>
+            {/* <label htmlFor="eventdateandtime">
+              Event Date and Time:
+              <input
+                type="date"
+                name="eventdateandtime"
+                value={updatedEvent.eventDateAndTime}
+                onChange={(e) => setUpdatedEvent({ eventDateAndTime: e.target.value })} />
+            </label> */}
+            <label htmlFor="eventVenue">
+              Event Venue:
+              <input
+                type="text"
+                name="eventVenue"
+                value={updatedEvent.eventVenue}
+                onChange={handleInputChange} />
+            </label>
+            <label htmlFor="eventAddress">
+              Event Address:
+              <input
+                type="text"
+                name="eventAddress"
+                value={updatedEvent.eventAddress}
+                onChange={handleInputChange} />
+            </label>
+            <label htmlFor="eventCategory">
+              Type of Event:
+              <input
+                type="text"
+                name="eventCategory"
+                value={updatedEvent.eventCategory}
+                onChange={handleInputChange} />
+            </label>
+            <label htmlFor="eventSummary">
+              Event Summary:
+              <input
+                type="text"
+                name="eventSummary"
+                value={updatedEvent.eventSummary}
+                onChange={handleInputChange} />
             </label>
             <button type="submit">Submit</button>
           </form>
