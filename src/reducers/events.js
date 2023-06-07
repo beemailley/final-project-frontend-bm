@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
+  eventId: null,
   eventName: null,
   eventDateAndTime: null,
   eventVenue: null,
@@ -15,6 +16,9 @@ export const events = createSlice({
   name: 'events',
   initialState,
   reducers: {
+    setEventId: (store, action) => {
+      store.eventId = action.payload
+    },
     setEventName: (store, action) => {
       store.eventName = action.payload
     },

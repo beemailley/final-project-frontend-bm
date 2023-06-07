@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 // import { events } from 'reducers/events';
 import { API_URL } from 'utils/urls';
 
@@ -41,7 +41,7 @@ export const UserEvents = () => {
   return (
     <>
       <h2>All Events</h2>
-      <button type="button">Create Event</button>
+      <h3><Link to="/events/create"> Create Event </Link></h3>
       {loading && <p>Loading:{loading}</p>}
       <section>
         {eventsList.map((event) => {
