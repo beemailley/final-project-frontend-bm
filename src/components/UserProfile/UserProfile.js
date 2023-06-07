@@ -47,7 +47,31 @@ export const UserProfile = () => {
         }
         return '';
       },
-      errorMessage: 'Invalid email' }
+      errorMessage: 'Invalid email' },
+    { fieldName: 'gender',
+      validationFunction: (value) => {
+        if (value === 'Select your gender') {
+          return 'Please select a gender';
+        }
+        return '';
+      },
+      errorMessage: 'No gender selected' },
+    { fieldName: 'interests',
+      validationFunction: (value) => {
+        if (value === 'Select an interest') {
+          return 'Please select your interest';
+        }
+        return '';
+      },
+      errorMessage: 'No interest selected' },
+    { fieldName: 'homeCountry',
+      validationFunction: (value) => {
+        if (value === 'Select a country') {
+          return 'Please select your home country';
+        }
+        return '';
+      },
+      errorMessage: 'No home country selected' }
   ];
 
   // for profile updating
@@ -61,15 +85,15 @@ export const UserProfile = () => {
     //   month: 'long',
     //   year: 'numeric'
     // }),
-    gender: '',
+    gender: 'Select your gender',
     birthday: new Date().toLocaleDateString('en-US', {
       day: 'numeric',
       month: 'long',
       year: 'numeric'
     }),
-    interests: '',
+    interests: 'Select an interest',
     currentCity: '',
-    homeCountry: ''
+    homeCountry: 'Select a country'
     // languages: ''
   })
 
@@ -122,7 +146,7 @@ export const UserProfile = () => {
               month: 'long',
               year: 'numeric'
             }),
-            gender: gender || 'prefer not to say',
+            gender: gender || 'Select your gender',
             birthday: birthday || '',
             interests: interests || '',
             currentCity: currentCity || '',
@@ -263,6 +287,7 @@ export const UserProfile = () => {
               name="gender"
               value={updatedProfile.gender}
               onChange={handleInputChange}>
+              <option value="">Select your gender</option>
               <option value="male">Male</option>
               <option value="female">Female</option>
               <option value="other">Other</option>
@@ -295,11 +320,16 @@ export const UserProfile = () => {
           </label>
           <label htmlFor="Current city:">
             Current City:
-            <input
-              type="text"
+            <select
               name="currentCity"
               value={updatedProfile.currentCity}
-              onChange={handleInputChange} /><br />
+              onChange={handleInputChange}>
+              <option value="">Select your current city</option>
+              <option value="Stockholm">Stockholm</option>
+              <option value="London">London</option>
+              <option value="Paris">Paris</option>
+            </select>
+            <br />
           </label>
           <label htmlFor="Home country:">
             Home Country:
@@ -358,6 +388,10 @@ export const UserProfile = () => {
       {validationErrors.firstName && <p>{validationErrors.firstName}</p>}
       {validationErrors.lastName && <p>{validationErrors.lastName}</p>}
       {validationErrors.emailAddress && <p>{validationErrors.emailAddress}</p>}
+      {validationErrors.gender && <p>{validationErrors.gender}</p>}
+      {validationErrors.interests && <p>{validationErrors.interests}</p>}
+      {validationErrors.homeCountry && <p>{validationErrors.homeCountry}</p>}
+
     </>
   )
 };
