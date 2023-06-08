@@ -7,6 +7,7 @@ import { API_URL } from 'utils/urls';
 export const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [emailAddress, setEmailAddress] = useState('')
   const [mode, setMode] = useState('login');
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -25,12 +26,15 @@ export const Login = () => {
 
   const onFormSubmit = (event) => {
     event.preventDefault();
+    console.log('username:', username)
+    console.log('email:', emailAddress)
+    console.log('password:', password)
     const options = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ username, password })
+      body: JSON.stringify({ username, password, emailAddress })
     }
     fetch(API_URL(mode), options)
       .then((res) => res.json())
@@ -39,6 +43,7 @@ export const Login = () => {
         if (data.success) {
           dispatch(user.actions.setAccessToken(data.response.accessToken))
           dispatch(user.actions.setUsername(data.response.username))
+          dispatch(user.actions.setEmail(data.response.emailAddress))
           dispatch(user.actions.setUserId(data.response.id))
           dispatch(user.actions.setError(null))
           // navigate('/users')
@@ -46,6 +51,7 @@ export const Login = () => {
         } else {
           dispatch(user.actions.setAccessToken(null))
           dispatch(user.actions.setUsername(null))
+          dispatch(user.actions.setEmail(null))
           dispatch(user.actions.setUserId(null))
           dispatch(user.actions.setError(data.response))
         }
@@ -80,6 +86,14 @@ export const Login = () => {
             value={username}
             onChange={(e) => setUsername(e.target.value)} /><br />
         </label>
+        {mode === 'register' && (
+          <label htmlFor="email">Email Address
+            <input
+              type="email"
+              id="email"
+              value={emailAddress}
+              onChange={(e) => setEmailAddress(e.target.value)} /><br />
+          </label>)}
         <label htmlFor="password">Password
           <input
             type="password"
