@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { user } from 'reducers/user';
 import { API_URL } from 'utils/urls';
+import { Button } from '../Button';
 
 export const Login = () => {
   const [username, setUsername] = useState('');
@@ -87,7 +88,7 @@ export const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)} />
         </label>
-        <button type="submit">Submit</button>
+        <Button text="Submit" type="submit" />
       </form>
     </>
   )
