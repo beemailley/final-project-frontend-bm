@@ -11,7 +11,10 @@ import { UserEvents } from 'components/UserEvents/UserEvents'
 import { AboutUs } from 'components/AboutUs/AboutUs'
 import { NotFound } from 'components/NotFound/NotFound'
 import { user } from 'reducers/user';
+import { events } from 'reducers/events'
 import { Header } from 'components/Header/Header'
+import { SingleEvent } from 'components/SingleEvent/SingleEvent'
+import { CreateEvent } from 'components/CreateEvent/CreateEvent'
 // import { socket } from './socket';
 // import { ConnectionState } from './components/ConnectionState';
 // import { ConnectionManager } from './components/ConnectionManager';
@@ -48,7 +51,8 @@ export const App = () => {
   // }, []);
 
   const reducer = combineReducers({
-    user: user.reducer
+    user: user.reducer,
+    events: events.reducer
   });
 
   const store = configureStore({ reducer })
@@ -69,6 +73,8 @@ export const App = () => {
           <Route path="/users" element={<AllUsers />} />
           {/* <Route path="/cityevents" element={<CityEvents />} /> */}
           <Route path="/events" element={<UserEvents />} />
+          <Route path="/events/create" element={<CreateEvent />} />
+          <Route path="/events/:eventId" element={<SingleEvent />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
