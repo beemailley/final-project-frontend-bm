@@ -13,10 +13,6 @@ export const Login = () => {
   const [emailAddress, setEmailAddress] = useState('')
   const [mode, setMode] = useState('login');
 
-  // useEffect(() => {
-  //   console.log(username);
-  // }, [username]);
-
   useEffect(() => {
     if (accessToken) {
       // navigate('/users')
@@ -44,6 +40,7 @@ export const Login = () => {
           dispatch(user.actions.setUserId(data.response.id))
           dispatch(user.actions.setError(null))
         } else {
+          alert(data.response)
           dispatch(user.actions.setAccessToken(null))
           dispatch(user.actions.setUsername(null))
           dispatch(user.actions.setEmail(null))
@@ -78,6 +75,8 @@ export const Login = () => {
           <input
             type="text"
             id="username"
+            minLength="3"
+            maxLength="20"
             value={username}
             onChange={(e) => setUsername(e.target.value)} /><br />
         </label>
@@ -93,6 +92,7 @@ export const Login = () => {
           <input
             type="password"
             id="password"
+            minLength="6"
             value={password}
             onChange={(e) => setPassword(e.target.value)} />
         </label>
