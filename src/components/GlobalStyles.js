@@ -21,9 +21,13 @@ export const InnerWrapper = styled.div`
     @media (min-width: 668px) and (max-width: 1024px) {
         width: 85vw;
         max-width: 500px;
+        margin-top: 5%;
+
     }
     @media (min-width: 1025px) {
         width: 80vw;
         max-width: 600px;
+        margin-top: 2%;
+
     }
 `

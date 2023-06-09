@@ -1,14 +1,12 @@
-import React from 'react'
-import { OuterWrapper, InnerWrapper } from 'components/GlobalStyles'
+import React from 'react';
 import { Button } from '../Button/Button.styles';
+import { ContentWrapper } from './Welcome.styles';
 
 export const Welcome = () => {
   return (
-    <OuterWrapper>
-      <InnerWrapper>
-        <p>This is the Welcome Page</p>
-        <Button submit text="Let's go!" />
-      </InnerWrapper>
-    </OuterWrapper>
+    <ContentWrapper>
+      <p>This is the Welcome Page</p>
+      <Button type="cta">Let&apos;s go!</Button>
+    </ContentWrapper>
   )
 }
