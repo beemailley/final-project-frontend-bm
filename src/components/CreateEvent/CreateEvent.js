@@ -13,6 +13,7 @@ export const CreateEvent = () => {
   const accessToken = useSelector((store) => store.user.accessToken)
   const event = useSelector((store) => store.events)
   const [isEditing, setIsEditing] = useState(true)
+  const [validationErrors, setValidationErrors] = useState('')
   const [newEvent, setNewEvent] = useState({
     eventName: '',
     // eventDateAndTime: new Date(),
@@ -22,47 +23,92 @@ export const CreateEvent = () => {
     eventSummary: ''
   })
 
+  const validationRules = [
+    { fieldName: 'eventName',
+      validationFunction: (value) => {
+        const MIN_EVENTNAME_LENGTH = 5;
+        const MAX_EVENTNAME_LENGTH = 100;
+        if (value.length < MIN_EVENTNAME_LENGTH || value.length > MAX_EVENTNAME_LENGTH) {
+          return 'Event name must be between 5 and 100 characters.'
+        }
+        return '';
+      },
+      errorMessage: 'Invalid event name' },
+    { fieldName: 'eventCategory',
+      validationFunction: (value) => {
+        if (value === '') {
+          return 'Please select a category';
+        }
+        return '';
+      },
+      errorMessage: 'No category selected' },
+    { fieldName: 'eventSummary',
+      validationFunction: (value) => {
+        const MIN_EVENTSUMMARY_LENGTH = 20;
+        const MAX_EVENTSUMMARY_LENGTH = 280;
+        if (value.length < MIN_EVENTSUMMARY_LENGTH || value.length > MAX_EVENTSUMMARY_LENGTH) {
+          return 'Event summary must be between 20 and 280 characters.'
+        }
+        return '';
+      },
+      errorMessage: 'Invalid event name' }
+  ];
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    // console.log('e.target:', e.target)
     setNewEvent((prevState) => {
-    //   console.log('prevState:', prevState)
       // eslint-disable-next-line prefer-object-spread
       const updatedState = Object.assign({}, prevState);
-      //   console.log('updated state before [name]:', updatedState)
       updatedState[name] = value;
-      //   console.log('updated state after [name]:', updatedState)
       return updatedState;
     });
   }
 
   const onFormSubmit = (e) => {
     e.preventDefault()
-    // console.log('event submitted')
-    // console.log(newEvent)
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: accessToken
-      },
-      body: JSON.stringify(newEvent)
-    }
-    fetch(API_URL('events/'), options)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data.response)
-        dispatch(events.actions.setEventId(data.response._id))
-        dispatch(events.actions.setEventName(data.response.eventName))
-        dispatch(events.actions.setEventDateAndTime(data.response.eventDateAndTime))
-        dispatch(events.actions.setEventVenue(data.response.eventVenue))
-        dispatch(events.actions.setEventAddress(data.response.eventAddress))
-        dispatch(events.actions.setEventCategory(data.response.eventCategory))
-        dispatch(events.actions.setEventSummary(data.response.eventSummary))
+
+    if (isEditing) {
+      const newValidationErrors = {};
+      validationRules.forEach((rule) => {
+        const { fieldName, validationFunction } = rule;
+        const fieldValue = newEvent[fieldName];
+        const errorMessage = validationFunction(fieldValue);
+
+        if (errorMessage) {
+          newValidationErrors[fieldName] = errorMessage;
+        }
+      });
+
+      if (Object.keys(newValidationErrors).length > 0) {
+        setValidationErrors(newValidationErrors);
+        return;
+      }
+      setValidationErrors('');
+
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: accessToken
+        },
+        body: JSON.stringify(newEvent)
+      }
+      fetch(API_URL('events/'), options)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data.response)
+          dispatch(events.actions.setEventId(data.response._id))
+          dispatch(events.actions.setEventName(data.response.eventName))
+          dispatch(events.actions.setEventDateAndTime(data.response.eventDateAndTime))
+          dispatch(events.actions.setEventVenue(data.response.eventVenue))
+          dispatch(events.actions.setEventAddress(data.response.eventAddress))
+          dispatch(events.actions.setEventCategory(data.response.eventCategory))
+          dispatch(events.actions.setEventSummary(data.response.eventSummary))
         // eslint-disable-next-line no-underscore-dangle
         // navigate(`/events/${data.response._id}`)
-      })
-      .finally(() => setIsEditing(false))
+        })
+        .finally(() => setIsEditing(false))
+    }
   }
 
   const onViewEventButtonClick = (eventId) => {
@@ -123,6 +169,9 @@ export const CreateEvent = () => {
             </label>
             <button type="submit">Submit</button>
           </form>
+          {validationErrors.eventName && <p>{validationErrors.eventName}</p>}
+          {validationErrors.eventCategory && <p>{validationErrors.eventCategory}</p>}
+          {validationErrors.eventSummary && <p>{validationErrors.eventSummary}</p>}
         </>
       )}
       {!isEditing && (

@@ -12,6 +12,7 @@ export const SingleEvent = () => {
   const event = useSelector((store) => store.events)
   // to edit an event
   const [isEditing, setIsEditing] = useState(false)
+  const [validationErrors, setValidationErrors] = useState('')
   const [updatedEvent, setUpdatedEvent] = useState({
     eventName: '',
     // eventDateAndTime: new Date(),
@@ -20,6 +21,37 @@ export const SingleEvent = () => {
     eventCategory: '',
     eventSummary: ''
   })
+
+  const validationRules = [
+    { fieldName: 'eventName',
+      validationFunction: (value) => {
+        const MIN_EVENTNAME_LENGTH = 5;
+        const MAX_EVENTNAME_LENGTH = 100;
+        if (value.length < MIN_EVENTNAME_LENGTH || value.length > MAX_EVENTNAME_LENGTH) {
+          return 'Event name must be between 5 and 100 characters.'
+        }
+        return '';
+      },
+      errorMessage: 'Invalid event name' },
+    { fieldName: 'eventCategory',
+      validationFunction: (value) => {
+        if (value === '') {
+          return 'Please select a category';
+        }
+        return '';
+      },
+      errorMessage: 'No category selected' },
+    { fieldName: 'eventSummary',
+      validationFunction: (value) => {
+        const MIN_EVENTSUMMARY_LENGTH = 20;
+        const MAX_EVENTSUMMARY_LENGTH = 280;
+        if (value.length < MIN_EVENTSUMMARY_LENGTH || value.length > MAX_EVENTSUMMARY_LENGTH) {
+          return 'Event summary must be between 20 and 280 characters.'
+        }
+        return '';
+      },
+      errorMessage: 'Invalid event name' }
+  ];
 
   useEffect(() => {
     const options = {
@@ -79,41 +111,54 @@ export const SingleEvent = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    // console.log('e.target:', e.target)
     setUpdatedEvent((prevState) => {
-      // console.log('prevState:', prevState)
       // eslint-disable-next-line prefer-object-spread
       const updatedState = Object.assign({}, prevState);
-      // console.log('updated state before [name]:', updatedState)
       updatedState[name] = value;
-      // console.log('updated state after [name]:', updatedState)
       return updatedState;
     });
   }
 
   const onFormSubmit = (e) => {
     e.preventDefault()
-    // console.log(accessToken)
-    // console.log(updatedEvent)
-    // console.log(eventId)
-    const options = {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: accessToken
-      },
-      body: JSON.stringify(updatedEvent)
+
+    if (isEditing) {
+      const newValidationErrors = {};
+      validationRules.forEach((rule) => {
+        const { fieldName, validationFunction } = rule;
+        const fieldValue = updatedEvent[fieldName];
+        const errorMessage = validationFunction(fieldValue);
+
+        if (errorMessage) {
+          newValidationErrors[fieldName] = errorMessage;
+        }
+      });
+
+      if (Object.keys(newValidationErrors).length > 0) {
+        setValidationErrors(newValidationErrors);
+        return;
+      }
+      setValidationErrors('');
+
+      const options = {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: accessToken
+        },
+        body: JSON.stringify(updatedEvent)
+      }
+      fetch(API_URL(`events/${eventId}`), options)
+        .then((res) => res.json())
+        .then((data) => {
+          dispatch(events.actions.setEventName(data.response.eventName))
+          dispatch(events.actions.setEventVenue(data.response.eventVenue))
+          dispatch(events.actions.setEventAddress(data.response.eventAddress))
+          dispatch(events.actions.setEventCategory(data.response.eventCategory))
+          dispatch(events.actions.setEventSummary(data.response.eventSummary))
+        })
+        .finally(() => setIsEditing(false))
     }
-    fetch(API_URL(`events/${eventId}`), options)
-      .then((res) => res.json())
-      .then((data) => {
-        dispatch(events.actions.setEventName(data.response.eventName))
-        dispatch(events.actions.setEventVenue(data.response.eventVenue))
-        dispatch(events.actions.setEventAddress(data.response.eventAddress))
-        dispatch(events.actions.setEventCategory(data.response.eventCategory))
-        dispatch(events.actions.setEventSummary(data.response.eventSummary))
-      })
-      .finally(() => setIsEditing(false))
   }
 
   return (
@@ -177,11 +222,13 @@ export const SingleEvent = () => {
             </label>
             <label htmlFor="eventCategory">
               Type of Event:
-              <input
-                type="text"
-                name="eventCategory"
-                value={updatedEvent.eventCategory}
-                onChange={handleInputChange} />
+              <select name="eventCategory" value={updatedEvent.eventCategory} onChange={handleInputChange}>
+                <option value="">Please select one:</option>
+                <option value="Category One">Category One</option>
+                <option value="Category Two">Category 2</option>
+                <option value="Category Three">Category 3</option>
+                <option value="Category Four">Category 4</option>
+              </select>
             </label>
             <label htmlFor="eventSummary">
               Event Summary:
@@ -194,6 +241,9 @@ export const SingleEvent = () => {
             <button type="submit">Submit</button>
           </form>
         </>)}
+      {validationErrors.eventName && <p>{validationErrors.eventName}</p>}
+      {validationErrors.eventCategory && <p>{validationErrors.eventCategory}</p>}
+      {validationErrors.eventSummary && <p>{validationErrors.eventSummary}</p>}
     </>
   )
 }

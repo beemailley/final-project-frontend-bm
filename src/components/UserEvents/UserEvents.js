@@ -2,15 +2,13 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom';
-// import { events } from 'reducers/events';
 import { API_URL } from 'utils/urls';
 
 export const UserEvents = () => {
+  const navigate = useNavigate()
+  const accessToken = useSelector((store) => store.user.accessToken)
   const [eventsList, setEventsList] = useState([])
   const [loading, setLoading] = useState(false)
-  const accessToken = useSelector((store) => store.user.accessToken)
-  // const dispatch = useDispatch()
-  const navigate = useNavigate()
 
   useEffect(() => {
     if (!accessToken) {
@@ -19,20 +17,24 @@ export const UserEvents = () => {
   }, [accessToken, navigate]);
 
   useEffect(() => {
-    setLoading(true);
-    const options = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: accessToken
-      }
-    };
+    if (accessToken) {
+      setLoading(true);
+      const options = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: accessToken
+        }
+      };
 
-    fetch(API_URL('events'), options)
-      .then((response) => response.json())
-      .then((data) => setEventsList(data.response))
-      .catch((error) => console.log(error))
-      .finally(() => { setLoading(false) })
+      fetch(API_URL('events'), options)
+        .then((response) => response.json())
+        .then((data) => setEventsList(data.response))
+        .catch((error) => console.log(error))
+        .finally(() => { setLoading(false) })
+    } else {
+      console.log('Please log in')
+    }
   }, [accessToken])
 
   const onViewEventButtonClick = (eventId) => {
@@ -42,7 +44,7 @@ export const UserEvents = () => {
     <>
       <h2>All Events</h2>
       <h3><Link to="/events/create"> Create Event </Link></h3>
-      {loading && <p>Loading:{loading}</p>}
+      {loading && <p>Loading...</p>}
       <section>
         {eventsList.map((event) => {
           return (

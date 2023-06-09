@@ -5,30 +5,27 @@ import { user } from 'reducers/user';
 import { API_URL } from 'utils/urls';
 
 export const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const accessToken = useSelector((store) => store.user.accessToken);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [emailAddress, setEmailAddress] = useState('')
   const [mode, setMode] = useState('login');
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const accessToken = useSelector((store) => store.user.accessToken);
 
-  useEffect(() => {
-    console.log(username);
-  }, [username]);
+  // useEffect(() => {
+  //   console.log(username);
+  // }, [username]);
 
   useEffect(() => {
     if (accessToken) {
       // navigate('/users')
-      navigate(`/users/${username}`)
+      navigate('/aboutus')
     }
   }, [accessToken, navigate, username]);
 
   const onFormSubmit = (event) => {
     event.preventDefault();
-    console.log('username:', username)
-    console.log('email:', emailAddress)
-    console.log('password:', password)
     const options = {
       method: 'POST',
       headers: {
@@ -39,15 +36,13 @@ export const Login = () => {
     fetch(API_URL(mode), options)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
+        // console.log(data)
         if (data.success) {
           dispatch(user.actions.setAccessToken(data.response.accessToken))
           dispatch(user.actions.setUsername(data.response.username))
           dispatch(user.actions.setEmail(data.response.emailAddress))
           dispatch(user.actions.setUserId(data.response.id))
           dispatch(user.actions.setError(null))
-          // navigate('/users')
-          navigate(`/users/${username}`)
         } else {
           dispatch(user.actions.setAccessToken(null))
           dispatch(user.actions.setUsername(null))
