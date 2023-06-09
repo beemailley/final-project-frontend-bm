@@ -1,6 +1,6 @@
 import React from 'react'
 import { OuterWrapper, InnerWrapper } from 'components/GlobalStyles'
-import { Button } from '../Button';
+import { Button } from '../Button/Button.styles';
 
 export const Welcome = () => {
   return (

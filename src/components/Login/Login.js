@@ -3,8 +3,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { user } from 'reducers/user';
 import { API_URL } from 'utils/urls';
-import { OuterWrapper, InnerWrapper } from 'components/GlobalStyles'
-import { Button } from '../Button';
+// import { InnerWrapper } from 'components/GlobalStyles'
+import styled from 'styled-components';
+import { Button } from '../Button/Button.styles';
+import { ModeWrapper, RegistrationWrapper, UsernameWrapper, PasswordWrapper } from './Login.styles'
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 40px;
+`;
 
 export const Login = () => {
   const [username, setUsername] = useState('');
@@ -58,9 +67,9 @@ export const Login = () => {
   }
 
   return (
-    <OuterWrapper>
-      <InnerWrapper>
-        <h1>Expat App</h1>
+    <>
+      {/* // <InnerWrapper> */}
+      <ModeWrapper>
         <label htmlFor="register">Register
           <input
             type="radio"
@@ -75,24 +84,33 @@ export const Login = () => {
             checked={mode === 'login'}
             onChange={() => setMode('login')} />
         </label>
+      </ModeWrapper>
+      <RegistrationWrapper>
         <form onSubmit={onFormSubmit}>
-          <label htmlFor="username">Username
-            <input
-              type="text"
-              id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)} /><br />
-          </label>
-          <label htmlFor="password">Password
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)} />
-          </label>
-          <Button submit text="Submit" />
+          <UsernameWrapper>
+            <label htmlFor="username">Username:
+              <input
+                type="text"
+                id="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)} /><br />
+            </label>
+          </UsernameWrapper>
+          <PasswordWrapper>
+            <label htmlFor="password">Password:
+              <input
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)} />
+            </label>
+          </PasswordWrapper>
+          <ButtonContainer>
+            <Button type="Submit">Submit</Button>
+          </ButtonContainer>
         </form>
-      </InnerWrapper>
-    </OuterWrapper>
+      </RegistrationWrapper>
+      {/* </InnerWrapper> */}
+    </>
   )
 }

@@ -1,12 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { HeaderWrapper, LinkWrapper } from './Header.styles';
+import { HeaderWrapper, LogoContainer, LinkWrapper } from './Header.styles';
 
 export const Header = () => {
   const username = useSelector((store) => store.user.username);
   return (
     <HeaderWrapper>
+      <LogoContainer>
+        <h1>EXPAT APP</h1>
+      </LogoContainer>
       <LinkWrapper>
         <h3><Link to="/"> Home </Link></h3>
         <h3><Link to="/login"> Login </Link></h3>

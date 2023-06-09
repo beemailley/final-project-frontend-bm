@@ -15,6 +15,8 @@ import { events } from 'reducers/events'
 import { Header } from 'components/Header/Header'
 import { SingleEvent } from 'components/SingleEvent/SingleEvent'
 import { CreateEvent } from 'components/CreateEvent/CreateEvent'
+import { OuterWrapper, InnerWrapper } from 'components/GlobalStyles'
+
 // import { socket } from './socket';
 // import { ConnectionState } from './components/ConnectionState';
 // import { ConnectionManager } from './components/ConnectionManager';
@@ -64,20 +66,25 @@ export const App = () => {
         <ConnectionManager />
         <Events events={fooEvents} />
         <MyForm /> */}
-        <Header />
-        <Routes>
-          <Route path="/" element={<Welcome />} />
-          {/* <Route path="/myform" element={<MyForm />} /> */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/users/:username" element={<UserProfile />} />
-          <Route path="/users" element={<AllUsers />} />
-          {/* <Route path="/cityevents" element={<CityEvents />} /> */}
-          <Route path="/events" element={<UserEvents />} />
-          <Route path="/events/create" element={<CreateEvent />} />
-          <Route path="/events/:eventId" element={<SingleEvent />} />
-          <Route path="/aboutus" element={<AboutUs />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <OuterWrapper>
+          <Header />
+          <InnerWrapper>
+            <Routes>
+              <Route path="/" element={<Welcome />} />
+              {/* <Route path="/myform" element={<MyForm />} /> */}
+              <Route path="/login" element={<Login />} />
+              <Route path="/users/:username" element={<UserProfile />} />
+              <Route path="/users" element={<AllUsers />} />
+              {/* <Route path="/cityevents" element={<CityEvents />} /> */}
+              <Route path="/events" element={<UserEvents />} />
+              <Route path="/events/create" element={<CreateEvent />} />
+              <Route path="/events/:eventId" element={<SingleEvent />} />
+              <Route path="/aboutus" element={<AboutUs />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </InnerWrapper>
+
+        </OuterWrapper>
       </BrowserRouter>
     </Provider>
 
