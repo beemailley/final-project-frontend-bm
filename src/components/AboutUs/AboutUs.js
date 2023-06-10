@@ -8,13 +8,13 @@ export const AboutUs = () => {
     <>
       <Introduction>
         <h1>Welcome to Samla!</h1>
-        <p>Meet B and F, expats who relocated to Stockholm,
+        <p>Meet Bridget and Fiona, expats who relocated to Stockholm,
       Sweden from the US and UK. Recognizing the need for
       a sense of community, they created Samla.
       Connect, share profiles, and organize events
-      to turn your new city into a home.
+      to turn your new city into home.
         </p>
-        <br /><br />
+        <br />
         <p style={{ textAlign: 'center' }}>
   Samla: Where you can find your people.
 

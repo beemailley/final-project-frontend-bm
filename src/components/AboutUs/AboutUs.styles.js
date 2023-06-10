@@ -4,6 +4,10 @@ export const Introduction = styled.div`
     display: flex;
     flex-direction: column;
     margin-left: 2%;
+
+    h1 {
+        text-align: center;
+    }
 `
 export const BridgetWrapper = styled.div`
     display: flex;
