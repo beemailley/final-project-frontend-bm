@@ -17,6 +17,7 @@ export const InnerWrapper = styled.div`
     border-radius: 20px;
     background-color: #E8AA42;
     margin-top: 10%;
+    overflow-y: auto;
 
     @media (min-width: 668px) and (max-width: 1024px) {
         width: 85vw;
