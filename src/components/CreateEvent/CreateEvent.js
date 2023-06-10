@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 // import { Link } from 'react-router-dom';
 import { events } from 'reducers/events';
@@ -24,6 +24,12 @@ export const CreateEvent = () => {
     eventCategory: '',
     eventSummary: ''
   })
+
+  useEffect(() => {
+    if (!accessToken) {
+      navigate('/login')
+    }
+  }, [accessToken, navigate]);
 
   const validationRules = [
     { fieldName: 'eventName',
@@ -107,7 +113,7 @@ export const CreateEvent = () => {
       fetch(API_URL('events/'), options)
         .then((res) => res.json())
         .then((data) => {
-          console.log(data.response)
+          // console.log(data.response)
           dispatch(events.actions.setEventId(data.response._id))
           dispatch(events.actions.setEventName(data.response.eventName))
           dispatch(events.actions.setEventDateAndTime(data.response.eventDateAndTime))

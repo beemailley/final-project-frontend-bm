@@ -33,7 +33,7 @@ export const UserEvents = () => {
         .catch((error) => console.log(error))
         .finally(() => { setLoading(false) })
     } else {
-      console.log('Please log in')
+      alert('Please log in')
     }
   }, [accessToken])
 

@@ -26,6 +26,12 @@ export const SingleEvent = () => {
     eventSummary: ''
   })
 
+  useEffect(() => {
+    if (!accessToken) {
+      navigate('/login')
+    }
+  }, [accessToken, navigate]);
+
   const validationRules = [
     { fieldName: 'eventName',
       validationFunction: (value) => {

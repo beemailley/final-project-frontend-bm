@@ -36,6 +36,12 @@ export const UserProfile = () => {
     // languages: ''
   })
 
+  useEffect(() => {
+    if (!accessToken) {
+      navigate('/login')
+    }
+  }, [accessToken, navigate, currentuser]);
+
   const validationRules = [
     { fieldName: 'firstName',
       validationFunction: (value) => {
@@ -95,12 +101,6 @@ export const UserProfile = () => {
       },
       errorMessage: 'No home country selected' }
   ];
-
-  useEffect(() => {
-    if (!accessToken) {
-      navigate('/login')
-    }
-  }, [accessToken, navigate, currentuser]);
 
   // console.log(accessToken)
 
@@ -377,7 +377,12 @@ export const UserProfile = () => {
               })}
               </p>
               <p>Gender: {profileItems.gender}</p>
-              <p>Birthday: {profileItems.birthday}</p>
+              <p>Birthday: {new Date(profileItems.birthday).toLocaleDateString('en-US', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+              })}
+              </p>
               <p>Interests: {profileItems.interests}</p>
               <p>Current City: {profileItems.currentCity}</p>
               <p>Home Country: {profileItems.homeCountry}</p>

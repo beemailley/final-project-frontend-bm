@@ -74,7 +74,7 @@ export const AllUsers = () => {
               <p>Email address: {eachUser.emailAddress}</p>
               <p>Member since: {formatDateWithSuffix(new Date(eachUser.memberSince))}</p>
               <p>Gender: {eachUser.gender}</p>
-              <p>Birthday: {eachUser.birthday}</p>
+              <p>Birthday: {formatDateWithSuffix(new Date(eachUser.birthday))}</p>
               <p>Interests: {eachUser.interests}</p>
               <p>Current City: {eachUser.currentCity}</p>
               <p>Home Country: {eachUser.homeCountry}</p>
