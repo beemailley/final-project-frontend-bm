@@ -104,6 +104,7 @@ export const CreateEvent = () => {
           dispatch(events.actions.setEventAddress(data.response.eventAddress))
           dispatch(events.actions.setEventCategory(data.response.eventCategory))
           dispatch(events.actions.setEventSummary(data.response.eventSummary))
+          dispatch(events.actions.setCreatedBy(data.response.createdBy))
         // eslint-disable-next-line no-underscore-dangle
         // navigate(`/events/${data.response._id}`)
         })
@@ -191,6 +192,7 @@ export const CreateEvent = () => {
           <p>Address: {event.eventAddress}</p>
           <p>Type of Event: {event.eventCategory}</p>
           <p>Summary: {event.eventSummary}</p>
+          <p>Event Organizer: {event.createdBy}</p>
           {/* eslint-disable-next-line no-underscore-dangle */}
           <button type="button" onClick={() => onViewEventButtonClick(event.eventId)}>View & Edit Event</button>
         </>

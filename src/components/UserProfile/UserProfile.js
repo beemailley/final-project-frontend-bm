@@ -11,8 +11,32 @@ export const UserProfile = () => {
   const accessToken = useSelector((store) => store.user.accessToken)
   const profileItems = useSelector((store) => store.user.items)
   const username = useSelector((store) => store.user.username)
+  const currentuser = useSelector((store) => store.user.currentUserUsername)
   const [validationErrors, setValidationErrors] = useState('')
   const countries = countryList.getNames();
+  // for profile updating
+  const [isEditing, setIsEditing] = useState(false);
+  const [allowedToEdit, setAllowedToEdit] = useState(false)
+  const [updatedProfile, setUpdatedProfile] = useState({
+    firstName: '',
+    lastName: '',
+    emailAddress: '',
+    // memberSince: new Date().toLocaleDateString('en-US', {
+    //   day: 'numeric',
+    //   month: 'long',
+    //   year: 'numeric'
+    // }),
+    gender: 'Select your gender',
+    birthday: new Date().toLocaleDateString('en-US', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    }),
+    interests: 'Select an interest',
+    currentCity: '',
+    homeCountry: 'Select a country'
+    // languages: ''
+  })
 
   const validationRules = [
     { fieldName: 'firstName',
@@ -74,36 +98,29 @@ export const UserProfile = () => {
       errorMessage: 'No home country selected' }
   ];
 
-  // for profile updating
-  const [isEditing, setIsEditing] = useState(false);
-  const [updatedProfile, setUpdatedProfile] = useState({
-    firstName: '',
-    lastName: '',
-    emailAddress: '',
-    // memberSince: new Date().toLocaleDateString('en-US', {
-    //   day: 'numeric',
-    //   month: 'long',
-    //   year: 'numeric'
-    // }),
-    gender: 'Select your gender',
-    birthday: new Date().toLocaleDateString('en-US', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
-    }),
-    interests: 'Select an interest',
-    currentCity: '',
-    homeCountry: 'Select a country'
-    // languages: ''
-  })
-
   useEffect(() => {
     if (!accessToken) {
       navigate('/login')
     }
-  }, [accessToken, navigate, username]);
+  }, [accessToken, navigate, currentuser]);
 
   // console.log(accessToken)
+
+  useEffect(() => {
+    const handleEditPermissions = () => {
+      if (profileItems) {
+        if (username === currentuser) {
+          // console.log('use effect username:', username)
+          // console.log('use effect current user:', currentuser)
+          setAllowedToEdit(true)
+        }
+      } else {
+        setAllowedToEdit(false)
+      }
+    }
+    handleEditPermissions()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [profileItems])
 
   useEffect(() => {
     const options = {
@@ -210,7 +227,7 @@ export const UserProfile = () => {
       fetch(API_URL(`users/${username}/update`), options)
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
+          // console.log(data);
           if (data.success) {
             dispatch(user.actions.setError(null));
             dispatch(user.actions.setItems(data.response));
@@ -225,7 +242,7 @@ export const UserProfile = () => {
   };
 
   const onBackButtonClick = () => {
-    dispatch(user.actions.setUsername(null))
+    dispatch(user.actions.setUsername(''))
     dispatch(user.actions.setItems(null))
     dispatch(user.actions.setError(null))
     navigate('/users')
@@ -342,6 +359,7 @@ export const UserProfile = () => {
         <div>
           {profileItems && (
             <>
+              <p>Username: {profileItems.username}</p>
               <p>First name: {profileItems.firstName}</p>
               <p>Last name: {profileItems.lastName}</p>
               <p>Email address: {profileItems.emailAddress}</p>
@@ -357,7 +375,7 @@ export const UserProfile = () => {
               <p>Current City: {profileItems.currentCity}</p>
               <p>Home Country: {profileItems.homeCountry}</p>
               {/* <p>Languages: {profileItems.languages}</p> */}
-              <button type="button" onClick={handleEditProfileClick}>Edit Profile</button>
+              {allowedToEdit && (<button type="button" onClick={handleEditProfileClick}>Edit Profile</button>)}
             </>
           )}
         </div>

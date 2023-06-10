@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const user = createSlice({
   name: 'user',
   initialState: {
+    currentUserUsername: null,
     username: null,
     email: null,
     userId: null,
@@ -12,6 +13,9 @@ export const user = createSlice({
     profileItems: null
   },
   reducers: {
+    setCurrentUserUsername: (store, action) => {
+      store.currentUserUsername = action.payload
+    },
     setUsername: (store, action) => {
       store.username = action.payload
     },

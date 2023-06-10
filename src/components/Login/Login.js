@@ -36,6 +36,7 @@ export const Login = () => {
         if (data.success) {
           dispatch(user.actions.setAccessToken(data.response.accessToken))
           dispatch(user.actions.setUsername(data.response.username))
+          dispatch(user.actions.setCurrentUserUsername(data.response.username))
           dispatch(user.actions.setEmail(data.response.emailAddress))
           dispatch(user.actions.setUserId(data.response.id))
           dispatch(user.actions.setError(null))

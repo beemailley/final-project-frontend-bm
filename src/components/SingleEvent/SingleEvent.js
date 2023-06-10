@@ -10,8 +10,10 @@ export const SingleEvent = () => {
   const { eventId } = useParams()
   const accessToken = useSelector((store) => store.user.accessToken)
   const event = useSelector((store) => store.events)
+  const currentuser = useSelector((store) => store.user.currentUserUsername)
   // to edit an event
   const [isEditing, setIsEditing] = useState(false)
+  const [allowedToEdit, setAllowedToEdit] = useState(false)
   const [validationErrors, setValidationErrors] = useState('')
   const [updatedEvent, setUpdatedEvent] = useState({
     eventName: '',
@@ -52,6 +54,19 @@ export const SingleEvent = () => {
       },
       errorMessage: 'Invalid event name' }
   ];
+
+  useEffect(() => {
+    const handleEditPermissions = () => {
+      if (event.createdBy === currentuser) {
+        // console.log(event.createdBy)
+        // console.log(currentuser)
+        setAllowedToEdit(true)
+      } else {
+        setAllowedToEdit(false)
+      }
+    }
+    handleEditPermissions()
+  }, [event.createdBy, currentuser])
 
   useEffect(() => {
     const options = {
@@ -180,8 +195,9 @@ export const SingleEvent = () => {
           <p>Address: {event.eventAddress}</p>
           <p>Type of Event: {event.eventCategory}</p>
           <p>Summary: {event.eventSummary}</p>
+          <p>Event Organizer: {event.createdBy}</p>
           <button type="button" onClick={onBackButtonClick}>Back</button>
-          <button type="button" onClick={onEditButtonClick}>Edit</button>
+          {allowedToEdit && (<button type="button" onClick={onEditButtonClick}>Edit</button>)}
         </>
       )}
       {isEditing && (
@@ -238,6 +254,7 @@ export const SingleEvent = () => {
                 value={updatedEvent.eventSummary}
                 onChange={handleInputChange} />
             </label>
+            <p>Event Organizer: {event.createdBy}</p>
             <button type="submit">Submit</button>
           </form>
         </>)}

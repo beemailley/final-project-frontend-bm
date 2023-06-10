@@ -9,6 +9,7 @@ export const AllUsers = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const accessToken = useSelector((store) => store.user.accessToken)
+  // const currentuser = useSelector((store) => store.user.currentUserUsername)
   const [userList, setUserList] = useState([])
   const [loading, setLoading] = useState(false)
 
@@ -20,6 +21,7 @@ export const AllUsers = () => {
 
   useEffect(() => {
     if (accessToken) {
+      // console.log('start page:', currentuser)
       setLoading(true);
       const options = {
         method: 'GET',
@@ -35,9 +37,10 @@ export const AllUsers = () => {
         .catch((error) => console.log(error))
         .finally(() => { setLoading(false) })
     } else {
-      console.log('Please log in')
+      alert('Please log in')
     }
-  }, [accessToken])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const formatDateWithSuffix = (date) => {
     const options = { day: 'numeric', month: 'long', year: 'numeric' };
@@ -46,6 +49,7 @@ export const AllUsers = () => {
 
   const onLogoutButtonClick = () => {
     dispatch(user.actions.setAccessToken(null))
+    dispatch(user.actions.setCurrentUserUsername(null))
     dispatch(user.actions.setUsername(null))
     dispatch(user.actions.setItems(null))
     dispatch(user.actions.setError(null))
@@ -64,6 +68,7 @@ export const AllUsers = () => {
         {userList.map((eachUser) => {
           return (
             <div key={eachUser._id}>
+              <p>Username: {eachUser.username}</p>
               <p>First Name: {eachUser.firstName}</p>
               <p>Last name: {eachUser.lastName}</p>
               <p>Email address: {eachUser.emailAddress}</p>

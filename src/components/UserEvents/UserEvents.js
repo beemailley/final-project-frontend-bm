@@ -65,6 +65,7 @@ export const UserEvents = () => {
               <p>Address: {event.eventAddress}</p>
               <p>Type of Event: {event.eventCategory}</p>
               <p>Summary: {event.eventSummary}</p>
+              <p>Event Organizer: {event.createdBy}</p>
               <button type="button" onClick={() => onViewEventButtonClick(event._id)}>View Event</button>
             </div>
           )
