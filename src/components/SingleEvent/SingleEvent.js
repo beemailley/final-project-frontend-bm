@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { events } from 'reducers/events';
 import { useNavigate, useParams } from 'react-router-dom';
 import { API_URL } from 'utils/urls';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 export const SingleEvent = () => {
   const navigate = useNavigate();
@@ -17,7 +19,7 @@ export const SingleEvent = () => {
   const [validationErrors, setValidationErrors] = useState('')
   const [updatedEvent, setUpdatedEvent] = useState({
     eventName: '',
-    // eventDateAndTime: new Date(),
+    eventDateAndTime: new Date(),
     eventVenue: '',
     eventAddress: '',
     eventCategory: '',
@@ -89,7 +91,7 @@ export const SingleEvent = () => {
           dispatch(events.actions.setCreatedBy(data.response.createdBy))
           setUpdatedEvent({
             eventName: data.response.eventName || '',
-            // eventDateAndTime: data.response.eventDateAndTime || new Date(),
+            eventDateAndTime: new Date(data.response.eventDateAndTime) || new Date(),
             eventVenue: data.response.eventVenue || '',
             eventAddress: data.response.eventAddress || '',
             eventCategory: data.response.eventCategory || '',
@@ -125,13 +127,22 @@ export const SingleEvent = () => {
   }
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setUpdatedEvent((prevState) => {
-      // eslint-disable-next-line prefer-object-spread
-      const updatedState = Object.assign({}, prevState);
-      updatedState[name] = value;
-      return updatedState;
-    });
+    if (e.target) {
+      const { name, value } = e.target;
+      setUpdatedEvent((prevState) => {
+        // eslint-disable-next-line prefer-object-spread
+        const updatedState = Object.assign({}, prevState);
+        updatedState[name] = value;
+        return updatedState;
+      });
+    } else if (e) {
+      setUpdatedEvent((prevState) => {
+        // eslint-disable-next-line prefer-object-spread
+        const updatedState = Object.assign({}, prevState);
+        updatedState.eventDateAndTime = e;
+        return updatedState;
+      });
+    }
   }
 
   const onFormSubmit = (e) => {
@@ -167,6 +178,7 @@ export const SingleEvent = () => {
         .then((res) => res.json())
         .then((data) => {
           dispatch(events.actions.setEventName(data.response.eventName))
+          dispatch(events.actions.setEventDateAndTime(data.response.eventDateAndTime))
           dispatch(events.actions.setEventVenue(data.response.eventVenue))
           dispatch(events.actions.setEventAddress(data.response.eventAddress))
           dispatch(events.actions.setEventCategory(data.response.eventCategory))
@@ -212,14 +224,20 @@ export const SingleEvent = () => {
                 value={updatedEvent.eventName}
                 onChange={handleInputChange} />
             </label>
-            {/* <label htmlFor="eventdateandtime">
-              Event Date and Time:
-              <input
-                type="date"
-                name="eventdateandtime"
-                value={updatedEvent.eventDateAndTime}
-                onChange={(e) => setUpdatedEvent({ eventDateAndTime: e.target.value })} />
-            </label> */}
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+            <label htmlFor="eventdateandtime">
+            When is the event?
+              <DatePicker
+                id="eventdateandtime"
+                name="eventDateAndTime"
+                selected={updatedEvent.eventDateAndTime}
+                onChange={handleInputChange}
+                showTimeSelect
+                timeFormat="HH:mm"
+                timeIntervals={30}
+                timeCaption="time"
+                dateFormat="MMMM d, yyyy h:mm aa" />
+            </label>
             <label htmlFor="eventVenue">
               Event Venue:
               <input

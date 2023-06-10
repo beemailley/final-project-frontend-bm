@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { events } from 'reducers/events';
 import { useNavigate } from 'react-router-dom';
 import { API_URL } from 'utils/urls';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 export const CreateEvent = () => {
   const navigate = useNavigate();
@@ -16,7 +18,7 @@ export const CreateEvent = () => {
   const [validationErrors, setValidationErrors] = useState('')
   const [newEvent, setNewEvent] = useState({
     eventName: '',
-    // eventDateAndTime: new Date(),
+    eventDateAndTime: new Date(),
     eventVenue: '',
     eventAddress: '',
     eventCategory: '',
@@ -55,13 +57,22 @@ export const CreateEvent = () => {
   ];
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewEvent((prevState) => {
-      // eslint-disable-next-line prefer-object-spread
-      const updatedState = Object.assign({}, prevState);
-      updatedState[name] = value;
-      return updatedState;
-    });
+    if (e.target) {
+      const { name, value } = e.target;
+      setNewEvent((prevState) => {
+        // eslint-disable-next-line prefer-object-spread
+        const updatedState = Object.assign({}, prevState);
+        updatedState[name] = value;
+        return updatedState;
+      });
+    } else if (e) {
+      setNewEvent((prevState) => {
+        // eslint-disable-next-line prefer-object-spread
+        const updatedState = Object.assign({}, prevState);
+        updatedState.eventDateAndTime = e;
+        return updatedState;
+      });
+    }
   }
 
   const onFormSubmit = (e) => {
@@ -129,14 +140,20 @@ export const CreateEvent = () => {
                 name="eventName"
                 onChange={handleInputChange} />
             </label>
-            {/* <label htmlFor="eventdateandtime">
-              Event Date and Time:
-              <input
-                type="date"
-                name="eventdateandtime"
-                value={updatedEvent.eventDateAndTime}
-                onChange={(e) => setUpdatedEvent({ eventDateAndTime: e.target.value })} />
-            </label> */}
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+            <label htmlFor="eventdateandtime">
+            When is the event?
+              <DatePicker
+                id="eventdateandtime"
+                name="eventDateAndTime"
+                selected={newEvent.eventDateAndTime}
+                onChange={handleInputChange}
+                showTimeSelect
+                timeFormat="HH:mm"
+                timeIntervals={30}
+                timeCaption="time"
+                dateFormat="MMMM d, yyyy h:mm aa" />
+            </label>
             <label htmlFor="eventVenue">
               Event Venue:
               <input

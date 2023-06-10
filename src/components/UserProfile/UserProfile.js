@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { API_URL } from 'utils/urls';
 import { user } from 'reducers/user';
 import countryList from 'country-list';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 export const UserProfile = () => {
   const dispatch = useDispatch()
@@ -27,11 +29,7 @@ export const UserProfile = () => {
     //   year: 'numeric'
     // }),
     gender: 'Select your gender',
-    birthday: new Date().toLocaleDateString('en-US', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
-    }),
+    birthday: new Date(),
     interests: 'Select an interest',
     currentCity: '',
     homeCountry: 'Select a country'
@@ -156,13 +154,9 @@ export const UserProfile = () => {
             firstName: firstName || '',
             lastName: lastName || '',
             emailAddress: emailAddress || '',
-            memberSince: memberSince || new Date().toLocaleDateString('en-US', {
-              day: 'numeric',
-              month: 'long',
-              year: 'numeric'
-            }),
+            memberSince: memberSince || new Date(),
             gender: gender || 'Select your gender',
-            birthday: birthday || '',
+            birthday: new Date(birthday) || new Date(),
             interests: interests || '',
             currentCity: currentCity || '',
             homeCountry: homeCountry || ''
@@ -186,15 +180,23 @@ export const UserProfile = () => {
   }
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-
-    setUpdatedProfile((prevState) => {
-      // eslint-disable-next-line prefer-object-spread
-      const updatedState = Object.assign({}, prevState);
-      updatedState[name] = value;
-      return updatedState;
-    });
-  };
+    if (e.target) {
+      const { name, value } = e.target;
+      setUpdatedProfile((prevState) => {
+        // eslint-disable-next-line prefer-object-spread
+        const updatedState = Object.assign({}, prevState);
+        updatedState[name] = value;
+        return updatedState;
+      });
+    } else if (e) {
+      setUpdatedProfile((prevState) => {
+        // eslint-disable-next-line prefer-object-spread
+        const updatedState = Object.assign({}, prevState);
+        updatedState.birthday = e;
+        return updatedState;
+      });
+    }
+  }
 
   const handleSaveProfileClick = () => {
     if (isEditing) {
@@ -293,13 +295,18 @@ export const UserProfile = () => {
             </select>
             <br />
           </label>
-          <label htmlFor="Birthday:">
-            Birthday:
-            <input
-              type="text"
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+          <label htmlFor="birthday">
+            When is your birthday?
+            <DatePicker
+              id="birthday"
               name="birthday"
-              value={updatedProfile.birthday}
-              onChange={handleInputChange} /><br />
+              selected={updatedProfile.birthday}
+              onChange={handleInputChange}
+              peekNextMonth
+              showMonthDropdown
+              showYearDropdown
+              dropdownMode="select" />
           </label>
           <label htmlFor="Interests:">
             Interests:
