@@ -1,5 +1,5 @@
 import React from 'react';
-import { Introduction, BridgetWrapper, BridgetInformation, FionaWrapper, FionaInformation, LinksWrapper, Img } from './AboutUs.styles'
+import { Introduction, BridgetWrapper, BridgetInformation, FionaWrapper, FionaInformation, LinksWrapper, ImgContainerBridget, ImgContainerFiona, Img } from './AboutUs.styles'
 import BridgetMailley from '../../images/BridgetMailley.jpg';
 import FionaKlacar from '../../images/FionaKlacar.jpg';
 
@@ -29,10 +29,14 @@ export const AboutUs = () => {
             <p>Social media icons</p>
           </LinksWrapper>
         </BridgetInformation>
-        <Img src={BridgetMailley} alt="Bridget Mailley" />
+        <ImgContainerBridget>
+          <Img src={BridgetMailley} alt="Bridget Mailley" />
+        </ImgContainerBridget>
       </BridgetWrapper>
       <FionaWrapper>
-        <Img src={FionaKlacar} alt="Fiona Klacar" />
+        <ImgContainerFiona>
+          <Img src={FionaKlacar} alt="Fiona Klacar" />
+        </ImgContainerFiona>
         <FionaInformation>
           <h2>Fiona Klacar</h2>
           <p>Fiona is...</p>

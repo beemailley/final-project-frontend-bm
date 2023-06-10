@@ -8,6 +8,7 @@ export const Introduction = styled.div`
 export const BridgetWrapper = styled.div`
     display: flex;
     flex-direction: row;
+    justify-content: space-between; // add padding? Or stick with space-evenly?
 `
 export const BridgetInformation = styled.div`
     display: flex;
@@ -18,6 +19,7 @@ export const BridgetInformation = styled.div`
 export const FionaWrapper = styled.div`
     display: flex;
     flex-direction: row;
+    justify-content: space-evenly;
 `
 export const FionaInformation = styled.div`
     display: flex;
@@ -28,6 +30,17 @@ export const FionaInformation = styled.div`
 export const LinksWrapper = styled.div`
     display: flex;
     flex-direction: row;
+`
+
+export const ImgContainerBridget = styled.div`
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+`
+
+export const ImgContainerFiona = styled.div`
+    display: flex;
+    align-items: center;
 `
 
 export const Img = styled.img`
