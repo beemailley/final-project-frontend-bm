@@ -13,9 +13,10 @@ export const InnerWrapper = styled.div`
     width: 90vw;
     height: 80vh;
     margin: 0 auto;
-    /* border: 2px solid green; */
+    /* border: 2px solid #EEEEEE; */
     border-radius: 20px;
-    background-color: #E8AA42;
+    /* background-color: #025464; */
+    background-color: #00ADB5;
     margin-top: 10%;
     overflow-y: auto;
 

@@ -1,13 +1,29 @@
 import styled from 'styled-components';
 
+export const CardContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    background-color: white;
+    margin-top: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 10%;
+
+`
 export const Introduction = styled.div`
     display: flex;
     flex-direction: column;
     margin-left: 2%;
+`
 
-    h1 {
-        text-align: center;
-    }
+export const TitleAboutUs = styled.h1`
+    text-align: center;
+    color: #FFFFFF;
+    margin-top: 10%;
+    font-size: 30px;
 `
 export const BridgetWrapper = styled.div`
     display: flex;
@@ -18,6 +34,10 @@ export const BridgetInformation = styled.div`
     display: flex;
     flex-direction: column;
     margin-left: 2%;
+
+    h2 {
+        color: #FF5722;
+    }
 `
 
 export const FionaWrapper = styled.div`
@@ -29,6 +49,10 @@ export const FionaInformation = styled.div`
     display: flex;
     flex-direction: column;
     margin-left: 2%;
+
+    h2 {
+        color: #FF5722;
+    }
 `
 
 export const LinksWrapper = styled.div`
@@ -37,7 +61,11 @@ export const LinksWrapper = styled.div`
     margin-bottom: 10px;
     gap: 5%;
 `
-
+export const CoffeeIconContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    display: none;
+`
 export const CoffeeIcon = styled.img`
     height: 50%;
     width: 50%;
