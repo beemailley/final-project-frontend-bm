@@ -12,7 +12,7 @@ export const Introduction = styled.div`
 export const BridgetWrapper = styled.div`
     display: flex;
     flex-direction: row;
-    justify-content: space-between; // add padding? Or stick with space-evenly?
+    justify-content: space-evenly; // add padding? Or stick with space-evenly?
 `
 export const BridgetInformation = styled.div`
     display: flex;
@@ -38,6 +38,10 @@ export const LinksWrapper = styled.div`
     gap: 5%;
 `
 
+export const CoffeeIcon = styled.img`
+    height: 50%;
+    width: 50%;
+`
 export const Icon = styled.img`
     width: 20px;
     height: 20px;

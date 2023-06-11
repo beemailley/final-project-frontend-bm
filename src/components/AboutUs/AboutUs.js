@@ -1,10 +1,11 @@
 import React from 'react';
-import { Introduction, BridgetWrapper, BridgetInformation, FionaWrapper, FionaInformation, LinksWrapper, Icon, ImgContainerBridget, ImgContainerFiona, Img } from './AboutUs.styles'
+import { Introduction, BridgetWrapper, BridgetInformation, FionaWrapper, FionaInformation, LinksWrapper, Icon, CoffeeIcon, ImgContainerBridget, ImgContainerFiona, Img } from './AboutUs.styles'
 import BridgetMailley from '../../images/BridgetMailley.jpg';
 import FionaKlacar from '../../images/FionaKlacar.jpg';
 import linkedInIcon from '../../images/linkedin.svg';
 import githubIcon from '../../images/github.svg';
 import laptopIcon from '../../images/laptop.svg';
+import CoffeeMugsIcon from '../../images/CoffeeMugsIcon.jpg';
 
 export const AboutUs = () => {
   return (
@@ -20,8 +21,11 @@ export const AboutUs = () => {
         <br />
         <p style={{ textAlign: 'center' }}>
   Samla: Where you can find your people.
-
         </p>
+        <CoffeeIcon
+          src={CoffeeMugsIcon}
+          alt="Coffee mugs icon"
+          aria-label="" />
       </Introduction>
 
       <BridgetWrapper>
