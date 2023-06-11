@@ -34,7 +34,19 @@ export const FionaInformation = styled.div`
 export const LinksWrapper = styled.div`
     display: flex;
     flex-direction: row;
+    margin-bottom: 10px;
+    gap: 5%;
 `
+
+export const Icon = styled.img`
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+
+    &:hover {
+    transform: scale(1.2);
+    }
+    `
 
 export const ImgContainerBridget = styled.div`
     display: flex;

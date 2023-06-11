@@ -1,7 +1,10 @@
 import React from 'react';
-import { Introduction, BridgetWrapper, BridgetInformation, FionaWrapper, FionaInformation, LinksWrapper, ImgContainerBridget, ImgContainerFiona, Img } from './AboutUs.styles'
+import { Introduction, BridgetWrapper, BridgetInformation, FionaWrapper, FionaInformation, LinksWrapper, Icon, ImgContainerBridget, ImgContainerFiona, Img } from './AboutUs.styles'
 import BridgetMailley from '../../images/BridgetMailley.jpg';
 import FionaKlacar from '../../images/FionaKlacar.jpg';
+import linkedInIcon from '../../images/linkedin.svg';
+import githubIcon from '../../images/github.svg';
+import laptopIcon from '../../images/laptop.svg';
 
 export const AboutUs = () => {
   return (
@@ -26,7 +29,24 @@ export const AboutUs = () => {
           <h2>Bridget Mailley</h2>
           <p>Bridget is...</p>
           <LinksWrapper>
-            <p>Social media icons</p>
+            <a href="" target="_blank" rel="noopener noreferrer">
+              <Icon
+                src={linkedInIcon}
+                alt="LinkedIn icon"
+                aria-label="view Bridget's linkedIn page" />
+            </a>
+            <a href="" target="_blank" rel="noopener noreferrer">
+              <Icon
+                src={githubIcon}
+                alt="GitHub icon"
+                aria-label="view Bridget's GitHub page" />
+            </a>
+            <a href="" target="_blank" rel="noopener noreferrer">
+              <Icon
+                src={laptopIcon}
+                alt="Laptop icon"
+                aria-label="view Bridget's portfolio" />
+            </a>
           </LinksWrapper>
         </BridgetInformation>
         <ImgContainerBridget>
@@ -41,7 +61,24 @@ export const AboutUs = () => {
           <h2>Fiona Klacar</h2>
           <p>Fiona is...</p>
           <LinksWrapper>
-            <p>Social media icons</p>
+            <a href="https://www.linkedin.com/in/fiona-klacar/" target="_blank" rel="noopener noreferrer">
+              <Icon
+                src={linkedInIcon}
+                alt="LinkedIn icon"
+                aria-label="view Fiona's linkedIn page" />
+            </a>
+            <a href="https://github.com/FionaKlacar" target="_blank" rel="noopener noreferrer">
+              <Icon
+                src={githubIcon}
+                alt="GitHub icon"
+                aria-label="view Fiona's GitHub page" />
+            </a>
+            <a href="https://fiona-klacar-portfolio.netlify.app/" target="_blank" rel="noopener noreferrer">
+              <Icon
+                src={laptopIcon}
+                alt="Laptop icon"
+                aria-label="view Fiona's portfolio" />
+            </a>
           </LinksWrapper>
         </FionaInformation>
       </FionaWrapper>
