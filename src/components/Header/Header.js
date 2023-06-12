@@ -1,18 +1,19 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { user } from 'reducers/user';
 
 export const Header = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate();
-  const accessToken = useSelector((store) => store.user.accessToken)
+  const accessToken = JSON.parse(localStorage.getItem('accessToken'))
 
   const onLogoutButtonClick = () => {
     dispatch(user.actions.setAccessToken(null))
     dispatch(user.actions.setUsername(null))
     dispatch(user.actions.setItems(null))
     dispatch(user.actions.setError(null))
+    localStorage.clear();
     navigate('/')
   }
   return (

@@ -35,6 +35,7 @@ export const Login = () => {
         // console.log(data)
         if (data.success) {
           dispatch(user.actions.setAccessToken(data.response.accessToken))
+          localStorage.setItem('accessToken', JSON.stringify(data.response.accessToken))
           dispatch(user.actions.setUsername(data.response.username))
           dispatch(user.actions.setCurrentUserUsername(data.response.username))
           dispatch(user.actions.setEmail(data.response.emailAddress))
@@ -86,6 +87,7 @@ export const Login = () => {
             <input
               type="email"
               id="email"
+              required
               value={emailAddress}
               onChange={(e) => setEmailAddress(e.target.value)} /><br />
           </label>)}
