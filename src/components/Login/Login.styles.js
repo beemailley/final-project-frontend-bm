@@ -10,6 +10,7 @@ export const ModeWrapper = styled.div`
      label {
         font-size: 16px;
         font-weight: bold;
+        color: white;
     }
 `
 
