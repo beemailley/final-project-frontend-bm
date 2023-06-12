@@ -1,14 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { HeaderWrapper, LogoContainer, LinkWrapper } from './Header.styles';
+import { HeaderWrapper, LogoContainer, LinkWrapper, SamlaLogoImg } from './Header.styles';
+import SamlaLogo from '../../images/SamlaLogo.png'
 
 export const Header = () => {
   const username = useSelector((store) => store.user.username);
   return (
     <HeaderWrapper>
       <LogoContainer>
-        <h1>EXPAT APP</h1>
+        <SamlaLogoImg
+          src={SamlaLogo}
+          alt="Brand logo"
+          aria-label="" />
       </LogoContainer>
       <LinkWrapper>
         <h3><Link to="/"> Home </Link></h3>

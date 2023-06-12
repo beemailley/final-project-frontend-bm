@@ -8,7 +8,8 @@ export const HeaderWrapper = styled.section`
     /* padding-right: 10%;
     padding-left: 10%; */
     justify-content: space-between;
-    border: 2px red solid;
+    /* border: 2px red solid; */
+    background-color: #F8F1F1;
 
     @media (max-width: 667px){
 
@@ -23,6 +24,18 @@ export const LogoContainer = styled.div`
   display: flex;
   padding-left: 2px;
 `
+
+export const SamlaLogoImg = styled.img`
+    display: flex;
+    justify-content: center;
+    /* display: block;
+    margin: 0 auto; */
+    height: 40px;
+    width: 70px;
+    border-radius: 10px;
+    
+`
+
 export const LinkWrapper = styled.div`
     display: flex;
     flex-wrap: wrap;
