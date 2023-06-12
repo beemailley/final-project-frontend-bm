@@ -10,9 +10,9 @@ export const SingleEvent = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch()
   const { eventId } = useParams()
-  const accessToken = useSelector((store) => store.user.accessToken)
+  const accessToken = JSON.parse(localStorage.getItem('accessToken'))
   const event = useSelector((store) => store.events)
-  const currentuser = useSelector((store) => store.user.currentUserUsername)
+  const currentuser = JSON.parse(localStorage.getItem('currentUserUsername'))
   // to edit an event
   const [isEditing, setIsEditing] = useState(false)
   const [allowedToEdit, setAllowedToEdit] = useState(false)
@@ -194,6 +194,19 @@ export const SingleEvent = () => {
     }
   }
 
+  const addAttendee = () => {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: accessToken
+      }
+    }
+    fetch(API_URL(`events/${eventId}/attendees`), options)
+      .then((res) => res.json())
+      .then(alert('Thanks for joining! The event organizer will be notified.'))
+  }
+
   return (
     <>
       {!isEditing && (
@@ -214,6 +227,13 @@ export const SingleEvent = () => {
           <p>Type of Event: {event.eventCategory}</p>
           <p>Summary: {event.eventSummary}</p>
           <p>Event Organizer: {event.createdBy}</p>
+          {/* <p>Attendees:</p>
+          {event.eventAttendees.map((attendee) => {
+            return (
+              <p>{attendee.attendeeName}</p>
+            )
+          })} */}
+          <button type="button" onClick={addAttendee}>Join the Event!</button>
           <button type="button" onClick={onBackButtonClick}>Back</button>
           {allowedToEdit && (<button type="button" onClick={onEditButtonClick}>Edit</button>)}
         </>

@@ -38,6 +38,7 @@ export const Login = () => {
           localStorage.setItem('accessToken', JSON.stringify(data.response.accessToken))
           dispatch(user.actions.setUsername(data.response.username))
           dispatch(user.actions.setCurrentUserUsername(data.response.username))
+          localStorage.setItem('currentUserUsername', JSON.stringify(data.response.username))
           dispatch(user.actions.setEmail(data.response.emailAddress))
           dispatch(user.actions.setUserId(data.response.id))
           dispatch(user.actions.setError(null))

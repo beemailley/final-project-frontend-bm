@@ -10,10 +10,10 @@ import 'react-datepicker/dist/react-datepicker.css';
 export const UserProfile = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const accessToken = useSelector((store) => store.user.accessToken)
+  const accessToken = JSON.parse(localStorage.getItem('accessToken'))
   const profileItems = useSelector((store) => store.user.items)
   const username = useSelector((store) => store.user.username)
-  const currentuser = useSelector((store) => store.user.currentUserUsername)
+  const currentuser = JSON.parse(localStorage.getItem('currentUserUsername'))
   const [validationErrors, setValidationErrors] = useState('')
   const countries = countryList.getNames();
   // for profile updating
@@ -40,7 +40,8 @@ export const UserProfile = () => {
     if (!accessToken) {
       navigate('/login')
     }
-  }, [accessToken, navigate, currentuser]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [accessToken, currentuser]);
 
   const validationRules = [
     { fieldName: 'firstName',
@@ -102,14 +103,10 @@ export const UserProfile = () => {
       errorMessage: 'No home country selected' }
   ];
 
-  // console.log(accessToken)
-
   useEffect(() => {
     const handleEditPermissions = () => {
       if (profileItems) {
         if (username === currentuser) {
-          // console.log('use effect username:', username)
-          // console.log('use effect current user:', currentuser)
           setAllowedToEdit(true)
         }
       } else {
@@ -162,6 +159,7 @@ export const UserProfile = () => {
             homeCountry: homeCountry || ''
             // languages: languages || ''
           });
+          console.log('profileitems:', profileItems)
         } else {
           dispatch(user.actions.setError(data.response))
           dispatch(user.actions.setItems([]))
@@ -172,7 +170,8 @@ export const UserProfile = () => {
         dispatch(user.actions.setError('Error retrieving user profile'))
         dispatch(user.actions.setItems([]))
       })
-  }, [accessToken, dispatch, username])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [accessToken, username])
 
   // for profile updating
   const handleEditProfileClick = () => {
@@ -252,9 +251,10 @@ export const UserProfile = () => {
 
   return (
     <>
-      {username ? <h2>{username.toUpperCase()}&apos;s profile</h2> : ''}
-      {/* {console.log(profileItems, 'profile items')} */}
-      {isEditing ? (
+      {/* eslint-disable-next-line max-len */}
+      {username ? <h2>{username.toUpperCase()}&apos;s profile</h2> : <h2>Please return to the All Users page.</h2>}
+      {console.log(profileItems, 'profile items')}
+      {isEditing && (
         // render the form fields for editing
         <div>
           <label htmlFor="First name:">
@@ -361,37 +361,37 @@ export const UserProfile = () => {
           </label>
           <button type="button" onClick={() => handleSaveProfileClick()}>Save changes</button>
         </div>
-      ) : (
-        // render the static profile information
-        <div>
-          {profileItems && (
-            <>
-              <p>Username: {profileItems.username}</p>
-              <p>First name: {profileItems.firstName}</p>
-              <p>Last name: {profileItems.lastName}</p>
-              <p>Email address: {profileItems.emailAddress}</p>
-              <p>Member since: {new Date(profileItems.memberSince).toLocaleDateString('en-US', {
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric'
-              })}
-              </p>
-              <p>Gender: {profileItems.gender}</p>
-              <p>Birthday: {new Date(profileItems.birthday).toLocaleDateString('en-US', {
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric'
-              })}
-              </p>
-              <p>Interests: {profileItems.interests}</p>
-              <p>Current City: {profileItems.currentCity}</p>
-              <p>Home Country: {profileItems.homeCountry}</p>
-              {/* <p>Languages: {profileItems.languages}</p> */}
-              {allowedToEdit && (<button type="button" onClick={handleEditProfileClick}>Edit Profile</button>)}
-            </>
-          )}
-        </div>
       )}
+      {/* render the static profile information */}
+      <div>
+        {profileItems && profileItems.username && (
+          <>
+            <p>Username: {profileItems.username}</p>
+            <p>First name: {profileItems.firstName}</p>
+            <p>Last name: {profileItems.lastName}</p>
+            <p>Email address: {profileItems.emailAddress}</p>
+            <p>Member since: {new Date(profileItems.memberSince).toLocaleDateString('en-US', {
+              day: 'numeric',
+              month: 'long',
+              year: 'numeric'
+            })}
+            </p>
+            <p>Gender: {profileItems.gender}</p>
+            <p>Birthday: {new Date(profileItems.birthday).toLocaleDateString('en-US', {
+              day: 'numeric',
+              month: 'long',
+              year: 'numeric'
+            })}
+            </p>
+            <p>Interests: {profileItems.interests}</p>
+            <p>Current City: {profileItems.currentCity}</p>
+            <p>Home Country: {profileItems.homeCountry}</p>
+            {/* <p>Languages: {profileItems.languages}</p> */}
+            {allowedToEdit && (<button type="button" onClick={handleEditProfileClick}>Edit Profile</button>)}
+          </>
+        )}
+      </div>
+
       <button type="button" onClick={onBackButtonClick}>Back</button>
       {validationErrors.firstName && <p>{validationErrors.firstName}</p>}
       {validationErrors.lastName && <p>{validationErrors.lastName}</p>}

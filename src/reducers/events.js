@@ -8,7 +8,7 @@ const initialState = {
   eventAddress: null,
   eventCategory: null,
   eventSummary: null,
-  eventAttendees: null,
+  // eventAttendees: null,
   createdBy: null
 }
 
@@ -37,9 +37,9 @@ export const events = createSlice({
     setEventSummary: (store, action) => {
       store.eventSummary = action.payload
     },
-    setEventAttendees: (store, action) => {
-      store.eventAttendees = action.payload
-    },
+    // setEventAttendees: (store, action) => {
+    //   store.eventAttendees = action.payload
+    // },
     setCreatedBy: (store, action) => {
       store.createdBy = action.payload
     }

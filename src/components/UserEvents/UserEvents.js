@@ -1,12 +1,12 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+// import { useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom';
 import { API_URL } from 'utils/urls';
 
 export const UserEvents = () => {
   const navigate = useNavigate()
-  const accessToken = useSelector((store) => store.user.accessToken)
+  const accessToken = JSON.parse(localStorage.getItem('accessToken'))
   const [eventsList, setEventsList] = useState([])
   const [loading, setLoading] = useState(false)
 

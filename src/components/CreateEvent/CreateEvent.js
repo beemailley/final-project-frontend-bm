@@ -12,7 +12,7 @@ export const CreateEvent = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch()
   // const { eventId } = useParams()
-  const accessToken = useSelector((store) => store.user.accessToken)
+  const accessToken = JSON.parse(localStorage.getItem('accessToken'))
   const event = useSelector((store) => store.events)
   const [isEditing, setIsEditing] = useState(true)
   const [validationErrors, setValidationErrors] = useState('')
@@ -200,8 +200,9 @@ export const CreateEvent = () => {
       )}
       {!isEditing && (
         <>
-          <p>Summary for New Event</p>
-          <p>Event: {event.eventName}</p>
+          <p>Your event has been created!</p>
+          <p>Please click below to view and edit your event.</p>
+          {/* <p>Event: {event.eventName}</p>
           <p>Date: {new Date(event.eventDateAndTime).toLocaleDateString('en-US', {
             day: 'numeric',
             month: 'long',
@@ -215,7 +216,7 @@ export const CreateEvent = () => {
           <p>Address: {event.eventAddress}</p>
           <p>Type of Event: {event.eventCategory}</p>
           <p>Summary: {event.eventSummary}</p>
-          <p>Event Organizer: {event.createdBy}</p>
+          <p>Event Organizer: {event.createdBy}</p> */}
           {/* eslint-disable-next-line no-underscore-dangle */}
           <button type="button" onClick={() => onViewEventButtonClick(event.eventId)}>View & Edit Event</button>
         </>
