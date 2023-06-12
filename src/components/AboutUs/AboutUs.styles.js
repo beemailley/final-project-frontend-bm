@@ -6,11 +6,12 @@ export const CardContainer = styled.div`
     align-items: center;
     justify-content: center;
     border-radius: 20px;
-    background-color: white;
+    background-color: #F8F1F1;
     margin-top: 10%;
     margin-left: 10%;
     margin-right: 10%;
     margin-bottom: 10%;
+
 
 `
 export const Introduction = styled.div`
@@ -43,7 +44,7 @@ export const BridgetInformation = styled.div`
 export const FionaWrapper = styled.div`
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
 `
 export const FionaInformation = styled.div`
     display: flex;

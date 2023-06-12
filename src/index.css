@@ -12,20 +12,18 @@ code {
   /* font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace; */
     font-family: 'Montserrat', sans-serif;
-    font-family: 'Raleway', sans-serif;
     font-family: 'Lato', sans-serif;
-    font-family: 'Oxygen', sans-serif;  
 }
 
 h1, h2 {
-  /* font-family: 'Raleway'; */
-  font-family: 'Lato', sans-serif;
+    font-family: 'Montserrat';
+
 
 }
 
 p {
-  /* font-family: 'Montserrat'; */
-  font-family: 'Oxygen', sans-serif;
+  font-family: 'Lato', sans-serif;
+  line-height: 1.4;
   font-size: 16px;
 }
 

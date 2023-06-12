@@ -12,10 +12,10 @@ import { AboutUs } from 'components/AboutUs/AboutUs'
 import { NotFound } from 'components/NotFound/NotFound'
 import { user } from 'reducers/user';
 import { events } from 'reducers/events'
-import { Header } from 'components/Header/Header'
+import { Layout } from 'components/Layout'
 import { SingleEvent } from 'components/SingleEvent/SingleEvent'
 import { CreateEvent } from 'components/CreateEvent/CreateEvent'
-import { OuterWrapper, InnerWrapper } from 'components/GlobalStyles'
+import { OuterWrapper } from 'components/GlobalStyles'
 
 // import { socket } from './socket';
 // import { ConnectionState } from './components/ConnectionState';
@@ -67,22 +67,19 @@ export const App = () => {
         <Events events={fooEvents} />
         <MyForm /> */}
         <OuterWrapper>
-          <Header />
-          <InnerWrapper>
-            <Routes>
-              <Route path="/" element={<Welcome />} />
-              {/* <Route path="/myform" element={<MyForm />} /> */}
-              <Route path="/login" element={<Login />} />
-              <Route path="/users/:username" element={<UserProfile />} />
-              <Route path="/users" element={<AllUsers />} />
-              {/* <Route path="/cityevents" element={<CityEvents />} /> */}
-              <Route path="/events" element={<UserEvents />} />
-              <Route path="/events/create" element={<CreateEvent />} />
-              <Route path="/events/:eventId" element={<SingleEvent />} />
-              <Route path="/aboutus" element={<AboutUs />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </InnerWrapper>
+          <Routes>
+            <Route path="/" element={<Welcome />} />
+            {/* <Route path="/myform" element={<MyForm />} /> */}
+            <Route path="/login" element={<Layout><Login /></Layout>} />
+            <Route path="/users/:username" element={<Layout><UserProfile /></Layout>} />
+            <Route path="/users" element={<Layout><AllUsers /></Layout>} />
+            {/* <Route path="/cityevents" element={<CityEvents />} /> */}
+            <Route path="/events" element={<Layout><UserEvents /></Layout>} />
+            <Route path="/events/create" element={<Layout><CreateEvent /></Layout>} />
+            <Route path="/events/:eventId" element={<Layout><SingleEvent /></Layout>} />
+            <Route path="/aboutus" element={<Layout><AboutUs /></Layout>} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
         </OuterWrapper>
       </BrowserRouter>
     </Provider>
