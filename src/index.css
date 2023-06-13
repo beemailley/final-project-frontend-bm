@@ -32,6 +32,10 @@ label {
 
 }
 
+button {
+  font-family: 'Lato', sans-serif;
+}
+
 /* .header {
   display: flex;
   flex-direction: row;

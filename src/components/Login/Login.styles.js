@@ -30,6 +30,8 @@ export const UsernameWrapper = styled.div`
     align-items: center;
     flex-direction: row;
     margin-top: 40px;
+    justify-content: flex-end;
+    
     label {
         font-size: 16px;
         font-weight: bold;
@@ -38,6 +40,9 @@ export const UsernameWrapper = styled.div`
     input {
         border-radius: 20px;
         margin-left: 10px;
+        align-items: baseline;
+        
+
     }
 `
 export const PasswordWrapper = styled.div`
@@ -45,6 +50,8 @@ export const PasswordWrapper = styled.div`
     flex-direction: row;
     margin-top: 10px;
     margin-bottom: 40px;
+    justify-content: flex-end;
+
     label {
         font-size: 16px;
         font-weight: bold;
@@ -53,4 +60,5 @@ export const PasswordWrapper = styled.div`
     input {
         border-radius: 20px;
         margin-left: 10px;
+justify-content: flex-end;
     }`
