@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { events } from 'reducers/events';
@@ -95,13 +96,16 @@ export const SingleEvent = () => {
           dispatch(events.actions.setEventCategory(data.response.eventCategory))
           dispatch(events.actions.setEventSummary(data.response.eventSummary))
           dispatch(events.actions.setCreatedBy(data.response.createdBy))
+          dispatch(events.actions.setEventAttendees(data.response.eventAttendees))
+          // console.log(data.response.eventAttendees)
           setUpdatedEvent({
             eventName: data.response.eventName || '',
             eventDateAndTime: new Date(data.response.eventDateAndTime) || new Date(),
             eventVenue: data.response.eventVenue || '',
             eventAddress: data.response.eventAddress || '',
             eventCategory: data.response.eventCategory || '',
-            eventSummary: data.response.eventSummary || ''
+            eventSummary: data.response.eventSummary || '',
+            eventAttendees: data.response.eventAttendees || []
           })
         } else {
           dispatch(events.actions.setEventName(null))
@@ -111,6 +115,7 @@ export const SingleEvent = () => {
           dispatch(events.actions.setEventCategory(null))
           dispatch(events.actions.setEventSummary(null))
           dispatch(events.actions.setCreatedBy(null))
+          dispatch(events.actions.setEventAttendees([]))
         }
       })
       .catch((error) => console.log(error))
@@ -125,6 +130,7 @@ export const SingleEvent = () => {
     dispatch(events.actions.setEventCategory(null))
     dispatch(events.actions.setEventSummary(null))
     dispatch(events.actions.setCreatedBy(null))
+    dispatch(events.actions.setEventAttendees([]))
     navigate('/events')
   }
 
@@ -207,6 +213,8 @@ export const SingleEvent = () => {
       .then(alert('Thanks for joining! The event organizer will be notified.'))
   }
 
+  // console.log(event.eventAttendees)
+
   return (
     <>
       {!isEditing && (
@@ -227,12 +235,12 @@ export const SingleEvent = () => {
           <p>Type of Event: {event.eventCategory}</p>
           <p>Summary: {event.eventSummary}</p>
           <p>Event Organizer: {event.createdBy}</p>
-          {/* <p>Attendees:</p>
+          <p>Attendees:</p>
           {event.eventAttendees.map((attendee) => {
             return (
-              <p>{attendee.attendeeName}</p>
+              <p key={attendee._id}>{attendee.attendeeName}</p>
             )
-          })} */}
+          })}
           <button type="button" onClick={addAttendee}>Join the Event!</button>
           <button type="button" onClick={onBackButtonClick}>Back</button>
           {allowedToEdit && (<button type="button" onClick={onEditButtonClick}>Edit</button>)}
