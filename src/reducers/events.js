@@ -8,7 +8,7 @@ const initialState = {
   eventAddress: null,
   eventCategory: null,
   eventSummary: null,
-  eventAttendees: null,
+  eventAttendees: [],
   createdBy: null
 }
 

@@ -16,21 +16,18 @@ const ButtonContainer = styled.div`
 `;
 
 export const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [mode, setMode] = useState('login');
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const accessToken = useSelector((store) => store.user.accessToken);
-
-  useEffect(() => {
-    console.log(username);
-  }, [username]);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [emailAddress, setEmailAddress] = useState('')
+  const [mode, setMode] = useState('login');
 
   useEffect(() => {
     if (accessToken) {
       // navigate('/users')
-      navigate(`/users/${username}`)
+      navigate('/aboutus')
     }
   }, [accessToken, navigate, username]);
 
@@ -41,22 +38,26 @@ export const Login = () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ username, password })
+      body: JSON.stringify({ username, password, emailAddress })
     }
     fetch(API_URL(mode), options)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
+        // console.log(data)
         if (data.success) {
           dispatch(user.actions.setAccessToken(data.response.accessToken))
+          localStorage.setItem('accessToken', JSON.stringify(data.response.accessToken))
           dispatch(user.actions.setUsername(data.response.username))
+          dispatch(user.actions.setCurrentUserUsername(data.response.username))
+          localStorage.setItem('currentUserUsername', JSON.stringify(data.response.username))
+          dispatch(user.actions.setEmail(data.response.emailAddress))
           dispatch(user.actions.setUserId(data.response.id))
           dispatch(user.actions.setError(null))
-          // navigate('/users')
-          navigate(`/users/${username}`)
         } else {
+          alert(data.response)
           dispatch(user.actions.setAccessToken(null))
           dispatch(user.actions.setUsername(null))
+          dispatch(user.actions.setEmail(null))
           dispatch(user.actions.setUserId(null))
           dispatch(user.actions.setError(data.response))
         }
@@ -96,6 +97,15 @@ export const Login = () => {
                 onChange={(e) => setUsername(e.target.value)} /><br />
             </label>
           </UsernameWrapper>
+          {mode === 'register' && (
+            <label htmlFor="email">Email Address
+              <input
+                type="email"
+                id="email"
+                required
+                value={emailAddress}
+                onChange={(e) => setEmailAddress(e.target.value)} /><br />
+            </label>)}
           <PasswordWrapper>
             <label htmlFor="password">Password:
               <input
