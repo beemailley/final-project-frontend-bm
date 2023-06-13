@@ -40,9 +40,27 @@ export const UsernameWrapper = styled.div`
     input {
         border-radius: 20px;
         margin-left: 10px;
-        align-items: baseline;
+        justify-content: flex-end;
         
 
+    }
+`
+
+export const EmailAddressWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+    justify-content: flex-end;
+
+    label {
+        font-size: 16px;
+        font-weight: bold;
+        color: #025464;
+    }
+    input {
+        border-radius: 20px;
+        margin-left: 10px;
+        justify-content: flex-end;
     }
 `
 export const PasswordWrapper = styled.div`
@@ -60,5 +78,6 @@ export const PasswordWrapper = styled.div`
     input {
         border-radius: 20px;
         margin-left: 10px;
-justify-content: flex-end;
-    }`
+        justify-content: flex-end;
+    }
+    `

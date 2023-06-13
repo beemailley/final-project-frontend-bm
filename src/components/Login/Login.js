@@ -6,7 +6,7 @@ import { API_URL } from 'utils/urls';
 // import { InnerWrapper } from 'components/GlobalStyles'
 import styled from 'styled-components';
 import { Button } from '../Button/Button.styles';
-import { ModeWrapper, RegistrationWrapper, UsernameWrapper, PasswordWrapper } from './Login.styles'
+import { ModeWrapper, RegistrationWrapper, UsernameWrapper, EmailAddressWrapper, PasswordWrapper } from './Login.styles'
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -97,15 +97,17 @@ export const Login = () => {
                 onChange={(e) => setUsername(e.target.value)} /><br />
             </label>
           </UsernameWrapper>
-          {mode === 'register' && (
-            <label htmlFor="email">Email Address
-              <input
-                type="email"
-                id="email"
-                required
-                value={emailAddress}
-                onChange={(e) => setEmailAddress(e.target.value)} /><br />
-            </label>)}
+          <EmailAddressWrapper>
+            {mode === 'register' && (
+              <label htmlFor="email">Email Address:
+                <input
+                  type="email"
+                  id="email"
+                  required
+                  value={emailAddress}
+                  onChange={(e) => setEmailAddress(e.target.value)} /><br />
+              </label>)}
+          </EmailAddressWrapper>
           <PasswordWrapper>
             <label htmlFor="password">Password:
               <input

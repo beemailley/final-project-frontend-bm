@@ -1,4 +1,4 @@
-import styled from 'styled-component/macro';
+import styled from 'styled-components/macro';
 
 export const OuterWrapper = styled.section`
     width: 100vw;
