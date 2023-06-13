@@ -210,10 +210,14 @@ export const SingleEvent = () => {
     }
     fetch(API_URL(`events/${eventId}/attendees`), options)
       .then((res) => res.json())
-      .then(alert('Thanks for joining! The event organizer will be notified.'))
+      .then((data) => {
+        if (data.success) {
+          alert('Thanks for joining! The event organizer will be notified.')
+        } else {
+          alert(data.response)
+        }
+      })
   }
-
-  // console.log(event.eventAttendees)
 
   return (
     <>

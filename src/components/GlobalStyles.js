@@ -1,11 +1,11 @@
-import styled from 'styled-component/macro';
+import styled from 'styled-components/macro';
 
 export const OuterWrapper = styled.section`
     width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center
+    justify-content: center;
     border: 2px solid blue;
 `;
 
