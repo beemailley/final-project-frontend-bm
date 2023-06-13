@@ -26,7 +26,7 @@ export const Welcome = () => {
         alt="Brand logo"
         aria-label="" />
       <ButtonContainer>
-        <Button type="cta">Let&apos;s go!</Button>
+        <Button type="button">Let&apos;s go!</Button>
       </ButtonContainer>
     </WelcomeWrapper>
 

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
 export const CardContainer = styled.div`
     display: flex;
@@ -8,17 +8,15 @@ export const CardContainer = styled.div`
     border-radius: 20px;
     /* background-color: #F8F1F1; */
     background-color: white;
-    margin-top: 10%;
-    margin-left: 10%;
-    margin-right: 10%;
-    margin-bottom: 10%;
+    margin: 10%;
+
     /* padding: 5%; */
 
 `
 export const Introduction = styled.div`
     display: flex;
     flex-direction: column;
-    margin-left: 2%;
+    /* margin-left: 2%; */
     padding: 5%;
 `
 
@@ -32,7 +30,7 @@ export const TitleAboutUs = styled.h1`
 export const AboutUsInfo = styled.div`
     display: flex;
     flex-direction: column;
-
+    margin-bottom: 10%;
 `
 export const BridgetWrapper = styled.div`
     display: flex;

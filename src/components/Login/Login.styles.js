@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
 export const ModeWrapper = styled.div`
     display: flex;
@@ -8,7 +8,7 @@ export const ModeWrapper = styled.div`
     margin-left: 10%;
     /* border: 2px red solid; */
      label {
-        font-size: 16px;
+        font-size: 24px;
         font-weight: bold;
         color: white;
     }
