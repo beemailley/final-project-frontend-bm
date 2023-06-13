@@ -1,6 +1,7 @@
 import React from 'react';
 import { InnerWrapper } from 'components/GlobalStyles'
 import { Header } from './Header/Header'
+import { Footer } from './Footer/Footer'
 
 export const Layout = ({ children }) => {
   return (
@@ -9,6 +10,7 @@ export const Layout = ({ children }) => {
       <InnerWrapper>
         {children}
       </InnerWrapper>
+      <Footer />
     </>
 
   )

@@ -12,13 +12,14 @@ export const CardContainer = styled.div`
     margin-left: 10%;
     margin-right: 10%;
     margin-bottom: 10%;
-
+    /* padding: 5%; */
 
 `
 export const Introduction = styled.div`
     display: flex;
     flex-direction: column;
     margin-left: 2%;
+    padding: 5%;
 `
 
 export const TitleAboutUs = styled.h1`
@@ -27,15 +28,23 @@ export const TitleAboutUs = styled.h1`
     margin-top: 10%;
     font-size: 30px;
 `
+
+export const AboutUsInfo = styled.div`
+    display: flex;
+    flex-direction: column;
+
+`
 export const BridgetWrapper = styled.div`
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly; // add padding? Or stick with space-evenly?
+    justify-content: space-between;
+    
+
 `
 export const BridgetInformation = styled.div`
     display: flex;
     flex-direction: column;
-    margin-left: 2%;
+    /* margin-left: 2%; */
 
     h2 {
         color: #FF5722;
@@ -46,11 +55,13 @@ export const FionaWrapper = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+
+
 `
 export const FionaInformation = styled.div`
     display: flex;
     flex-direction: column;
-    margin-left: 2%;
+    /* margin-left: 2%; */
 
     h2 {
         color: #FF5722;
@@ -85,7 +96,6 @@ export const Icon = styled.img`
 export const ImgContainerBridget = styled.div`
     display: flex;
     align-items: center;
-    /* justify-content: center; */
 `
 
 export const ImgContainerFiona = styled.div`
