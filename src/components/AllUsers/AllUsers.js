@@ -4,6 +4,9 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { API_URL } from 'utils/urls';
 import { user } from 'reducers/user';
+import { CardContainer } from 'components/GlobalStyles';
+import { Button } from '../Button/Button.styles';
+import { AllUsersTitle, User, Label, ButtonContainer } from './AllUsers.styles'
 
 export const AllUsers = () => {
   const dispatch = useDispatch()
@@ -49,29 +52,30 @@ export const AllUsers = () => {
 
   return (
     <>
-      <h2>Here you can see all other users</h2>
+      <AllUsersTitle>Meet your people!</AllUsersTitle>
       {loading && <p>Loading...</p>}
-      <section>
+      <CardContainer>
         {userList.map((eachUser) => {
           return (
-            <div key={eachUser._id}>
-              <p>Username: {eachUser.username}</p>
-              <p>First Name: {eachUser.firstName}</p>
-              <p>Last name: {eachUser.lastName}</p>
+            <User key={eachUser._id}>
+              <p><Label htmlFor="username">Username: </Label>{eachUser.username}</p>
+              <p><Label htmlFor="firstName">First name: </Label>{eachUser.firstName}</p>
+              <p><Label htmlFor="lastName">Last name: </Label>{eachUser.lastName}</p>
               {/* <p>Email address: {eachUser.emailAddress}</p>
               <p>Member since: {formatDateWithSuffix(new Date(eachUser.memberSince))}</p>
               <p>Gender: {eachUser.gender}</p>
               <p>Birthday: {formatDateWithSuffix(new Date(eachUser.birthday))}</p> */}
-              <p>Interests: {eachUser.interests}</p>
-              <p>Current City: {eachUser.currentCity}</p>
+              <p><Label htmlFor="interests">Interests: </Label>{eachUser.interests}</p>
+              <p><Label htmlFor="currentCity">Current city: </Label>{eachUser.currentCity}</p>
               {/* <p>Home Country: {eachUser.homeCountry}</p> */}
-              <button type="button" onClick={() => onViewUserButtonClick(eachUser.username)}>View User Profile</button>
-              <p>----------</p>
-              {/* <p>Languages: {eachUser.languages}</p> */}
-            </div>
+              <ButtonContainer>
+                <Button type="button" onClick={() => onViewUserButtonClick(eachUser.username)}>View</Button>
+              </ButtonContainer>
+              {/* <p>----------</p> */}
+            </User>
           )
         })}
-      </section>
+      </CardContainer>
     </>
   );
 };

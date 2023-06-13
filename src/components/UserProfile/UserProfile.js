@@ -364,7 +364,7 @@ export const UserProfile = () => {
                 onChange={handleInputChange} /><br />
             </label> */}
             </label>
-            <button type="button" onClick={() => handleSaveProfileClick()}>Save changes</button>
+            <Button type="button" onClick={() => handleSaveProfileClick()}>Save changes</Button>
           </EditProfile>
         )}
         {/* render the static profile information */}
@@ -396,16 +396,16 @@ export const UserProfile = () => {
             </Profile>
           )}
         </div>
+        {validationErrors.firstName && <p>{validationErrors.firstName}</p>}
+        {validationErrors.lastName && <p>{validationErrors.lastName}</p>}
+        {validationErrors.emailAddress && <p>{validationErrors.emailAddress}</p>}
+        {validationErrors.gender && <p>{validationErrors.gender}</p>}
+        {validationErrors.interests && <p>{validationErrors.interests}</p>}
+        {validationErrors.homeCountry && <p>{validationErrors.homeCountry}</p>}
       </CardContainer>
       <ButtonContainer>
         <Button type="button" onClick={onBackButtonClick}>Back</Button>
       </ButtonContainer>
-      {validationErrors.firstName && <p>{validationErrors.firstName}</p>}
-      {validationErrors.lastName && <p>{validationErrors.lastName}</p>}
-      {validationErrors.emailAddress && <p>{validationErrors.emailAddress}</p>}
-      {validationErrors.gender && <p>{validationErrors.gender}</p>}
-      {validationErrors.interests && <p>{validationErrors.interests}</p>}
-      {validationErrors.homeCountry && <p>{validationErrors.homeCountry}</p>}
     </>
   )
 };
