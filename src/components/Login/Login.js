@@ -3,17 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { user } from 'reducers/user';
 import { API_URL } from 'utils/urls';
-// import { InnerWrapper } from 'components/GlobalStyles'
-import styled from 'styled-components';
+import { CardContainer } from 'components/GlobalStyles'
 import { Button } from '../Button/Button.styles';
-import { ModeWrapper, RegistrationWrapper, UsernameWrapper, EmailAddressWrapper, PasswordWrapper } from './Login.styles'
-
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-  margin-bottom: 40px;
-`;
+import { ModeWrapper, UsernameWrapper, EmailAddressWrapper, PasswordWrapper, ButtonContainer } from './Login.styles'
 
 export const Login = () => {
   const dispatch = useDispatch();
@@ -86,7 +78,7 @@ export const Login = () => {
             onChange={() => setMode('login')} />
         </label>
       </ModeWrapper>
-      <RegistrationWrapper>
+      <CardContainer>
         <form onSubmit={onFormSubmit}>
           <UsernameWrapper>
             <label htmlFor="username">Username:
@@ -121,7 +113,7 @@ export const Login = () => {
             <Button type="Submit">Submit</Button>
           </ButtonContainer>
         </form>
-      </RegistrationWrapper>
+      </CardContainer>
       {/* </InnerWrapper> */}
     </>
   )

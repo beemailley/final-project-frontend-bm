@@ -14,17 +14,16 @@ export const ModeWrapper = styled.div`
     }
 `
 
-export const RegistrationWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    /* border: 2px red solid; */
-    border-radius: 20px;
-    background-color: white;
-    margin-left: 10%;
-    margin-right: 10%;
-`
+// export const RegistrationWrapper = styled.div`
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     justify-content: center;
+//     border-radius: 20px;
+//     background-color: white;
+//     margin: 10%;
+// `
+
 export const UsernameWrapper = styled.div`
     display: flex;
     align-items: center;
@@ -81,3 +80,10 @@ export const PasswordWrapper = styled.div`
         justify-content: flex-end;
     }
     `
+
+export const ButtonContainer = styled.div`
+display: flex;
+justify-content: center;
+margin-top: 20px;
+margin-bottom: 40px;
+`;

@@ -33,3 +33,14 @@ export const InnerWrapper = styled.div`
 
     }
 `
+
+export const CardContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    background-color: white;
+    margin: 10%;
+
+`

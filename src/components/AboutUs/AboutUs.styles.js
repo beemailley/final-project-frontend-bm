@@ -1,18 +1,5 @@
 import styled from 'styled-components/macro';
 
-export const CardContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border-radius: 20px;
-    /* background-color: #F8F1F1; */
-    background-color: white;
-    margin: 10%;
-
-    /* padding: 5%; */
-
-`
 export const Introduction = styled.div`
     display: flex;
     flex-direction: column;

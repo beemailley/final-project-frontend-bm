@@ -1,5 +1,6 @@
 import React from 'react';
-import { CardContainer, TitleAboutUs, Introduction, AboutUsInfo, BridgetWrapper, BridgetInformation, FionaWrapper, FionaInformation, LinksWrapper, Icon, CoffeeIcon, CoffeeIconContainer, ImgContainerBridget, ImgContainerFiona, Img } from './AboutUs.styles'
+import { CardContainer } from 'components/GlobalStyles';
+import { TitleAboutUs, Introduction, AboutUsInfo, BridgetWrapper, BridgetInformation, FionaWrapper, FionaInformation, LinksWrapper, Icon, CoffeeIcon, CoffeeIconContainer, ImgContainerBridget, ImgContainerFiona, Img } from './AboutUs.styles'
 import BridgetMailley from '../../images/BridgetMailley.jpg';
 import FionaKlacar from '../../images/FionaKlacar.jpg';
 import linkedInIcon from '../../images/linkedin.svg';
