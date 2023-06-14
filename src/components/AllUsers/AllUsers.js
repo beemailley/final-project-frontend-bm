@@ -6,7 +6,7 @@ import { API_URL } from 'utils/urls';
 import { user } from 'reducers/user';
 import { CardContainer } from 'components/GlobalStyles';
 import { Button } from '../Button/Button.styles';
-import { AllUsersTitle, User, Label, ButtonContainer } from './AllUsers.styles'
+import { AllUsersTitle, User, Label, ButtonContainer, Arrow } from './AllUsers.styles'
 
 export const AllUsers = () => {
   const dispatch = useDispatch()
@@ -69,6 +69,7 @@ export const AllUsers = () => {
               <p><Label htmlFor="currentCity">Current city: </Label>{eachUser.currentCity}</p>
               {/* <p>Home Country: {eachUser.homeCountry}</p> */}
               <ButtonContainer>
+                <Arrow />
                 <Button type="button" onClick={() => onViewUserButtonClick(eachUser.username)}>View</Button>
               </ButtonContainer>
               {/* <p>----------</p> */}

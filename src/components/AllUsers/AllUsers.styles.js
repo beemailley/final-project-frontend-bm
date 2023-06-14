@@ -28,3 +28,11 @@ export const ButtonContainer = styled.div`
   margin-top: 20px;
   margin-bottom: 40px;
 `
+
+export const Arrow = styled.span`
+  font-family: 'Material Symbols Outlined';
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+  &:before {
+    content: '\\e5da'; /* Unicode character for right arrow */
+  }
+`;
