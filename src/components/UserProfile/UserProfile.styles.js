@@ -17,7 +17,7 @@ export const SaveButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 `
 
 export const ProfileName = styled.h2`
@@ -28,12 +28,8 @@ export const ProfileName = styled.h2`
 `
 
 export const Profile = styled.div`
-/* 
-  label {
-    font-weight: bold;
-    color: #025464;
-  } */
-
+  padding-top: 34px;
+  padding-bottom: 0px;
 `
 
 export const Label = styled.label`
@@ -44,24 +40,25 @@ export const Label = styled.label`
 export const EditProfile = styled.div`
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
-  justify-content: flex-end;
-
   padding: 10%;
-
 
     label {
         font-size: 16px;
         font-weight: bold;
         color: #025464;
+        margin-bottom: 5px;
     }
     input, select {
         border-radius: 20px;
         border: black solid 1px;
-        margin-left: 10px;
-        justify-content: flex-end;
-        
+        margin-bottom: 10px;
+        justify-content: flex-end;        
 
     }
+`
 
+export const ValidationContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 2%;
 `

@@ -9,7 +9,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { CardContainer } from 'components/GlobalStyles'
 import { Button } from '../Button/Button.styles';
-import { ProfileName, Profile, EditProfile, Label, ButtonContainer, EditButtonContainer, SaveButtonContainer } from './UserProfile.styles'
+import { ProfileName, Profile, EditProfile, Label, ButtonContainer, EditButtonContainer, SaveButtonContainer, ValidationContainer } from './UserProfile.styles'
 
 export const UserProfile = () => {
   const dispatch = useDispatch()
@@ -54,7 +54,7 @@ export const UserProfile = () => {
         const MAX_FIRSTNAME_LENGTH = 20;
         if (value.length < MIN_FIRSTNAME_LENGTH || value.length > MAX_FIRSTNAME_LENGTH) {
           // console.log('First name must be between 2 and 20 characters.')
-          return 'First name must be between 2 and 20 characters.'
+          return 'First name is between 2 and 20 characters.'
         }
         return '';
       },
@@ -65,7 +65,7 @@ export const UserProfile = () => {
         const MAX_LASTNAME_LENGTH = 20;
         if (value.length < MIN_LASTNAME_LENGTH || value.length > MAX_LASTNAME_LENGTH) {
           // console.log('Last name must be between 2 and 20 characters.')
-          return 'Last name must be between 2 and 20 characters.'
+          return 'Last name is between 2 and 20 characters.'
         }
         return '';
       },
@@ -75,7 +75,7 @@ export const UserProfile = () => {
         const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
         if (!emailRegex.test(value)) {
           // console.log('Invalid email format')
-          return 'Invalid email format';
+          return 'You use a valid email format.';
         }
         return '';
       },
@@ -83,7 +83,7 @@ export const UserProfile = () => {
     { fieldName: 'gender',
       validationFunction: (value) => {
         if (value === 'Select your gender') {
-          return 'Please select a gender';
+          return 'You have selected your gender.';
         }
         return '';
       },
@@ -91,7 +91,7 @@ export const UserProfile = () => {
     { fieldName: 'interests',
       validationFunction: (value) => {
         if (value === 'Select an interest') {
-          return 'Please select an interest';
+          return 'You have selected an interest.';
         }
         return '';
       },
@@ -100,7 +100,7 @@ export const UserProfile = () => {
       validationFunction: (value) => {
         // if (value === 'Select a country') {
         if (!value) {
-          return 'Please select your home country';
+          return 'You have selected your home country.';
         }
         return '';
       },
@@ -264,6 +264,7 @@ export const UserProfile = () => {
           <EditProfile>
             <label htmlFor="First name:">
             First name:
+              <br />
               <input
                 type="text"
                 name="firstName"
@@ -272,6 +273,7 @@ export const UserProfile = () => {
             </label>
             <label htmlFor="Last name:">
             Last name:
+              <br />
               <input
                 type="text"
                 name="lastName"
@@ -280,6 +282,7 @@ export const UserProfile = () => {
             </label>
             <label htmlFor="Email address:">
             Email address:
+              <br />
               <input
                 type="text"
                 name="emailAddress"
@@ -288,6 +291,7 @@ export const UserProfile = () => {
             </label>
             <label htmlFor="Gender:">
             Gender:
+              <br />
               <select
                 name="gender"
                 value={updatedProfile.gender}
@@ -303,6 +307,7 @@ export const UserProfile = () => {
             {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="birthday">
             When is your birthday?
+              <br />
               <DatePicker
                 id="birthday"
                 name="birthday"
@@ -315,6 +320,7 @@ export const UserProfile = () => {
             </label>
             <label htmlFor="Interests:">
             Interests:
+              <br />
               <select
                 name="interests"
                 value={updatedProfile.interests}
@@ -330,6 +336,7 @@ export const UserProfile = () => {
             </label>
             <label htmlFor="Current city:">
             Current City:
+              <br />
               <select
                 name="currentCity"
                 value={updatedProfile.currentCity}
@@ -343,6 +350,7 @@ export const UserProfile = () => {
             </label>
             <label htmlFor="Home country:">
             Home Country:
+              <br />
               <select
                 name="homeCountry"
                 value={updatedProfile.homeCountry}
@@ -400,12 +408,17 @@ export const UserProfile = () => {
             </Profile>
           )}
         </div>
-        {validationErrors.firstName && <p>{validationErrors.firstName}</p>}
-        {validationErrors.lastName && <p>{validationErrors.lastName}</p>}
-        {validationErrors.emailAddress && <p>{validationErrors.emailAddress}</p>}
-        {validationErrors.gender && <p>{validationErrors.gender}</p>}
-        {validationErrors.interests && <p>{validationErrors.interests}</p>}
-        {validationErrors.homeCountry && <p>{validationErrors.homeCountry}</p>}
+        <ValidationContainer>
+          {allowedToEdit && validationErrors && Object.keys(validationErrors).length > 0 && (
+            <h3>Please ensure:</h3>
+          )}
+          {validationErrors.firstName && <p>{validationErrors.firstName}</p>}
+          {validationErrors.lastName && <p>{validationErrors.lastName}</p>}
+          {validationErrors.emailAddress && <p>{validationErrors.emailAddress}</p>}
+          {validationErrors.gender && <p>{validationErrors.gender}</p>}
+          {validationErrors.interests && <p>{validationErrors.interests}</p>}
+          {validationErrors.homeCountry && <p>{validationErrors.homeCountry}</p>}
+        </ValidationContainer>
       </CardContainer>
       <ButtonContainer><Button type="button" onClick={onBackButtonClick}>Back</Button></ButtonContainer>
 
