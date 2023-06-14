@@ -288,8 +288,9 @@ export const UserProfile = () => {
               value={updatedProfile.gender}
               onChange={handleInputChange}>
               <option value="">Select your gender</option>
-              <option value="male">Male</option>
               <option value="female">Female</option>
+              <option value="male">Male</option>
+              <option value="non-binary">Non-binary</option>
               <option value="other">Other</option>
               <option value="prefer not to say">Prefer not to say</option>
             </select>
@@ -309,17 +310,27 @@ export const UserProfile = () => {
               dropdownMode="select" />
           </label>
           <label htmlFor="Interests:">
-            Interests:
+            I am most interested in events for/about:
             <select
               name="interests"
               value={updatedProfile.interests}
               onChange={handleInputChange}>
               <option value="">Select an interest</option>
-              <option value="Category One">Category One</option>
-              <option value="Category Two">Category Two</option>
-              <option value="Category Three">Category Three</option>
-              <option value="Category Four">Category Four</option>
-              <option value="Category Five">Category Five</option>
+              <option value="Animal Lovers">Animal Lovers</option>
+              <option value="Arts & Music">Arts & Music</option>
+              <option value="Books">Books</option>
+              <option value="Career">Career</option>
+              <option value="Families">Families</option>
+              <option value="Food & Drinks">Food & Drinks</option>
+              <option value="Games">Games</option>
+              <option value="Health">Health</option>
+              <option value="LGBTQ+">LGBTQ+</option>
+              <option value="Out in the City">Out in the City</option>
+              <option value="Parents">Parents</option>
+              <option value="Spirituality">Spirituality</option>
+              <option value="Sports">Sports</option>
+              <option value="Students">Students</option>
+              <option value="Technology">Technology</option>
             </select>
             <br />
           </label>

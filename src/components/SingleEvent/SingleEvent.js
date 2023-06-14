@@ -293,13 +293,24 @@ export const SingleEvent = () => {
                 onChange={handleInputChange} />
             </label>
             <label htmlFor="eventCategory">
-              Type of Event:
+              This Event is for/about:
               <select name="eventCategory" value={updatedEvent.eventCategory} onChange={handleInputChange}>
                 <option value="">Please select one:</option>
-                <option value="Category One">Category One</option>
-                <option value="Category Two">Category 2</option>
-                <option value="Category Three">Category 3</option>
-                <option value="Category Four">Category 4</option>
+                <option value="Animal Lovers">Animal Lovers</option>
+                <option value="Arts & Music">Arts & Music</option>
+                <option value="Books">Books</option>
+                <option value="Career">Career</option>
+                <option value="Families">Families</option>
+                <option value="Food & Drinks">Food & Drinks</option>
+                <option value="Games">Games</option>
+                <option value="Health">Health</option>
+                <option value="LGBTQ+">LGBTQ+</option>
+                <option value="Out in the City">Out in the City</option>
+                <option value="Parents">Parents</option>
+                <option value="Spirituality">Spirituality</option>
+                <option value="Sports">Sports</option>
+                <option value="Students">Students</option>
+                <option value="Technology">Technology</option>
               </select>
             </label>
             <label htmlFor="eventSummary">
