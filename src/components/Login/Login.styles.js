@@ -38,6 +38,7 @@ export const UsernameWrapper = styled.div`
     }
     input {
         border-radius: 20px;
+        border: black solid 1px;
         margin-left: 10px;
         justify-content: flex-end;
         
@@ -58,6 +59,7 @@ export const EmailAddressWrapper = styled.div`
     }
     input {
         border-radius: 20px;
+        border: black solid 1px;
         margin-left: 10px;
         justify-content: flex-end;
     }
@@ -76,6 +78,7 @@ export const PasswordWrapper = styled.div`
     }
     input {
         border-radius: 20px;
+        border: black solid 1px;
         margin-left: 10px;
         justify-content: flex-end;
     }

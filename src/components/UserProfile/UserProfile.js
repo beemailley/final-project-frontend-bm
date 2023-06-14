@@ -2,14 +2,14 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { API_URL } from 'utils/urls';
+import { API_URL } from 'utils/urls'
 import { user } from 'reducers/user';
 import countryList from 'country-list';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { CardContainer } from 'components/GlobalStyles'
 import { Button } from '../Button/Button.styles';
-import { ProfileName, Profile, EditProfile, Label, ButtonContainer, EditButtonContainer } from './UserProfile.styles'
+import { ProfileName, Profile, EditProfile, Label, ButtonContainer, EditButtonContainer, SaveButtonContainer } from './UserProfile.styles'
 
 export const UserProfile = () => {
   const dispatch = useDispatch()
@@ -365,7 +365,7 @@ export const UserProfile = () => {
                 onChange={handleInputChange} /><br />
             </label> */}
 
-            <Button type="button" onClick={() => handleSaveProfileClick()}>Save</Button>
+            <SaveButtonContainer><Button type="button" onClick={() => handleSaveProfileClick()}>Save</Button></SaveButtonContainer>
           </EditProfile>
         )}
         {/* render the static profile information */}
