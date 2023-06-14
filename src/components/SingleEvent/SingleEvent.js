@@ -6,6 +6,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { API_URL } from 'utils/urls';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { CardContainer } from 'components/GlobalStyles';
+import { Button } from '../Button/Button.styles';
+import { EventName, Label, Event, JoinEventContainer, BackAndEditContainer } from './SingleEvent.styles';
 
 export const SingleEvent = () => {
   const navigate = useNavigate();
@@ -217,35 +220,42 @@ export const SingleEvent = () => {
 
   return (
     <>
-      {!isEditing && (
-        <>
-          <p>This A Single Event Page</p>
-          <p>Event: {event.eventName}</p>
-          <p>Date: {new Date(event.eventDateAndTime).toLocaleDateString('en-US', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-          })}
-          </p>
-          <p>Time: {new Date(event.eventDateAndTime).toLocaleTimeString('en-US', { hour: '2-digit',
-            minute: '2-digit' })}
-          </p>
-          <p>Venue: {event.eventVenue}</p>
-          <p>Address: {event.eventAddress}</p>
-          <p>Type of Event: {event.eventCategory}</p>
-          <p>Summary: {event.eventSummary}</p>
-          <p>Event Organizer: {event.createdBy}</p>
-          <p>Attendees:</p>
-          {event.eventAttendees.map((attendee) => {
-            return (
-              <p key={attendee._id}>{attendee.attendeeName}</p>
-            )
-          })}
-          <button type="button" onClick={addAttendee}>Join the Event!</button>
-          <button type="button" onClick={onBackButtonClick}>Back</button>
-          {allowedToEdit && (<button type="button" onClick={onEditButtonClick}>Edit</button>)}
-        </>
-      )}
+      <EventName>Event Details</EventName>
+      <CardContainer>
+        {!isEditing && (
+          <Event>
+            <p><Label htmlFor="eventName">Event name: </Label>{event.eventName}</p>
+            <p><Label htmlFor="eventDateAndTime">Date: </Label>{new Date(event.eventDateAndTime).toLocaleDateString('en-US', {
+              day: 'numeric',
+              month: 'long',
+              year: 'numeric'
+            })}
+            </p>
+            <p><Label htmlFor="eventDateAndTime">Time: </Label>{new Date(event.eventDateAndTime).toLocaleTimeString('en-US', { hour: '2-digit',
+              minute: '2-digit' })}
+            </p>
+            <p><Label htmlFor="eventVenue">Venue: </Label>{event.eventVenue}</p>
+            <p><Label htmlFor="eventAddress">Address: </Label>{event.eventAddress}</p>
+            <p><Label htmlFor="eventCategory">Type of event: </Label>{event.eventCategory}</p>
+            <p><Label htmlFor="eventSummary">Summary: </Label>{event.eventSummary}</p>
+            <p><Label htmlFor="createdBy">Event organizer: </Label>{event.createdBy}</p>
+            <p><Label htmlFor="attendee">Attendees: </Label></p>
+            {event.eventAttendees.map((attendee) => {
+              return (
+                <p key={attendee._id}>{attendee.attendeeName}</p>
+              )
+            })}
+          </Event>
+        )}
+      </CardContainer>
+      <JoinEventContainer>
+        <Button large type="button" onClick={addAttendee}>Join the event!</Button>
+      </JoinEventContainer>
+      <BackAndEditContainer>
+        <Button type="button" onClick={onBackButtonClick}>Back</Button>
+        {allowedToEdit && (<Button type="button" onClick={onEditButtonClick}>Edit</Button>)}
+      </BackAndEditContainer>
+
       {isEditing && (
         <>
           <p>Is Editing</p>
@@ -313,6 +323,7 @@ export const SingleEvent = () => {
       {validationErrors.eventName && <p>{validationErrors.eventName}</p>}
       {validationErrors.eventCategory && <p>{validationErrors.eventCategory}</p>}
       {validationErrors.eventSummary && <p>{validationErrors.eventSummary}</p>}
+      {/* </CardContainer> */}
     </>
   )
 }
