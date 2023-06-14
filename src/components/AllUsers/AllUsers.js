@@ -60,11 +60,11 @@ export const AllUsers = () => {
             <User key={eachUser._id}>
               <p><Label htmlFor="username">Username: </Label>{eachUser.username}</p>
               <p><Label htmlFor="firstName">First name: </Label>{eachUser.firstName}</p>
-              <p><Label htmlFor="lastName">Last name: </Label>{eachUser.lastName}</p>
-              {/* <p>Email address: {eachUser.emailAddress}</p>
-              <p>Member since: {formatDateWithSuffix(new Date(eachUser.memberSince))}</p>
-              <p>Gender: {eachUser.gender}</p>
-              <p>Birthday: {formatDateWithSuffix(new Date(eachUser.birthday))}</p> */}
+              {/* <p><Label htmlFor="lastName">Last name: </Label>{eachUser.lastName}</p> */}
+              {/* <p>Email address: {eachUser.emailAddress}</p> */}
+              {/* <p>Member since: {formatDateWithSuffix(new Date(eachUser.memberSince))}</p> */}
+              {/* <p><Label htmlFor="gender">Gender: </Label>{eachUser.gender}</p> */}
+              {/* <p>Birthday: {formatDateWithSuffix(new Date(eachUser.birthday))}</p> */}
               <p><Label htmlFor="interests">Interests: </Label>{eachUser.interests}</p>
               <p><Label htmlFor="currentCity">Current city: </Label>{eachUser.currentCity}</p>
               {/* <p>Home Country: {eachUser.homeCountry}</p> */}

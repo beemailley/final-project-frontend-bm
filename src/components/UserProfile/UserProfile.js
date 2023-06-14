@@ -370,12 +370,12 @@ export const UserProfile = () => {
         )}
         {/* render the static profile information */}
         <div>
-          {profileItems && profileItems.username && (
+          {!isEditing && profileItems && profileItems.username && (
             <Profile>
               {/* <p>Username: {profileItems.username}</p> */}
               <p><Label htmlFor="firstName">First name: </Label>{profileItems.firstName}</p>
-              <p><Label htmlFor="lastName">Last name: </Label>{profileItems.lastName}</p>
-              <p><Label htmlFor="emailAddress">Email address: </Label>{profileItems.emailAddress}</p>
+              {allowedToEdit && <p><Label htmlFor="lastName">Last name: </Label>{profileItems.lastName}</p>}
+              {allowedToEdit && <p><Label htmlFor="emailAddress">Email address: </Label>{profileItems.emailAddress}</p>}
               <p><Label htmlFor="memberSince">Member since: </Label>{new Date(profileItems.memberSince).toLocaleDateString('en-US', {
                 day: 'numeric',
                 month: 'long',
@@ -383,12 +383,14 @@ export const UserProfile = () => {
               })}
               </p>
               <p><Label htmlFor="gender">Gender: </Label>{profileItems.gender}</p>
-              <p><Label htmlFor="birthday">Birthday: </Label>{new Date(profileItems.birthday).toLocaleDateString('en-US', {
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric'
-              })}
-              </p>
+              {allowedToEdit && (
+                <p><Label htmlFor="birthday">Birthday: </Label>{new Date(profileItems.birthday).toLocaleDateString('en-US', {
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric'
+                })}
+                </p>
+              )}
               <p><Label htmlFor="interests">Interests: </Label>{profileItems.interests}</p>
               <p><Label htmlFor="currentCity">Current city: </Label>{profileItems.currentCity}</p>
               <p><Label htmlFor="homeCountry">Home country: </Label>{profileItems.homeCountry}</p>
@@ -411,164 +413,3 @@ export const UserProfile = () => {
   )
 };
 
-// return (
-//   <>
-//     {/* eslint-disable-next-line max-len */}
-//     {username ? <ProfileName>{username.toUpperCase()}&apos;s profile</ProfileName> : <h2>Please return to the All Users page.</h2>}
-//     {console.log(profileItems, 'profile items')}
-//     <CardContainer>
-//       {isEditing ? (
-//       // render the form fields for editing
-//         <EditProfile>
-//           <label htmlFor="First name:">
-//           First name:
-//             <input
-//               type="text"
-//               name="firstName"
-//               value={updatedProfile.firstName}
-//               onChange={handleInputChange} /><br />
-//           </label>
-//           <label htmlFor="Last name:">
-//           Last name:
-//             <input
-//               type="text"
-//               name="lastName"
-//               value={updatedProfile.lastName}
-//               onChange={handleInputChange} /><br />
-//           </label>
-//           <label htmlFor="Email address:">
-//           Email address:
-//             <input
-//               type="text"
-//               name="emailAddress"
-//               value={updatedProfile.emailAddress}
-//               onChange={handleInputChange} /><br />
-//           </label>
-//           <label htmlFor="Gender:">
-//           Gender:
-//             <select
-//               name="gender"
-//               value={updatedProfile.gender}
-//               onChange={handleInputChange}>
-//               <option value="">Select your gender</option>
-//               <option value="male">Male</option>
-//               <option value="female">Female</option>
-//               <option value="other">Other</option>
-//               <option value="prefer not to say">Prefer not to say</option>
-//             </select>
-//             <br />
-//           </label>
-//           {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-//           <label htmlFor="birthday">
-//           When is your birthday?
-//             <DatePicker
-//               id="birthday"
-//               name="birthday"
-//               selected={updatedProfile.birthday}
-//               onChange={handleInputChange}
-//               peekNextMonth
-//               showMonthDropdown
-//               showYearDropdown
-//               dropdownMode="select" />
-//           </label>
-//           <label htmlFor="Interests:">
-//           Interests:
-//             <select
-//               name="interests"
-//               value={updatedProfile.interests}
-//               onChange={handleInputChange}>
-//               <option value="">Select an interest</option>
-//               <option value="Category One">Category One</option>
-//               <option value="Category Two">Category Two</option>
-//               <option value="Category Three">Category Three</option>
-//               <option value="Category Four">Category Four</option>
-//               <option value="Category Five">Category Five</option>
-//             </select>
-//             <br />
-//           </label>
-//           <label htmlFor="Current city:">
-//           Current City:
-//             <select
-//               name="currentCity"
-//               value={updatedProfile.currentCity}
-//               onChange={handleInputChange}>
-//               <option value="">Select your current city</option>
-//               <option value="Stockholm">Stockholm</option>
-//               <option value="London">London</option>
-//               <option value="Paris">Paris</option>
-//             </select>
-//             <br />
-//           </label>
-//           <label htmlFor="Home country:">
-//           Home Country:
-//             <select
-//               name="homeCountry"
-//               value={updatedProfile.homeCountry}
-//               onChange={handleInputChange}>
-//               <option value="">Select a country</option>
-//               {countries.map((country) => (
-//                 <option key={country} value={country}>
-//                   {country}
-//                 </option>
-//               ))}
-//             </select>
-//             </label>
-//             <br />
-//             {/* <label htmlFor="Languages:">
-//           Languages:
-//             <input
-//               type="text"
-//               name="languages"
-//               value={updatedProfile.languages}
-//               onChange={handleInputChange} /><br />
-//           </label> */}
-//           <Button type="button" onClick={() => handleSaveProfileClick()}>Save</Button>
-//         </EditProfile>
-//       ) : (
-//       {/* render the static profile information */}
-//       <div>
-//         {/* {profileItems && profileItems.username && ( */}
-//           <Profile>
-//             {/* <p>Username: {profileItems.username}</p> */}
-//             <p><Label htmlFor="firstName">First name: </Label>{profileItems.firstName}</p>
-//             {/* <p>Last name: {profileItems.lastName}</p> */}
-//             {/* <p>Email address: {profileItems.emailAddress}</p> */}
-//             <p><Label htmlFor="memberSince">Member since: </Label>{new Date(profileItems.memberSince).toLocaleDateString('en-US', {
-//               day: 'numeric',
-//               month: 'long',
-//               year: 'numeric'
-//             })}
-//             </p>
-//             <p><Label htmlFor="gender">Gender: </Label>{profileItems.gender}</p>
-//             {/* <p><Label htmlFor="birthday">Birthday: </Label>{new Date(profileItems.birthday).toLocaleDateString('en-US', {
-//               day: 'numeric',
-//               month: 'long',
-//               year: 'numeric'
-//             })}
-//             </p> */}
-//             <p><Label htmlFor="interests">Interests: </Label>{profileItems.interests}</p>
-//             <p><Label htmlFor="currentCity">Current city: </Label>{profileItems.currentCity}</p>
-//             <p><Label htmlFor="homeCountry">Home country: </Label>{profileItems.homeCountry}</p>
-//             {/* <p>Languages: {profileItems.languages}</p> */}
-//             {allowedToEdit && (<EditButtonContainer>
-//               <Button type="button" onClick={handleEditProfileClick}>
-//                 Edit
-//               </Button>
-//             </EditButtonContainer>)}
-//           </Profile>
-//           </div>
-//       )}
-//       {validationErrors.firstName && <p>{validationErrors.firstName}</p>}
-//       {validationErrors.lastName && <p>{validationErrors.lastName}</p>}
-//       {validationErrors.emailAddress && <p>{validationErrors.emailAddress}</p>}
-//       {validationErrors.gender && <p>{validationErrors.gender}</p>}
-//       {validationErrors.interests && <p>{validationErrors.interests}</p>}
-//       {validationErrors.homeCountry && <p>{validationErrors.homeCountry}</p>}
-//       </CardContainer>
-//     <ButtonContainer>
-//       <Button type="button" onClick={onBackButtonClick}>
-//         Back
-//         </Button>
-//     </ButtonContainer>
-//   </>
-// )
