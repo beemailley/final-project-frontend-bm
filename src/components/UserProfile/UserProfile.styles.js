@@ -6,6 +6,13 @@ export const ButtonContainer = styled.div`
   margin-top: 20px;
   margin-bottom: 40px;
 `
+
+export const EditButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+`
+
 export const ProfileName = styled.h2`
   display: flex; 
   justify-content: center;
@@ -26,6 +33,7 @@ export const Label = styled.label`
     font-weight: bold;
     color: #025464;
 `
+
 export const EditProfile = styled.div`
 
   /* p {
