@@ -7,6 +7,9 @@ import { useNavigate } from 'react-router-dom';
 import { API_URL } from 'utils/urls';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { CardContainer } from 'components/GlobalStyles';
+import { Button } from '../Button/Button.styles';
+import { CreateEventWrapper, ButtonContainer } from './CreateEvent.styles';
 
 export const CreateEvent = () => {
   const navigate = useNavigate();
@@ -134,10 +137,9 @@ export const CreateEvent = () => {
   }
 
   return (
-    <>
+    <CardContainer>
       {isEditing && (
-        <>
-          <p>Is Editing</p>
+        <CreateEventWrapper>
           <form onSubmit={onFormSubmit}>
             <label htmlFor="eventName">
               Event Name:
@@ -191,12 +193,14 @@ export const CreateEvent = () => {
                 name="eventSummary"
                 onChange={handleInputChange} />
             </label>
-            <button type="submit">Submit</button>
+            <ButtonContainer>
+              <Button type="submit">Submit</Button>
+            </ButtonContainer>
           </form>
           {validationErrors.eventName && <p>{validationErrors.eventName}</p>}
           {validationErrors.eventCategory && <p>{validationErrors.eventCategory}</p>}
           {validationErrors.eventSummary && <p>{validationErrors.eventSummary}</p>}
-        </>
+        </CreateEventWrapper>
       )}
       {!isEditing && (
         <>
@@ -218,8 +222,11 @@ export const CreateEvent = () => {
           <p>Summary: {event.eventSummary}</p>
           <p>Event Organizer: {event.createdBy}</p> */}
           {/* eslint-disable-next-line no-underscore-dangle */}
-          <button type="button" onClick={() => onViewEventButtonClick(event.eventId)}>View & Edit Event</button>
+
+          <Button type="button" onClick={() => onViewEventButtonClick(event.eventId)}>View & Edit Event</Button>
+
         </>
       )}
-    </>)
+    </CardContainer>
+  )
 }

@@ -32,3 +32,12 @@ export const BackAndEditContainer = styled.div`
   padding: 5%;
 
 `
+export const EditEvent = styled.div`
+  padding-top: 34px;
+  padding-bottom: 0px;
+`
+export const ValidationContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 2%;
+`
