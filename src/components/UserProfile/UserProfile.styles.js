@@ -62,3 +62,8 @@ export const ValidationContainer = styled.div`
   flex-direction: column;
   padding: 2%;
 `
+export const ReturnRequest = styled.h2`
+  display: flex;
+  text-align: center;
+  color: #E57C23;
+`

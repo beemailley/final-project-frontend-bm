@@ -1,7 +1,6 @@
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 
 export const Button = styled.button`
-  /* background-color: ${(props) => (props.submit ? '#E8AA42' : 'blue')}; */
   background-color: #E8AA42;
   color: black;
   font-weight: bold;
@@ -35,10 +34,9 @@ export const Button = styled.button`
     /* background-color: #f9ebd2; */
     opacity: 0.2;
   }
-`;
 
-// export const Button = ({ text, submit }) => {
-//   return (
-//     <StyledButton submit={submit}>{text}</StyledButton>
-//   );
-// };
+  ${(props) => props.large && css`
+    width: 200px;
+    background-color: #E57C23;
+  `}
+`;

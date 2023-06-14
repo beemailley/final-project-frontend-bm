@@ -9,7 +9,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { CardContainer } from 'components/GlobalStyles'
 import { Button } from '../Button/Button.styles';
-import { ProfileName, Profile, EditProfile, Label, ButtonContainer, EditButtonContainer, SaveButtonContainer, ValidationContainer } from './UserProfile.styles'
+import { ProfileName, Profile, EditProfile, Label, ButtonContainer, EditButtonContainer, SaveButtonContainer, ValidationContainer, ReturnRequest } from './UserProfile.styles'
 
 export const UserProfile = () => {
   const dispatch = useDispatch()
@@ -256,7 +256,7 @@ export const UserProfile = () => {
   return (
     <>
       {/* eslint-disable-next-line max-len */}
-      {username ? <ProfileName>{username.toUpperCase()}&apos;s profile</ProfileName> : <h2>Please return to the All Users page.</h2>}
+      {username ? <ProfileName>{username.toUpperCase()}&apos;s profile</ProfileName> : <ReturnRequest>Please return to the All Users page.</ReturnRequest>}
       {console.log(profileItems, 'profile items')}
       <CardContainer>
         {isEditing && (
