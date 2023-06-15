@@ -5,19 +5,19 @@ export const OuterWrapper = styled.section`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center
-    border: 2px solid blue;
+    justify-content: center;
+    /* border: 2px solid blue; */
 `;
 
 export const InnerWrapper = styled.div`
     width: 90vw;
     height: 80vh;
-    margin: 0 auto;
+    margin: 5% auto;
     /* border: 2px solid #EEEEEE; */
     border-radius: 20px;
     background-color: #025464;
     /* background-color: #00ADB5; */
-    margin-top: 10%;
+    /* margin-top: 10%; */
     overflow-y: auto;
 
     @media (min-width: 668px) and (max-width: 1024px) {

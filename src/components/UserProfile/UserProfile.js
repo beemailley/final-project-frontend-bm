@@ -291,14 +291,14 @@ export const UserProfile = () => {
             </label>
             <label htmlFor="Gender:">
             Gender:
-              <br />
               <select
                 name="gender"
                 value={updatedProfile.gender}
                 onChange={handleInputChange}>
                 <option value="">Select your gender</option>
-                <option value="male">Male</option>
                 <option value="female">Female</option>
+                <option value="male">Male</option>
+                <option value="non-binary">Non-binary</option>
                 <option value="other">Other</option>
                 <option value="prefer not to say">Prefer not to say</option>
               </select>

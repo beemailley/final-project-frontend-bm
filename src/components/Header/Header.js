@@ -1,12 +1,12 @@
+/* eslint-disable max-len */
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { user } from 'reducers/user';
-import { HeaderWrapper, LogoContainer, LinkWrapper, SamlaLogoImg } from './Header.styles';
-import SamlaLogo from '../../images/SamlaLogo.png'
+import { HeaderWrapper, LogoContainer, LinkWrapper, SamlaLogoImg, LinkStyles } from './Header.styles';
+import SamlaLogoLong from '../../images/SamlaLogoLong.png'
 
 export const Header = () => {
-  const username = useSelector((store) => store.user.username);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const accessToken = JSON.parse(localStorage.getItem('accessToken'))
@@ -22,19 +22,19 @@ export const Header = () => {
   return (
     <HeaderWrapper>
       <LogoContainer>
-        <SamlaLogoImg
-          src={SamlaLogo}
-          alt="Brand logo"
-          aria-label="" />
+        <Link to="/">
+          <SamlaLogoImg
+            src={SamlaLogoLong}
+            alt="Brand logo"
+            aria-label="" />
+        </Link>
       </LogoContainer>
       <LinkWrapper>
-        <h3><Link to="/"> Home </Link></h3>
-        <h3><Link to="/login"> Login/Register </Link></h3>
-        <h3><Link to="/users"> Users </Link></h3>
-        <h3><Link to={`/users/${username}`}> Individual User </Link></h3>
-        <h3><Link to="/events"> Events </Link></h3>
-        <h3><Link to="/aboutus"> About Us </Link></h3>
-        {accessToken && (<button type="button" onClick={onLogoutButtonClick}>LOG OUT</button>)}
+        <LinkStyles><Link to="/users">Members</Link></LinkStyles>
+        <LinkStyles><Link to="/events">Events</Link></LinkStyles>
+        <LinkStyles><Link to="/aboutus">About</Link></LinkStyles>
+        {!accessToken && (<LinkStyles><Link to="/login">Login/Register</Link></LinkStyles>)}
+        {accessToken && (<LinkStyles><Link onClick={onLogoutButtonClick}>Log Out</Link></LinkStyles>)}
       </LinkWrapper>
     </HeaderWrapper>
   )

@@ -50,4 +50,26 @@ button {
   justify-content: space-between;  
 } */
 
+::-webkit-scrollbar {
+  width: 5px;
+  border-radius: 20px;
+}
 
+/* Track */
+::-webkit-scrollbar-track {
+  background: #025464; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #f8f1f1; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(229, 124, 35); 
+}
+
+::-webkit-scrollbar-button {
+  background-color: none;
+}
