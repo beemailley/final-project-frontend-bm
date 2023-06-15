@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { CardContainer } from 'components/GlobalStyles';
-import { TitleAboutUs, Introduction, AboutUsInfo, BridgetWrapper, BridgetInformation, FionaWrapper, FionaInformation, LinksWrapper, Icon, ImgContainerBridget, ImgContainerFiona, Img, LinkStyles, SamlaLogoImg } from './AboutUs.styles'
+import { TitleAboutUs, Introduction, AboutUsInfo, BridgetWrapper, BridgetInformation, FionaWrapper, FionaInformation, LinksWrapper, Icon, ImgContainerBridget, ImgContainerFiona, ImgBridget, ImgFiona, LinkStyles, SamlaLogoImg } from './AboutUs.styles'
 import BridgetMailley from '../../images/BridgetMailley.jpg';
 import FionaKlacar from '../../images/FionaKlacar.jpg';
 import linkedInIcon from '../../images/linkedin.svg';
@@ -65,12 +65,12 @@ export const AboutUs = () => {
               </LinksWrapper>
             </BridgetInformation>
             <ImgContainerBridget>
-              <Img src={BridgetMailley} alt="Bridget Mailley" />
+              <ImgBridget src={BridgetMailley} alt="Bridget Mailley" />
             </ImgContainerBridget>
           </BridgetWrapper>
           <FionaWrapper>
             <ImgContainerFiona>
-              <Img src={FionaKlacar} alt="Fiona Klacar" />
+              <ImgFiona src={FionaKlacar} alt="Fiona Klacar" />
             </ImgContainerFiona>
             <FionaInformation>
               <h2>Fiona Klacar</h2>

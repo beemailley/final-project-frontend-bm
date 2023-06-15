@@ -109,12 +109,21 @@ export const ImgContainerFiona = styled.div`
     align-items: center;
 `
 
-export const Img = styled.img`
+export const ImgBridget = styled.img`
     border-radius: 50%;
     width: 80px;
     height: 80px;
     object-fit: cover;
     margin: 5px;
+`
+export const ImgFiona = styled.img`
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    margin: 5px;
+    object-position: top;
+
 `
 export const Icon = styled.img`
     width: 20px;
