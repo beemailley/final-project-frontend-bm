@@ -8,7 +8,6 @@ import FionaKlacar from '../../images/FionaKlacar.jpg';
 import linkedInIcon from '../../images/linkedin.svg';
 import githubIcon from '../../images/github.svg';
 import laptopIcon from '../../images/laptop.svg';
-// import CoffeeMugsIcon from '../../images/CoffeeMugsIcon.jpg';
 import GlobeIcon from '../../images/GlobeIcon.png'
 
 export const AboutUs = () => {

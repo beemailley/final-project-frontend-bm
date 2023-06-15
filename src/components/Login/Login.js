@@ -18,7 +18,6 @@ export const Login = () => {
 
   useEffect(() => {
     if (accessToken) {
-      // navigate('/users')
       navigate('/aboutus')
     }
   }, [accessToken, navigate, username]);
@@ -35,7 +34,6 @@ export const Login = () => {
     fetch(API_URL(mode), options)
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data)
         if (data.success) {
           dispatch(user.actions.setAccessToken(data.response.accessToken))
           localStorage.setItem('accessToken', JSON.stringify(data.response.accessToken))
@@ -61,7 +59,6 @@ export const Login = () => {
 
   return (
     <>
-      {/* // <InnerWrapper> */}
       <ModeWrapper>
         <label htmlFor="register">Register
           <input
@@ -114,7 +111,6 @@ export const Login = () => {
           </ButtonContainer>
         </form>
       </CardContainer>
-      {/* </InnerWrapper> */}
     </>
   )
 }

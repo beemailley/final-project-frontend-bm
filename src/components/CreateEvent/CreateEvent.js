@@ -1,7 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-// import { Link } from 'react-router-dom';
 import { events } from 'reducers/events';
 import { useNavigate } from 'react-router-dom';
 import { API_URL } from 'utils/urls';
@@ -9,12 +8,11 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { CardContainer } from 'components/GlobalStyles';
 import { Button } from '../Button/Button.styles';
-import { CreateEventWrapper, ButtonContainer } from './CreateEvent.styles';
+import { CreateEventWrapper, ButtonContainer, EventName, Event } from './CreateEvent.styles';
 
 export const CreateEvent = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch()
-  // const { eventId } = useParams()
   const accessToken = JSON.parse(localStorage.getItem('accessToken'))
   const event = useSelector((store) => store.events)
   const [isEditing, setIsEditing] = useState(true)
@@ -116,7 +114,6 @@ export const CreateEvent = () => {
       fetch(API_URL('events/'), options)
         .then((res) => res.json())
         .then((data) => {
-          // console.log(data.response)
           dispatch(events.actions.setEventId(data.response._id))
           dispatch(events.actions.setEventName(data.response.eventName))
           dispatch(events.actions.setEventDateAndTime(data.response.eventDateAndTime))
@@ -125,8 +122,6 @@ export const CreateEvent = () => {
           dispatch(events.actions.setEventCategory(data.response.eventCategory))
           dispatch(events.actions.setEventSummary(data.response.eventSummary))
           dispatch(events.actions.setCreatedBy(data.response.createdBy))
-        // eslint-disable-next-line no-underscore-dangle
-        // navigate(`/events/${data.response._id}`)
         })
         .finally(() => setIsEditing(false))
     }
@@ -137,10 +132,11 @@ export const CreateEvent = () => {
   }
 
   return (
-    <CardContainer>
+    <>
+      <EventName>Create Event</EventName>
       {isEditing && (
-        <CreateEventWrapper>
-          <form onSubmit={onFormSubmit}>
+        <CardContainer>
+          <CreateEventWrapper onSubmit={onFormSubmit}>
             <label htmlFor="eventName">
               Event Name:
               <br />
@@ -151,7 +147,7 @@ export const CreateEvent = () => {
             </label>
             <br />
             {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-            <label htmlFor="eventdateandtime">
+            <label htmlFor="eventDateandTime">
             When is the event?
               <br />
               <DatePicker
@@ -185,12 +181,15 @@ export const CreateEvent = () => {
             <br />
             <label htmlFor="eventCategory">
               This Event is for/about:
+              <br />
               <select name="eventCategory" onChange={handleInputChange}>
                 <option value="">Please select one:</option>
+                <option value="">Select an interest</option>
                 <option value="Animal Lovers">Animal Lovers</option>
                 <option value="Arts & Music">Arts & Music</option>
                 <option value="Books">Books</option>
                 <option value="Career">Career</option>
+                <option value="Community">Community</option>
                 <option value="Families">Families</option>
                 <option value="Food & Drinks">Food & Drinks</option>
                 <option value="Games">Games</option>
@@ -200,7 +199,6 @@ export const CreateEvent = () => {
                 <option value="Parents">Parents</option>
                 <option value="Spirituality">Spirituality</option>
                 <option value="Sports">Sports</option>
-                <option value="Students">Students</option>
                 <option value="Technology">Technology</option>
               </select>
             </label>
@@ -214,39 +212,23 @@ export const CreateEvent = () => {
                 onChange={handleInputChange} />
             </label>
             <ButtonContainer>
-              <Button type="submit">Submit</Button>
+              <Button type="submit">Save</Button>
             </ButtonContainer>
-          </form>
-          {validationErrors.eventName && <p>{validationErrors.eventName}</p>}
-          {validationErrors.eventCategory && <p>{validationErrors.eventCategory}</p>}
-          {validationErrors.eventSummary && <p>{validationErrors.eventSummary}</p>}
-        </CreateEventWrapper>
+            {validationErrors.eventName && <p>{validationErrors.eventName}</p>}
+            {validationErrors.eventCategory && <p>{validationErrors.eventCategory}</p>}
+            {validationErrors.eventSummary && <p>{validationErrors.eventSummary}</p>}
+          </CreateEventWrapper>
+        </CardContainer>
       )}
       {!isEditing && (
-        <>
-          <p>Your event has been created!</p>
-          <p>Please click below to view and edit your event.</p>
-          {/* <p>Event: {event.eventName}</p>
-          <p>Date: {new Date(event.eventDateAndTime).toLocaleDateString('en-US', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-          })}
-          </p>
-          <p>Time: {new Date(event.eventDateAndTime).toLocaleTimeString('en-US', { hour: '2-digit',
-            minute: '2-digit' })}
-          </p>
-          <p>Venue: {event.eventVenue}</p>
-          <p>Address: {event.eventAddress}</p>
-          <p>Type of Event: {event.eventCategory}</p>
-          <p>Summary: {event.eventSummary}</p>
-          <p>Event Organizer: {event.createdBy}</p> */}
-          {/* eslint-disable-next-line no-underscore-dangle */}
-
-          <Button type="button" onClick={() => onViewEventButtonClick(event.eventId)}>View & Edit Event</Button>
-
-        </>
+        <CardContainer>
+          <Event>
+            <p>Your event has been created!</p>
+            <p>Please click below to view and edit your event.</p>
+            <ButtonContainer><Button type="button" onClick={() => onViewEventButtonClick(event.eventId)}>View Event</Button></ButtonContainer>
+          </Event>
+        </CardContainer>
       )}
-    </CardContainer>
+    </>
   )
 }

@@ -10,6 +10,7 @@ export const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const accessToken = JSON.parse(localStorage.getItem('accessToken'))
+  const currentuser = JSON.parse(localStorage.getItem('currentUserUsername'))
 
   const onLogoutButtonClick = () => {
     dispatch(user.actions.setAccessToken(null))
@@ -33,6 +34,7 @@ export const Header = () => {
         <LinkStyles><Link to="/users">Members</Link></LinkStyles>
         <LinkStyles><Link to="/events">Events</Link></LinkStyles>
         <LinkStyles><Link to="/aboutus">About</Link></LinkStyles>
+        {accessToken && (<LinkStyles><Link to={`/users/${currentuser}`}>My Profile</Link></LinkStyles>)}
         {!accessToken && (<LinkStyles><Link to="/login">Login/Register</Link></LinkStyles>)}
         {accessToken && (<LinkStyles><Link onClick={onLogoutButtonClick}>Log Out</Link></LinkStyles>)}
       </LinkWrapper>

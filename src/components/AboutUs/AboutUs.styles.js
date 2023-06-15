@@ -3,7 +3,6 @@ import styled from 'styled-components/macro';
 export const Introduction = styled.div`
     display: flex;
     flex-direction: column;
-    /* margin-left: 2%; */
     padding: 5% 5% 0 5%;
 `
 
@@ -17,7 +16,6 @@ export const TitleAboutUs = styled.h1`
 export const AboutUsInfo = styled.div`
     display: flex;
     flex-direction: column;
-    /* margin-bottom: 10%; */
     padding: 0 5% 5% 5%;
 `
 export const BridgetWrapper = styled.div`
@@ -29,12 +27,10 @@ export const BridgetWrapper = styled.div`
 export const BridgetInformation = styled.div`
     display: flex;
     flex-direction: column;
-    /* margin-left: 2%; */
     text-align: justify;
 
     h2 {
         color: #FF5722;
-        
     }
 `
 
@@ -47,7 +43,6 @@ export const FionaWrapper = styled.div`
 export const FionaInformation = styled.div`
     display: flex;
     flex-direction: column;
-    /* margin-left: 2%; */
     text-align: justify;
 
     h2 {
@@ -68,7 +63,6 @@ export const LinkStyles = styled.div`
     background-color: #025464;
     border-radius: 5px;
     padding: 3px 6px;
-    /* margin: 15px 0; */
 
     /* unvisited link */
     a:link {
@@ -94,17 +88,6 @@ export const LinkStyles = styled.div`
       text-decoration: none;
     }
 `
-
-// export const CoffeeIconContainer = styled.div`
-//     display: flex;
-//     justify-content: center;
-//     display: none;
-// `
-// export const CoffeeIcon = styled.img`
-//     height: 50%;
-//     width: 50%;
-// `
-
 export const SamlaLogoImg = styled.img`
     justify-content: center;
     display: block;

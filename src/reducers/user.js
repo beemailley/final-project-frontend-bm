@@ -10,7 +10,6 @@ export const user = createSlice({
     accessToken: null,
     error: null,
     items: [] // profile items
-    // profileItems: null
   },
   reducers: {
     setCurrentUserUsername: (store, action) => {
@@ -34,9 +33,6 @@ export const user = createSlice({
     setItems: (store, action) => {
       store.items = action.payload // profile items
     }
-    // setProfileItems: (store, action) => {
-    //   store.profileItems = action.payload
-    // }
   }
 
 });

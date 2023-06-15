@@ -1,6 +1,5 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useEffect, useState } from 'react'
-// import { useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom';
 import { API_URL } from 'utils/urls';
 import styled from 'styled-components/macro';
@@ -66,7 +65,7 @@ export const UserEvents = () => {
                 })}
                 </p>
                 {/* eslint-disable-next-line object-curly-newline */}
-                <p><Label htmlFor="eventDateAndTime">Time: </Label>Time: {new Date(event.eventDateAndTime).toLocaleTimeString('en-US', {
+                <p><Label htmlFor="eventDateAndTime">Time: </Label>{new Date(event.eventDateAndTime).toLocaleTimeString('en-US', {
                   hour: '2-digit',
                   minute: '2-digit' })}
                 </p>

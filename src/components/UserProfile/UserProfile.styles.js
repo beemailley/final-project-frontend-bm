@@ -9,8 +9,10 @@ export const ButtonContainer = styled.div`
 
 export const EditButtonContainer = styled.div`
   display: flex;
+  flex-direction: row;
   justify-content: center;
-  margin-bottom: 30px;
+  gap: 5px;
+  padding: 5%;
 `
 
 export const SaveButtonContainer = styled.div`
@@ -28,8 +30,7 @@ export const ProfileName = styled.h2`
 `
 
 export const Profile = styled.div`
-  padding-top: 34px;
-  padding-bottom: 0px;
+  padding: 20px 10px;
 `
 
 export const Label = styled.label`
@@ -37,7 +38,7 @@ export const Label = styled.label`
     color: #025464;
 `
 
-export const EditProfile = styled.div`
+export const EditProfile = styled.form`
   display: flex;
   flex-direction: column;
   padding: 10%;
@@ -53,7 +54,6 @@ export const EditProfile = styled.div`
         border: black solid 1px;
         margin-bottom: 10px;
         justify-content: flex-end;        
-
     }
 `
 

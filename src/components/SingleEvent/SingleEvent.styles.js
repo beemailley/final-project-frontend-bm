@@ -8,8 +8,7 @@ export const EventName = styled.h2`
 `
 
 export const Event = styled.div`
-  padding-top: 34px;
-  padding-bottom: 0px;
+  padding: 20px 10px;
 `
 
 export const Label = styled.label`
@@ -24,17 +23,38 @@ export const JoinEventContainer = styled.div`
   align-items: center;
   padding: 2%;
 `
+export const SaveButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 5px;
+`
+
 export const BackAndEditContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
   gap: 5px;
   padding: 5%;
-
 `
-export const EditEvent = styled.div`
-  padding-top: 34px;
-  padding-bottom: 0px;
+export const EditEvent = styled.form`
+ display: flex;
+  flex-direction: column;
+  padding: 10%;
+
+    label {
+        font-size: 16px;
+        font-weight: bold;
+        color: #025464;
+        margin-bottom: 5px;
+    }
+    input, select {
+        border-radius: 20px;
+        border: black solid 1px;
+        margin-bottom: 10px;
+        justify-content: flex-end;        
+
+    }
 `
 export const ValidationContainer = styled.div`
   display: flex;

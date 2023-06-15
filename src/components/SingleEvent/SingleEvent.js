@@ -8,7 +8,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { CardContainer } from 'components/GlobalStyles';
 import { Button } from '../Button/Button.styles';
-import { EventName, Label, Event, JoinEventContainer, BackAndEditContainer, EditEvent, ValidationContainer } from './SingleEvent.styles';
+import { EventName, Label, Event, JoinEventContainer, BackAndEditContainer, EditEvent, ValidationContainer, SaveButtonContainer } from './SingleEvent.styles';
 
 export const SingleEvent = () => {
   const navigate = useNavigate();
@@ -225,6 +225,7 @@ export const SingleEvent = () => {
   return (
     <>
       <EventName>Event Details</EventName>
+      {/* render the static event information */}
       <CardContainer>
         {!isEditing && (
           <Event>
@@ -249,100 +250,108 @@ export const SingleEvent = () => {
                 <p key={attendee._id}>{attendee.attendeeName}</p>
               )
             })}
+            <JoinEventContainer>
+              <Button large type="button" onClick={addAttendee}>Join the event!</Button>
+            </JoinEventContainer>
           </Event>
         )}
       </CardContainer>
-      <JoinEventContainer>
-        <Button large type="button" onClick={addAttendee}>Join the event!</Button>
-      </JoinEventContainer>
+
+      {isEditing && (
+        // render the form fields for editing
+        <CardContainer>
+          <EditEvent onSubmit={onFormSubmit}>
+            <label htmlFor="eventName">
+              Event Name:
+              <br />
+              <input
+                type="text"
+                name="eventName"
+                value={updatedEvent.eventName}
+                onChange={handleInputChange} />
+            </label>
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+            <label htmlFor="eventdateandtime">
+            When is the event?
+              <br />
+              <DatePicker
+                id="eventdateandtime"
+                name="eventDateAndTime"
+                selected={updatedEvent.eventDateAndTime}
+                onChange={handleInputChange}
+                showTimeSelect
+                timeFormat="HH:mm"
+                timeIntervals={30}
+                timeCaption="time"
+                dateFormat="MMMM d, yyyy h:mm aa" />
+            </label>
+            <label htmlFor="eventVenue">
+              Event Venue:
+              <br />
+              <input
+                type="text"
+                name="eventVenue"
+                value={updatedEvent.eventVenue}
+                onChange={handleInputChange} />
+            </label>
+            <label htmlFor="eventAddress">
+              Event Address:
+              <br />
+              <input
+                type="text"
+                name="eventAddress"
+                value={updatedEvent.eventAddress}
+                onChange={handleInputChange} />
+            </label>
+            <label htmlFor="eventCategory">
+              This Event is for/about:
+              <br />
+              <select name="eventCategory" value={updatedEvent.eventCategory} onChange={handleInputChange}>
+                <option value="">Please select one:</option>
+                <option value="">Select an interest</option>
+                <option value="Animal Lovers">Animal Lovers</option>
+                <option value="Arts & Music">Arts & Music</option>
+                <option value="Books">Books</option>
+                <option value="Career">Career</option>
+                <option value="Community">Community</option>
+                <option value="Families">Families</option>
+                <option value="Food & Drinks">Food & Drinks</option>
+                <option value="Games">Games</option>
+                <option value="Health">Health</option>
+                <option value="LGBTQ+">LGBTQ+</option>
+                <option value="Out in the City">Out in the City</option>
+                <option value="Parents">Parents</option>
+                <option value="Spirituality">Spirituality</option>
+                <option value="Sports">Sports</option>
+                <option value="Technology">Technology</option>
+              </select>
+            </label>
+            <label htmlFor="eventSummary">
+              Event Summary:
+              <br />
+              <input
+                type="text"
+                name="eventSummary"
+                value={updatedEvent.eventSummary}
+                onChange={handleInputChange} />
+            </label>
+            <p>Event Organizer: {event.createdBy}</p>
+            <ValidationContainer>
+              {allowedToEdit && validationErrors && Object.keys(validationErrors).length > 0 && (
+                <h3>Please ensure:</h3>
+              )}
+              {validationErrors.eventName && <p>{validationErrors.eventName}</p>}
+              {validationErrors.eventCategory && <p>{validationErrors.eventCategory}</p>}
+              {validationErrors.eventSummary && <p>{validationErrors.eventSummary}</p>}
+            </ValidationContainer>
+            <SaveButtonContainer><Button type="submit">Save</Button></SaveButtonContainer>
+          </EditEvent>
+        </CardContainer>)}
+
       <BackAndEditContainer>
         <Button type="button" onClick={onBackButtonClick}>Back</Button>
-        {allowedToEdit && (<Button type="button" onClick={onEditButtonClick}>Edit</Button>)}
+        {allowedToEdit && !isEditing && (<Button type="button" onClick={onEditButtonClick}>Edit</Button>)}
       </BackAndEditContainer>
-      <CardContainer>
-        {isEditing && (
-          <EditEvent>
-            <form onSubmit={onFormSubmit}>
-              <label htmlFor="eventName">
-              Event Name:
-                <input
-                  type="text"
-                  name="eventName"
-                  value={updatedEvent.eventName}
-                  onChange={handleInputChange} />
-              </label>
-              {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-              <label htmlFor="eventdateandtime">
-            When is the event?
-                <DatePicker
-                  id="eventdateandtime"
-                  name="eventDateAndTime"
-                  selected={updatedEvent.eventDateAndTime}
-                  onChange={handleInputChange}
-                  showTimeSelect
-                  timeFormat="HH:mm"
-                  timeIntervals={30}
-                  timeCaption="time"
-                  dateFormat="MMMM d, yyyy h:mm aa" />
-              </label>
-              <label htmlFor="eventVenue">
-              Event Venue:
-                <input
-                  type="text"
-                  name="eventVenue"
-                  value={updatedEvent.eventVenue}
-                  onChange={handleInputChange} />
-              </label>
-              <label htmlFor="eventAddress">
-              Event Address:
-                <input
-                  type="text"
-                  name="eventAddress"
-                  value={updatedEvent.eventAddress}
-                  onChange={handleInputChange} />
-              </label>
-              <label htmlFor="eventCategory">
-              This Event is for/about:
-                <select name="eventCategory" value={updatedEvent.eventCategory} onChange={handleInputChange}>
-                  <option value="">Please select one:</option>
-                  <option value="Animal Lovers">Animal Lovers</option>
-                  <option value="Arts & Music">Arts & Music</option>
-                  <option value="Books">Books</option>
-                  <option value="Career">Career</option>
-                  <option value="Families">Families</option>
-                  <option value="Food & Drinks">Food & Drinks</option>
-                  <option value="Games">Games</option>
-                  <option value="Health">Health</option>
-                  <option value="LGBTQ+">LGBTQ+</option>
-                  <option value="Out in the City">Out in the City</option>
-                  <option value="Parents">Parents</option>
-                  <option value="Spirituality">Spirituality</option>
-                  <option value="Sports">Sports</option>
-                  <option value="Students">Students</option>
-                  <option value="Technology">Technology</option>
-                </select>
-              </label>
-              <label htmlFor="eventSummary">
-              Event Summary:
-                <input
-                  type="text"
-                  name="eventSummary"
-                  value={updatedEvent.eventSummary}
-                  onChange={handleInputChange} />
-              </label>
-              <p>Event Organizer: {event.createdBy}</p>
-            </form>
-          </EditEvent>)}
-        <ValidationContainer>
-          {allowedToEdit && validationErrors && Object.keys(validationErrors).length > 0 && (
-            <h3>Please ensure:</h3>
-          )}
-          {validationErrors.eventName && <p>{validationErrors.eventName}</p>}
-          {validationErrors.eventCategory && <p>{validationErrors.eventCategory}</p>}
-          {validationErrors.eventSummary && <p>{validationErrors.eventSummary}</p>}
-        </ValidationContainer>
-      </CardContainer>
-      <Button type="submit">Submit</Button>
     </>
   )
 }

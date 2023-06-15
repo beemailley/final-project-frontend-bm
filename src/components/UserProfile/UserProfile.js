@@ -9,7 +9,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { CardContainer } from 'components/GlobalStyles'
 import { Button } from '../Button/Button.styles';
-import { ProfileName, Profile, EditProfile, Label, ButtonContainer, EditButtonContainer, SaveButtonContainer, ValidationContainer, ReturnRequest } from './UserProfile.styles'
+import { ProfileName, Profile, EditProfile, Label, EditButtonContainer, SaveButtonContainer, ValidationContainer, ReturnRequest } from './UserProfile.styles'
 
 export const UserProfile = () => {
   const dispatch = useDispatch()
@@ -27,17 +27,11 @@ export const UserProfile = () => {
     firstName: '',
     lastName: '',
     emailAddress: '',
-    // memberSince: new Date().toLocaleDateString('en-US', {
-    //   day: 'numeric',
-    //   month: 'long',
-    //   year: 'numeric'
-    // }),
     gender: 'Select your gender',
     birthday: new Date(),
     interests: 'Select an interest',
     currentCity: '',
     homeCountry: 'Select a country'
-    // languages: ''
   })
 
   useEffect(() => {
@@ -53,7 +47,6 @@ export const UserProfile = () => {
         const MIN_FIRSTNAME_LENGTH = 2;
         const MAX_FIRSTNAME_LENGTH = 20;
         if (value.length < MIN_FIRSTNAME_LENGTH || value.length > MAX_FIRSTNAME_LENGTH) {
-          // console.log('First name must be between 2 and 20 characters.')
           return 'First name is between 2 and 20 characters.'
         }
         return '';
@@ -64,7 +57,6 @@ export const UserProfile = () => {
         const MIN_LASTNAME_LENGTH = 2;
         const MAX_LASTNAME_LENGTH = 20;
         if (value.length < MIN_LASTNAME_LENGTH || value.length > MAX_LASTNAME_LENGTH) {
-          // console.log('Last name must be between 2 and 20 characters.')
           return 'Last name is between 2 and 20 characters.'
         }
         return '';
@@ -74,7 +66,6 @@ export const UserProfile = () => {
       validationFunction: (value) => {
         const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
         if (!emailRegex.test(value)) {
-          // console.log('Invalid email format')
           return 'You use a valid email format.';
         }
         return '';
@@ -98,7 +89,6 @@ export const UserProfile = () => {
       errorMessage: 'No interest selected' },
     { fieldName: 'homeCountry',
       validationFunction: (value) => {
-        // if (value === 'Select a country') {
         if (!value) {
           return 'You have selected your home country.';
         }
@@ -133,7 +123,6 @@ export const UserProfile = () => {
     fetch(API_URL(`users/${username}`), options)
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data)
         if (data.success) {
           dispatch(user.actions.setError(null))
           dispatch(user.actions.setItems(data.response))
@@ -148,7 +137,6 @@ export const UserProfile = () => {
             interests,
             currentCity,
             homeCountry
-            // languages
           } = data.response
 
           setUpdatedProfile({
@@ -161,9 +149,7 @@ export const UserProfile = () => {
             interests: interests || '',
             currentCity: currentCity || '',
             homeCountry: homeCountry || ''
-            // languages: languages || ''
           });
-          console.log('profileitems:', profileItems)
         } else {
           dispatch(user.actions.setError(data.response))
           dispatch(user.actions.setItems([]))
@@ -201,7 +187,9 @@ export const UserProfile = () => {
     }
   }
 
-  const handleSaveProfileClick = () => {
+  const handleSaveProfileClick = (e) => {
+    e.preventDefault()
+
     if (isEditing) {
       const newValidationErrors = {};
       validationRules.forEach((rule) => {
@@ -232,7 +220,6 @@ export const UserProfile = () => {
       fetch(API_URL(`users/${username}/update`), options)
         .then((res) => res.json())
         .then((data) => {
-          // console.log(data);
           if (data.success) {
             dispatch(user.actions.setError(null));
             dispatch(user.actions.setItems(data.response));
@@ -255,13 +242,40 @@ export const UserProfile = () => {
 
   return (
     <>
-      {/* eslint-disable-next-line max-len */}
-      {username ? <ProfileName>{username.toUpperCase()}&apos;s profile</ProfileName> : <ReturnRequest>Please return to the All Users page.</ReturnRequest>}
-      {console.log(profileItems, 'profile items')}
+      {username ? <ProfileName>{username}&apos;s Profile</ProfileName> : ''}
+      {/* render the static profile information */}
       <CardContainer>
-        {isEditing && (
+        {!isEditing && profileItems && profileItems.username && (
+          <Profile>
+            <p><Label htmlFor="firstName">First name: </Label>{profileItems.firstName}</p>
+            {allowedToEdit && <p><Label htmlFor="lastName">Last name: </Label>{profileItems.lastName}</p>}
+            {allowedToEdit && <p><Label htmlFor="emailAddress">Email address: </Label>{profileItems.emailAddress}</p>}
+            <p><Label htmlFor="memberSince">Member since: </Label>{new Date(profileItems.memberSince).toLocaleDateString('en-US', {
+              day: 'numeric',
+              month: 'long',
+              year: 'numeric'
+            })}
+            </p>
+            <p><Label htmlFor="gender">Gender: </Label>{profileItems.gender}</p>
+            {allowedToEdit && (
+              <p><Label htmlFor="birthday">Birthday: </Label>{new Date(profileItems.birthday).toLocaleDateString('en-US', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+              })}
+              </p>
+            )}
+            <p><Label htmlFor="interests">Interests: </Label>{profileItems.interests}</p>
+            <p><Label htmlFor="currentCity">Current city: </Label>{profileItems.currentCity}</p>
+            <p><Label htmlFor="homeCountry">Home country: </Label>{profileItems.homeCountry}</p>
+          </Profile>
+        )}
+      </CardContainer>
+
+      {isEditing && (
         // render the form fields for editing
-          <EditProfile>
+        <CardContainer>
+          <EditProfile onSubmit={handleSaveProfileClick}>
             <label htmlFor="First name:">
             First name:
               <br />
@@ -291,6 +305,7 @@ export const UserProfile = () => {
             </label>
             <label htmlFor="Gender:">
             Gender:
+              <br />
               <select
                 name="gender"
                 value={updatedProfile.gender}
@@ -329,6 +344,7 @@ export const UserProfile = () => {
                 <option value="Arts & Music">Arts & Music</option>
                 <option value="Books">Books</option>
                 <option value="Career">Career</option>
+                <option value="Community">Community</option>
                 <option value="Families">Families</option>
                 <option value="Food & Drinks">Food & Drinks</option>
                 <option value="Games">Games</option>
@@ -338,7 +354,6 @@ export const UserProfile = () => {
                 <option value="Parents">Parents</option>
                 <option value="Spirituality">Spirituality</option>
                 <option value="Sports">Sports</option>
-                <option value="Students">Students</option>
                 <option value="Technology">Technology</option>
               </select>
               <br />
@@ -373,63 +388,28 @@ export const UserProfile = () => {
               </select>
             </label>
             <br />
-            {/* <label htmlFor="Languages:">
-            Languages:
-              <input
-                type="text"
-                name="languages"
-                value={updatedProfile.languages}
-                onChange={handleInputChange} /><br />
-            </label> */}
-
-            <SaveButtonContainer><Button type="button" onClick={() => handleSaveProfileClick()}>Save</Button></SaveButtonContainer>
-          </EditProfile>
-        )}
-        {/* render the static profile information */}
-        <div>
-          {!isEditing && profileItems && profileItems.username && (
-            <Profile>
-              {/* <p>Username: {profileItems.username}</p> */}
-              <p><Label htmlFor="firstName">First name: </Label>{profileItems.firstName}</p>
-              {allowedToEdit && <p><Label htmlFor="lastName">Last name: </Label>{profileItems.lastName}</p>}
-              {allowedToEdit && <p><Label htmlFor="emailAddress">Email address: </Label>{profileItems.emailAddress}</p>}
-              <p><Label htmlFor="memberSince">Member since: </Label>{new Date(profileItems.memberSince).toLocaleDateString('en-US', {
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric'
-              })}
-              </p>
-              <p><Label htmlFor="gender">Gender: </Label>{profileItems.gender}</p>
-              {allowedToEdit && (
-                <p><Label htmlFor="birthday">Birthday: </Label>{new Date(profileItems.birthday).toLocaleDateString('en-US', {
-                  day: 'numeric',
-                  month: 'long',
-                  year: 'numeric'
-                })}
-                </p>
+            <ValidationContainer>
+              {allowedToEdit && validationErrors && Object.keys(validationErrors).length > 0 && (
+                <h3>Please ensure:</h3>
               )}
-              <p><Label htmlFor="interests">Interests: </Label>{profileItems.interests}</p>
-              <p><Label htmlFor="currentCity">Current city: </Label>{profileItems.currentCity}</p>
-              <p><Label htmlFor="homeCountry">Home country: </Label>{profileItems.homeCountry}</p>
+              {validationErrors.firstName && <p>{validationErrors.firstName}</p>}
+              {validationErrors.lastName && <p>{validationErrors.lastName}</p>}
+              {validationErrors.emailAddress && <p>{validationErrors.emailAddress}</p>}
+              {validationErrors.gender && <p>{validationErrors.gender}</p>}
+              {validationErrors.interests && <p>{validationErrors.interests}</p>}
+              {validationErrors.homeCountry && <p>{validationErrors.homeCountry}</p>}
+            </ValidationContainer>
+            <SaveButtonContainer><Button type="submit">Save</Button></SaveButtonContainer>
+          </EditProfile>
+        </CardContainer>
+      )}
 
-              {/* <p>Languages: {profileItems.languages}</p> */}
-              {allowedToEdit && (<EditButtonContainer><Button type="button" onClick={handleEditProfileClick}>Edit</Button></EditButtonContainer>)}
-            </Profile>
-          )}
-        </div>
-        <ValidationContainer>
-          {allowedToEdit && validationErrors && Object.keys(validationErrors).length > 0 && (
-            <h3>Please ensure:</h3>
-          )}
-          {validationErrors.firstName && <p>{validationErrors.firstName}</p>}
-          {validationErrors.lastName && <p>{validationErrors.lastName}</p>}
-          {validationErrors.emailAddress && <p>{validationErrors.emailAddress}</p>}
-          {validationErrors.gender && <p>{validationErrors.gender}</p>}
-          {validationErrors.interests && <p>{validationErrors.interests}</p>}
-          {validationErrors.homeCountry && <p>{validationErrors.homeCountry}</p>}
-        </ValidationContainer>
-      </CardContainer>
-      <ButtonContainer><Button type="button" onClick={onBackButtonClick}>Back</Button></ButtonContainer>
+      {!username && (<ReturnRequest>Please return to the All Users page.</ReturnRequest>)}
+
+      <EditButtonContainer>
+        <Button type="button" onClick={onBackButtonClick}>Back</Button>
+        {allowedToEdit && !isEditing && (<Button type="button" onClick={handleEditProfileClick}>Edit</Button>)}
+      </EditButtonContainer>
 
     </>
   )
