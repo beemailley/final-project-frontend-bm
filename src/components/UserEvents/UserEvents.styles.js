@@ -6,6 +6,7 @@ export const AllEventsTitle = styled.h2`
   text-align: center;
   margin-top: 40px;
   color: #E57C23;
+  filter: invert(10%);
 `
 export const ButtonContainer = styled.div`
   display: flex;

@@ -5,6 +5,7 @@ export const EventName = styled.h2`
   justify-content: center;
   margin-top: 40px;
   color: #E57C23;
+  filter: invert(10%);
 `
 
 export const Event = styled.div`

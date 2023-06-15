@@ -16,22 +16,20 @@ export const Button = styled.button`
   align-items: center;
 
   &:hover {
-    /* opacity: 0.7; */
-    background-color: #eec277;
+    background-color: #E57C23;
+    color: white;
+    
   }
 
   &:focus {
-    /* background-color: #e39a1c; */
-    outline: 2px solid #025464;
+    outline: 5px solid #E57C23;
   }
 
   &:active {
     background-color: #e39a1c;
-    
   }
 
   &:disabled {
-    /* background-color: #f9ebd2; */
     opacity: 0.2;
   }
 
@@ -40,3 +38,4 @@ export const Button = styled.button`
     background-color: #E57C23;
   `}
 `;
+
