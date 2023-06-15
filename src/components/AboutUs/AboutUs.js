@@ -16,15 +16,15 @@ export const AboutUs = () => {
       <TitleAboutUs>Welcome!</TitleAboutUs>
       <CardContainer>
         <Introduction>
-          <h2 style={{ textAlign: 'center' }}>About Samla</h2>
+          <h2 style={{ textAlign: 'center' }}>About Samlas</h2>
           <p style={{ textAlign: 'justify' }}>Meet Bridget and Fiona, expats who relocated to Stockholm,
       Sweden from the US and UK. Recognizing the need for
-      a sense of community, they created Samla.
+      a sense of community, they created Samlas.
       Connect, share profiles, and organize events
       to turn your new city into home.
           </p>
           <p style={{ textAlign: 'center' }}>
-  Samla: Where you can find your people.
+  Samlas: Where you can find your people.
           </p>
 
           <LinksWrapper>
