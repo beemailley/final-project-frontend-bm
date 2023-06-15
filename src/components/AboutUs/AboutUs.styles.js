@@ -115,6 +115,7 @@ export const ImgBridget = styled.img`
     height: 80px;
     object-fit: cover;
     margin: 5px;
+
 `
 export const ImgFiona = styled.img`
     border-radius: 50%;
