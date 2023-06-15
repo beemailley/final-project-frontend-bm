@@ -6,13 +6,18 @@ import GlobeIcon from '../../images/GlobeIcon.png'
 
 export const Welcome = () => {
   const navigate = useNavigate();
+  const currentuser = JSON.parse(localStorage.getItem('currentUserUsername'))
   const handleGoButton = () => {
-    navigate('/login')
+    if (currentuser) {
+      navigate('/aboutus')
+    } else {
+      navigate('/login')
+    }
   }
   return (
     <WelcomeWrapper>
       <BrandContainer>
-        <h1>SAMLA</h1>
+        <h1>SAMLAS</h1>
         <h2>Where you can find your people</h2>
       </BrandContainer>
       <SamlaLogoImg
