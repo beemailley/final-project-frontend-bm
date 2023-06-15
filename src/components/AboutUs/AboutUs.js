@@ -1,7 +1,8 @@
 /* eslint-disable max-len */
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { CardContainer, TitleAboutUs, Introduction, AboutUsInfo, BridgetWrapper, BridgetInformation, FionaWrapper, FionaInformation, LinksWrapper, Icon, ImgContainerBridget, ImgContainerFiona, Img, LinkStyles, SamlaLogoImg } from './AboutUs.styles'
+import { CardContainer } from 'components/GlobalStyles';
+import { TitleAboutUs, Introduction, AboutUsInfo, BridgetWrapper, BridgetInformation, FionaWrapper, FionaInformation, LinksWrapper, Icon, ImgContainerBridget, ImgContainerFiona, Img, LinkStyles, SamlaLogoImg } from './AboutUs.styles'
 import BridgetMailley from '../../images/BridgetMailley.jpg';
 import FionaKlacar from '../../images/FionaKlacar.jpg';
 import linkedInIcon from '../../images/linkedin.svg';
