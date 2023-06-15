@@ -48,7 +48,7 @@ export const CreateEvent = () => {
     { fieldName: 'eventCategory',
       validationFunction: (value) => {
         if (value === '') {
-          return 'Please select a category';
+          return 'Please select a category.';
         }
         return '';
       },
@@ -143,14 +143,17 @@ export const CreateEvent = () => {
           <form onSubmit={onFormSubmit}>
             <label htmlFor="eventName">
               Event Name:
+              <br />
               <input
                 type="text"
                 name="eventName"
                 onChange={handleInputChange} />
             </label>
+            <br />
             {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="eventdateandtime">
             When is the event?
+              <br />
               <DatePicker
                 id="eventdateandtime"
                 name="eventDateAndTime"
@@ -164,20 +167,25 @@ export const CreateEvent = () => {
             </label>
             <label htmlFor="eventVenue">
               Event Venue:
+              <br />
               <input
                 type="text"
                 name="eventVenue"
                 onChange={handleInputChange} />
             </label>
+            <br />
             <label htmlFor="eventAddress">
               Event Address:
+              <br />
               <input
                 type="text"
                 name="eventAddress"
                 onChange={handleInputChange} />
             </label>
+            <br />
             <label htmlFor="eventCategory">
               Type of Event:
+              <br />
               <select name="eventCategory" onChange={handleInputChange}>
                 <option value="">Please select one:</option>
                 <option value="Category One">Category One</option>
@@ -186,8 +194,10 @@ export const CreateEvent = () => {
                 <option value="Category Four">Category 4</option>
               </select>
             </label>
+            <br />
             <label htmlFor="eventSummary">
               Event Summary:
+              <br />
               <input
                 type="text"
                 name="eventSummary"
