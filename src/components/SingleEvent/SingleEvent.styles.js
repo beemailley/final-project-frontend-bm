@@ -39,8 +39,8 @@ export const BackAndEditContainer = styled.div`
 `
 export const EditEvent = styled.form`
  display: flex;
-  flex-direction: column;
-  padding: 10%;
+ flex-direction: column;
+ padding: 10%;
 
     label {
         font-size: 16px;

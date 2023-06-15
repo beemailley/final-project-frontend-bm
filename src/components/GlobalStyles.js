@@ -18,6 +18,7 @@ export const InnerWrapper = styled.div`
 
     @media (min-width: 668px) and (max-width: 1024px) {
         width: 85vw;
+        height: 90vh;
         max-width: 500px;
         margin-top: 5%;
 

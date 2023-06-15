@@ -13,7 +13,7 @@ import GlobeIcon from '../../images/GlobeIcon.png'
 export const AboutUs = () => {
   return (
     <>
-      <TitleAboutUs>Welcome to Samla!</TitleAboutUs>
+      <TitleAboutUs>Welcome!</TitleAboutUs>
       <CardContainer>
         <Introduction>
           <h2 style={{ textAlign: 'center' }}>About Samla</h2>

@@ -257,9 +257,9 @@ export const SingleEvent = () => {
         )}
       </CardContainer>
 
-      {isEditing && (
+      <CardContainer>
+        {isEditing && (
         // render the form fields for editing
-        <CardContainer>
           <EditEvent onSubmit={onFormSubmit}>
             <label htmlFor="eventName">
               Event Name:
@@ -346,7 +346,8 @@ export const SingleEvent = () => {
             </ValidationContainer>
             <SaveButtonContainer><Button type="submit">Save</Button></SaveButtonContainer>
           </EditEvent>
-        </CardContainer>)}
+        )}
+      </CardContainer>
 
       <BackAndEditContainer>
         <Button type="button" onClick={onBackButtonClick}>Back</Button>

@@ -9,7 +9,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { CardContainer } from 'components/GlobalStyles'
 import { Button } from '../Button/Button.styles';
-import { ProfileName, Profile, EditProfile, Label, EditButtonContainer, SaveButtonContainer, ValidationContainer, ReturnRequest } from './UserProfile.styles'
+import { ProfileName, Profile, EditProfile, Label, EditButtonContainer, SaveButtonContainer, ValidationContainer, ReturnRequest, CountrySelect } from './UserProfile.styles'
 
 export const UserProfile = () => {
   const dispatch = useDispatch()
@@ -272,9 +272,9 @@ export const UserProfile = () => {
         )}
       </CardContainer>
 
-      {isEditing && (
+      <CardContainer>
+        {isEditing && (
         // render the form fields for editing
-        <CardContainer>
           <EditProfile onSubmit={handleSaveProfileClick}>
             <label htmlFor="First name:">
             First name:
@@ -335,6 +335,7 @@ export const UserProfile = () => {
             </label>
             <label htmlFor="Interests:">
             I am most interested in events for/about:
+              <br />
               <select
                 name="interests"
                 value={updatedProfile.interests}
@@ -373,9 +374,9 @@ export const UserProfile = () => {
               <br />
             </label>
             <label htmlFor="Home country:">
-            Home Country:
+              Home Country:
               <br />
-              <select
+              <CountrySelect
                 name="homeCountry"
                 value={updatedProfile.homeCountry}
                 onChange={handleInputChange}>
@@ -385,7 +386,7 @@ export const UserProfile = () => {
                     {country}
                   </option>
                 ))}
-              </select>
+              </CountrySelect>
             </label>
             <br />
             <ValidationContainer>
@@ -401,8 +402,8 @@ export const UserProfile = () => {
             </ValidationContainer>
             <SaveButtonContainer><Button type="submit">Save</Button></SaveButtonContainer>
           </EditProfile>
-        </CardContainer>
-      )}
+        )}
+      </CardContainer>
 
       {!username && (<ReturnRequest>Please return to the All Users page.</ReturnRequest>)}
 

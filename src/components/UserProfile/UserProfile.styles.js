@@ -39,9 +39,9 @@ export const Label = styled.label`
 `
 
 export const EditProfile = styled.form`
-  display: flex;
-  flex-direction: column;
-  padding: 10%;
+ display: flex;
+ flex-direction: column;
+ padding: 10%;
 
     label {
         font-size: 16px;
@@ -54,6 +54,7 @@ export const EditProfile = styled.form`
         border: black solid 1px;
         margin-bottom: 10px;
         justify-content: flex-end;        
+
     }
 `
 
@@ -66,4 +67,8 @@ export const ReturnRequest = styled.h2`
   display: flex;
   text-align: center;
   color: #E57C23;
+`
+
+export const CountrySelect = styled.select`
+  max-width: 200px
 `

@@ -6,11 +6,11 @@ export const Introduction = styled.div`
     padding: 5% 5% 0 5%;
 `
 
-export const TitleAboutUs = styled.h1`
-    text-align: center;
-    color: #FFFFFF;
-    margin-top: 10%;
-    font-size: 30px;
+export const TitleAboutUs = styled.h2`
+  display: flex; 
+  justify-content: center;
+  margin-top: 40px;
+  color: #E57C23;
 `
 
 export const AboutUsInfo = styled.div`
