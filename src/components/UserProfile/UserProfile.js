@@ -234,7 +234,7 @@ export const UserProfile = () => {
   };
 
   const onBackButtonClick = () => {
-    dispatch(user.actions.setUsername(''))
+    dispatch(user.actions.setUsername(currentuser))
     dispatch(user.actions.setItems(null))
     dispatch(user.actions.setError(null))
     navigate('/users')
