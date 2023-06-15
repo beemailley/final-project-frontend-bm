@@ -74,7 +74,7 @@ export const AboutUs = () => {
             </ImgContainerFiona>
             <FionaInformation>
               <h2>Fiona Klacar</h2>
-              <p>Fiona is a frontend developer with a background in music and education. She brings a unique blend of creativity, collaboration, skills, and perspectives to her programming work. Above all, she is committed to building intuitive user experiences with professional results. </p>
+              <p>Fiona is a passionate developer with a background in music and education. She brings a unique blend of creativity, collaboration, skills, and perspectives to her programming work. Above all, she is committed to building intuitive user experiences with professional results. </p>
               <LinksWrapper justify="start">
                 <a href="https://www.linkedin.com/in/fiona-klacar/" target="_blank" rel="noopener noreferrer">
                   <Icon
