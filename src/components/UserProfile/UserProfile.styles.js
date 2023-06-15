@@ -12,7 +12,7 @@ export const EditButtonContainer = styled.div`
   flex-direction: row;
   justify-content: center;
   gap: 5px;
-  padding: 5%;
+  padding: 0 0 5% 0;;
 `
 
 export const SaveButtonContainer = styled.div`
@@ -68,8 +68,9 @@ export const ReturnRequest = styled.h2`
   display: flex;
   text-align: center;
   color: #E57C23;
+  filter: invert(10%);
 `
 
 export const CountrySelect = styled.select`
-  max-width: 200px
+  max-width: 200px;
 `

@@ -8,7 +8,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { CardContainer } from 'components/GlobalStyles';
 import { Button } from '../Button/Button.styles';
-import { CreateEventWrapper, ButtonContainer, EventName, Event } from './CreateEvent.styles';
+import { CreateEventWrapper, ButtonContainer, EventName, Event, ValidationContainer, BackButtonContainer } from './CreateEvent.styles';
 
 export const CreateEvent = () => {
   const navigate = useNavigate();
@@ -80,6 +80,18 @@ export const CreateEvent = () => {
         return updatedState;
       });
     }
+  }
+
+  const onBackButtonClick = () => {
+    dispatch(events.actions.setEventName(null))
+    dispatch(events.actions.setEventDateAndTime(null))
+    dispatch(events.actions.setEventVenue(null))
+    dispatch(events.actions.setEventAddress(null))
+    dispatch(events.actions.setEventCategory(null))
+    dispatch(events.actions.setEventSummary(null))
+    dispatch(events.actions.setCreatedBy(null))
+    dispatch(events.actions.setEventAttendees([]))
+    navigate('/events')
   }
 
   const onFormSubmit = (e) => {
@@ -214,9 +226,15 @@ export const CreateEvent = () => {
             <ButtonContainer>
               <Button type="submit">Save</Button>
             </ButtonContainer>
-            {validationErrors.eventName && <p>{validationErrors.eventName}</p>}
-            {validationErrors.eventCategory && <p>{validationErrors.eventCategory}</p>}
-            {validationErrors.eventSummary && <p>{validationErrors.eventSummary}</p>}
+            <ValidationContainer>
+              {isEditing && validationErrors && Object.keys(validationErrors).length > 0 && (
+                <h3>Please ensure:</h3>
+              )}
+              {validationErrors.eventName && <p>{validationErrors.eventName}</p>}
+              {validationErrors.eventCategory && <p>{validationErrors.eventCategory}</p>}
+              {validationErrors.eventSummary && <p>{validationErrors.eventSummary}</p>}
+            </ValidationContainer>
+
           </CreateEventWrapper>
         </CardContainer>
       )}
@@ -229,6 +247,10 @@ export const CreateEvent = () => {
           </Event>
         </CardContainer>
       )}
+
+      <BackButtonContainer>
+        <Button type="button" onClick={onBackButtonClick}>Back</Button>
+      </BackButtonContainer>
     </>
   )
 }

@@ -11,6 +11,8 @@ export const TitleAboutUs = styled.h2`
   justify-content: center;
   margin-top: 40px;
   color: #E57C23;
+  filter: invert(10%);
+
 `
 
 export const AboutUsInfo = styled.div`

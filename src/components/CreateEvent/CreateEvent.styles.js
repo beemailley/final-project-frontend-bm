@@ -5,6 +5,7 @@ export const EventName = styled.h2`
   justify-content: center;
   margin-top: 40px;
   color: #E57C23;
+  filter: invert(10%);
 `
 export const Event = styled.div`
   padding: 20px 10px;
@@ -34,4 +35,16 @@ export const ButtonContainer = styled.div`
   justify-content: center;
   margin-top: 20px;
   margin-bottom: 5px;
+`
+export const ValidationContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 2%;
+`
+export const BackButtonContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 5px;
+  padding: 0 0 5% 0;
 `

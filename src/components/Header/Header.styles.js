@@ -49,6 +49,7 @@ export const LinkStyles = styled.div`
     /* mouse over link */
     a:hover {
       color: rgb(229, 124, 35);
+      filter: invert(10%);
       text-decoration: none;
     }
 

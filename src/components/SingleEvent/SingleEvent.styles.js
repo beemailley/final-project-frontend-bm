@@ -36,7 +36,7 @@ export const BackAndEditContainer = styled.div`
   flex-direction: row;
   justify-content: center;
   gap: 5px;
-  padding: 5%;
+  padding: 0 0 5% 0;
 `
 export const EditEvent = styled.form`
  display: flex;
