@@ -27,3 +27,7 @@ Once we had the idea for the project we began by planning the MVP, stretch goals
 1. Password validation is inconsistent for the registration form. Users can sometimes use a password that is less than 6 characters. Need to investigate further both when this doesn’t work and how to fix.
 1. When logging out from the Events or Members pages, the user gets an alert to log in and is taken to the log in page. This is a bit jarring. It is because there is a useEffect that navigates the user away from the page if they do not have an accessToken in local storage. Need to investigate how to fix.
 1. Country List NPM package - shows countries alphabetized by country code, not by country name. Need to investigate if it is possible to fix. Or, investigate other npm packages. If choose a different package, then the backend would need to be updated as well.
+
+##Where to Find Samlas
+Deployed Frontend: https://samlas.netlify.app/
+Backend Repo: https://github.com/FionaKlacar/Final-project-backend-users
