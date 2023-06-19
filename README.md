@@ -6,15 +6,17 @@ Once we had the idea for the project we began by planning the MVP, stretch goals
     
 ## Future Features
 1. Add Filtering to All Users and User Events pages to allow users to filter by interest or location
+1. Improve All Users and User Event functionality - introduce pagination for each, and only show future events. 
 1. Introduce user avatars or profile photos
 1. Introduce event photos
-1. Implement consistent loading screens across all pages, introduce a branded loading feature
+1. Implement consistent loading screens across all pages, introduce a branded or animated loading feature
 1. Implement additional event features like a “My Events” page where organizers can see all of their events and/or users can see all events they’ve signed up for; and the ability to delete an event
 1. Implement additional admin features like being able to delete a user (frontend and backend) and the ability to update passwords
 1. Implement a hamburger menu on mobile
-1. Add additional cities
+1. Add events from city-based API(s) - e.g. APIs that show events organized not just by our members but by other organizations or artists in the city - for Stockholm and potentially other cities.
 1. Implement a chat feature to allow members to chat with each other
-1. Implement a members forum to allow members to help each other find community 
+1. Implement a members forum to allow members to help each other find community
+1. Collaborate with UX designer to improve user flows and update the UI
 
 ## Known Bugs
 ### Styling
