@@ -29,5 +29,5 @@ Once we had the idea for the project we began by planning the MVP, stretch goals
 1. Country List NPM package - shows countries alphabetized by country code, not by country name. Need to investigate if it is possible to fix. Or, investigate other npm packages. If choose a different package, then the backend would need to be updated as well.
 
 ## Where to Find Samlas
-1. Deployed Frontend: https://samlas.netlify.app/
-1. Backend Repo: https://github.com/FionaKlacar/Final-project-backend-users
+1. Deployed Frontend: https://samlas.netlify.app/ (this is the frontend for the main repo)
+1. Backend Repo: https://github.com/beemailley/final-project-backend-bm
